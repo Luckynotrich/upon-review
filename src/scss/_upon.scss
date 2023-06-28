@@ -1,0 +1,211 @@
+ :root{
+    --max-width: 1200px;
+    --margin-left: calc((100%- var(--max-width))/2);
+    --input-width: calc(var(--max-width) - var(--margin-left) )
+} 
+* {
+    box-sizing: border-box;
+    max-width: var(--max-width);
+  }
+ 
+  input[type=text], select, textarea {
+    max-width: 96%;
+    width: calc(var(--max-width) - 2px);
+    height: 10%;
+    padding: .6rem;
+    margin: 1%;
+    /* margin-left:  var(--margin-left); */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+  
+  .create input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  h1{
+    font-size:xx-large;
+    text-align: center;
+    color:#f5f842;
+    margin-bottom: -9px;
+    margin-top: 0;
+  }
+  
+  .container {
+    background-color: #91d694;
+    width: 97%;
+  }
+ 
+  .center {
+    margin: auto;
+    width: 100%;
+    text-align: left;
+  }
+  .left {
+    width: 20%;
+    margin-top: 6px;
+    text-align: right;
+    margin: 2px;
+  }
+  .nameLable {
+    top: 2rem;
+  }
+  #nameLable{
+    width: fit-content;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  #submitButton {
+    position: relative;
+    background-color: #fff;
+    border: #434257;
+    color: #434257;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+    height: 2em;
+    outline-style: solid;
+    width: 8em;
+    top: 1em;
+    left: 14em;
+    text-align: center;
+    margin-bottom: 10rem;
+  }
+
+  #submitButton:hover {
+    background-color: #45a049;
+  }
+
+  .displayTip {
+    position: relative;
+    top: 2rem;
+    left: -1.5rem;
+    background-color:transparent;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 0;
+    font-size: medium;
+    
+  }
+  
+  .displayTip .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+    position: relative;
+  }
+  
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  #shim {
+    opacity: .75;
+    filter: alpha(opacity=75);
+    -ms-filter: "alpha(opacity=75)";
+    -khtml-opacity: .75;
+    -moz-opacity: .75;
+    background: #B8B8B8;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 990;
+  }
+  
+  #msgbx {
+    position:relative;
+    left: 25%;
+    margin-top: -90%; 
+    height: 120px;
+    width: 250px;
+    background: #fff;
+    border: 1px solid rgb(129, 128, 128);
+    box-shadow: 3px 3px 7px #777;
+    -webkit-box-shadow: 3px 3px 7px #777;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    z-index: 999;
+    overflow-x: auto;
+    text-align: center;
+    background-color: #d4f7d6;
+  }
+  
+  #parent {
+    width: calc(115px * 2);
+    height: 85px;
+    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
+  }
+  
+  .saveBtn {
+    position: relative;
+    float: left;
+    width: 97px;
+    height: 30%;
+    top: 2rem;
+    text-align: center;
+    padding:0%;
+    border-style: solid;
+    border-radius: 5px;
+    margin: 4px;
+    margin-left: 14px;
+    font-size: large;
+    background-color: #fff;
+  }
+  
+  .output {
+    margin: auto;
+    width: fit-content;
+    font-size: large;
+  }
+  
+  #msg {
+    position: relative;
+    top: 1rem;
+    margin: auto;
+    font-size: 12pt;
+    background-color: none;
+  
+  }
+ 
+  @media screen and (max-width: 338px) {
+    
+        h1{
+            font-size: 26px;
+        }
+    
+}

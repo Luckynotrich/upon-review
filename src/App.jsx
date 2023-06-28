@@ -1,37 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Link, Outlet } from "react-router-dom";
+import CatForm from "./components/cat-form.js";
+import ReviewForm from "./components/review/review-form";
+import ShowReview from "./components/show-review";
+import { SelectedDataContextProvider } from "./components/contexts/selected-data-context";
+import { ReviewContextProvider } from "./components/contexts/review-context";
+import './scss/App.scss';
 
 function App() {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+      <Link to="/">
+        <button className="large-center">Future</button>
+      </Link>
+      
+      <Link to="/cat-form">
+        <button className="large-left" value="Upon" type="button">
+          Upon
+        </button>
+      </Link>
+
+      <Link to="/review-creator">
+        <button className="large-right" value="Review" type="button">
+          {" "}
+          Review
+        </button>
+      </Link>
+      <Outlet />
+      <Routes>
+      <SelectedDataContextProvider>
+        <Route exact path="/" element={<ShowReview />}></Route>
+        <Route path="/cat-form" element={<CatForm />}></Route>
+        <ReviewContextProvider>
+        <Route path="/review-creator" element={<ReviewForm />}></Route>
+        </ReviewContextProvider>
+        </SelectedDataContextProvider>
+      </Routes>
     </div>
   );
 }

@@ -1,0 +1,23 @@
+[class^="large"]{
+    width: 32%;
+    height: 40%;
+    font-size: 36pt;
+    color:#062442;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .large-center{
+    background-color:#30ba52;
+    float:none;
+  }
+  .large-left{
+    background-color:#f5f842;
+    float: left;
+  }
+  .large-right{
+    background-color:darkorange;
+    float:right;
+  }
+@import "./review";
+@import "./upon";
