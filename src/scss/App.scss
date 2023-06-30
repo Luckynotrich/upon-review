@@ -19,5 +19,19 @@
     background-color:darkorange;
     float:right;
   }
+  .show-title{
+    color: #30ba52
+  }
+  @media screen and (max-width: 600px) {
+    [class^="large"]{
+      align-items: center;
+      width: 95%;
+      margin-left: 2.5%
+    }
+    .large-right{
+      margin-top: 15px;
+    }
+  }
+
 @import "./review";
 @import "./upon";

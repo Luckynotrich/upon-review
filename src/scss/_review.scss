@@ -45,7 +45,10 @@ span{
   font-size: 16pt;
   padding-left: 3pt; 
 }
-
+#review-title{
+  float: right;
+  color: darkorange;
+}
 .star{
   cursor: pointer;
   transition: color 200ms;
@@ -167,15 +170,6 @@ p.star{
   @media screen and (max-width: 600px) {
     input[type=text], select, textarea {width: 100%;}
 
-    [class^="large"]{
-      align-items: center;
-      width: 95%;
-      margin-left: 2.5%
-    }
-    .large-right{
-      margin-top: 15px;
-    }
-    
     .left-25, .right-75 {
       width: 100% !important;
       margin-top: 6px;
