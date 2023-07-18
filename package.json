@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "cssWatch": "sass --watch src/scss/:dist/css/",
-    "start": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem PORT=8000 BROWSER='firefox developer edition' snowpack dev",
+    "start": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem PORT=8080 BROWSER='firefox developer edition' snowpack dev",
     "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.jsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",

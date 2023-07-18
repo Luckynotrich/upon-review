@@ -2,7 +2,7 @@ import React,{useEffect} from 'react';
 import { useForm} from 'react-hook-form';
 // import "../scss/App.css"
 import {useAxios} from './hooks/use-axios'
-import axios from '../_api.js'
+import axios from '../_axios-programming-interface.js'
 const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18'
 
 
@@ -25,7 +25,8 @@ export default function CatForm(/* props */) {
             url: '/api/category-api/addNew/?',
             requestConfig: {
                     data,
-                    userId    
+                    userId,
+                    headers: {'Content-Type': 'multipart/form-data'}    
             }
         });
     }

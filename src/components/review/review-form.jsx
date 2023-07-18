@@ -1,40 +1,41 @@
 import React, { useState, /* useEffect, useRef, */ useContext } from 'react';
-import axios from 'axios';
 import Header from './header';
 import Select from './select';
 import GetReview from './get-review';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
-import CategoryContext from '../contexts/category-context';
+ import CategoryContext from '../contexts/category-context';
 
+  import axios from '../../_axios-programming-interface.js';
 const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18';
 
 const ReviewForm = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
   const { setCatId } = useContext(ReviewContext);
-  const { categories } = useContext(CategoryContext);
+  const { categories,setCategories } = useContext(CategoryContext);
   const [catState, setCatState] = useState('');
 
-  // let _categories = useRef()
-  // let isSubscribed = useRef(true);
 
-  //   useEffect(() => {
-  //     async function GetCats() {
+  let _categories = React.useRef()
+  let isSubscribed = React.useRef(true);
 
-  //       try{
-  //       let response = await axios.get("/api/category-api/" + userId);
-  //          _categories.current = await response.data
-  //          setCategories(_categories.current);
-  //         }
-  //         catch(error){
-  //           console.log(error)
-  //         }
-  //     return () => (isSubscribed.currentValue = false)
-  //   }
+    React.useEffect(() => {
+      async function GetCats() {
 
-  //     GetCats();
+        try{
+        let response = await axios.get("/api/category-api/" + userId);
+           _categories.current = await response.data
+           setCategories(_categories.current);
+          }
+          catch(error){
+            console.log(error)
+          }
+      return () => (isSubscribed.currentValue = false)
+    }
 
-  // }, []);
+      GetCats();
+
+  }, []);
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);

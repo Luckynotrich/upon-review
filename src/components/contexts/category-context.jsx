@@ -1,29 +1,17 @@
-import React, { createContext, useState } from 'react';
-// import { useAxios } from '../hooks/use-axios';
+import React, { createContext, useState, useEffect } from 'react';
+import axios from '../../_axios-programming-interface.js'
+import { useAxios } from '../hooks/use-axios.jsx';
 
-const CategoryContext = createContext({});
+const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18';
+
+const CategoryContext = createContext();
 export const CategoryContextProvider = ({ children }) => {
-  const [categories, setCategories] = useState([]
-  , async() => {
-      const [data, error, loading, axiosFetch] = useAxios();
-      await axiosFetch(
-        {
-          axiosInstance: axios,
-          method: 'get',
-          url: '/api/category-api/' + userId,
-          requestConfig: {
-            userId,
-            data: await response.data,
-          },
-        },
-        [(data)],
-      )
-      });
-
+  const [categories, setCategories] = useState([]);
+ 
   const addCategory = async (cat) => {
-    setCategories((prevState) => [...prevState, { cat }]);
+    await setCategories((prevState) => [...prevState, { cat }]);
   };
-  const providerProps = { categories, addCategory };
+  const providerProps = { categories,setCategories, addCategory };
 
   return (
     <CategoryContext.Provider value={providerProps}>
@@ -32,3 +20,11 @@ export const CategoryContextProvider = ({ children }) => {
   );
 };
 export default CategoryContext;
+
+const useAxiosCreate = axios.create({
+  BASEURL: 'api/category-api/', /* http://localhost:8081/ */
+  timeout: 1000,
+  headers: {}
+  
+})
+

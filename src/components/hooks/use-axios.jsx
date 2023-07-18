@@ -12,6 +12,7 @@ export const useAxios = () => {
             axiosInstance,
             method,
             url,
+            timeout,
             requestConfig = {}
         } = configObj;
 
@@ -23,6 +24,7 @@ export const useAxios = () => {
                 ...requestConfig,
                 signal: ctrl.signal
             });
+            setTimeout(() => {"timeout"}, timeout);
             console.log(res);
             setResponse(res.data);
         } catch (err) {
