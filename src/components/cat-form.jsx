@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import { useForm} from 'react-hook-form';
 // import "../scss/App.css"
+import CategoryContext from './contexts/category-context';
 import {useAxios} from './hooks/use-axios'
 import axios from '../_axios-programming-interface.js'
 const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18'
@@ -8,6 +9,7 @@ const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18'
 
 
 export default function CatForm(/* props */) {
+    const { categories, addCategory} = React.useContext(CategoryContext);
     const { register, handleSubmit, formState, formState: {errors, isDirty,isSubmitSuccessful}, reset, watch} = useForm({defaultValues:{name: "",
     pro1:"",pro2:"",pro3:"",pro4:"",pro5:"",con1:"",con2:"",con3:"",con4:"",con5:""}} );
     
@@ -18,7 +20,6 @@ export default function CatForm(/* props */) {
     
      const onSubmit = async (data) => {
         
-        console.log(data);
         await axiosFetch({
             axiosInstance: axios,
             method: 'post',
@@ -27,8 +28,9 @@ export default function CatForm(/* props */) {
                     data,
                     userId,
                     headers: {'Content-Type': 'multipart/form-data'}    
-            }
+            },
         });
+        addCategory(response.data)
     }
     useEffect(() => {
         if(formState.isSubmitSuccessful)reset()}, [formState,reset]);
