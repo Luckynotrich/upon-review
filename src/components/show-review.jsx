@@ -1,10 +1,8 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
-import axios from '../_axios-programming-interface.js';
-// import {useAxios} from './hooks/use-axios'
+import axios from '../utils/_axios-programming-interface.js';
 
-const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18';
 
 function ShowReview() {
   const { categories, setCategories } = useContext(CategoryContext);
@@ -13,20 +11,26 @@ function ShowReview() {
   let _reviews = React.useRef();
   let isSubscribed = React.useRef(true);
   useEffect(async () => {
-    async function getData() {
+    async function getData(userId) {
       try {
-        let response = await axios.get('/api/category-api/' + userId);
-        _categories.current = await response.data;
-        await setCategories(_categories.current);
-        response = await axios.get('/api/review-api/' + userId);
-        _reviews.current = await response.data;
-        setReviews(_reviews.current);
-      }catch (error) {
-        console.log(error);
+          let response = await axios.get('/api/category-api/' + userId);
+          _categories.current = await response.data;
+          if (_categories.current.length > 0) {
+              console.log("categories", _categories.current);
+              await setCategories(_categories.current);
+              response = await axios.get('/api/review-api/' + userId);
+              _reviews.current = await response.data;
+              if (_reviews.current.length > 0) setReviews(_reviews.current);
+          }else{
+              console.log("no categories");
+          }
+      } catch (error) {
+          console.log(error);
       }
       return () => (isSubscribed.currentValue = false);
-    }
-    getData();
+  }
+   
+    getData(userId);
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import React, {
   useState
 } from 'react';
 import SelectedDataContext from './selected-data-context';
-import {postReview} from '../../post_review';
+import {postReview} from '../../utils/post_review';
 
 const ReviewContext = createContext();
 const ReviewContextProvider = ({ children }) => {
@@ -28,22 +28,7 @@ const ReviewContextProvider = ({ children }) => {
       propArray,
     );
     setReviews([...reviews, newReview]);
-    // console.log(
-    //   'catId:',
-    //   newReview.catId,
-    //   'name: ',
-    //   newReview.revName,
-    //   'URL: ',
-    //   newReview.revURL,
-    //   'Date: ',
-    //   newReview.revDate,
-    //   'Rating: ' + newReview.revRating,
-    //   'Review: ',
-    //   newReview.reviewTxt,
-    //   'Selected',
-    //   newReview.propArray,
-    // );
-  };
+      };
 
   const providerProps = {
     reviews,

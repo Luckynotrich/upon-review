@@ -4,10 +4,7 @@ import Select from './select';
 import GetReview from './get-review';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
- import CategoryContext from '../contexts/category-context';
-
-  import axios from '../../_axios-programming-interface.js';
-const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18';
+import CategoryContext from '../contexts/category-context';
 
 const ReviewForm = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
@@ -15,11 +12,8 @@ const ReviewForm = () => {
   const { categories } = useContext(CategoryContext);
   const [catState, setCatState] = useState('');
 
-
- 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
-
     const selectedCat = categories.filter((cat) => cat.id === id)[0];
 
     if (selectedCat) {

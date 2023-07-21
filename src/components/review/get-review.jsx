@@ -36,7 +36,7 @@ function GetReview({ pros, cons }) {
               id="revURL"
               name="URL"
               placeholder="Web url"
-              required={true}
+              /* required={false} */
             ></input>
           </div>
           <div className="row">

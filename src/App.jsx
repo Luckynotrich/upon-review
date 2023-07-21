@@ -19,7 +19,7 @@ function App() {
         </button>
       </Link>
 
-      <Link to="/review-creator">
+      <Link to="/review-form">
         <button className="large-right" value="Review" type="button">
           {" "}
           Review
@@ -30,7 +30,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<ShowReview />}></Route>
         <Route path="/cat-form" element={<CatForm />}></Route>
-        <Route path="/review-creator" element={<ReviewForm />}></Route>
+        <Route path="/review-form" element={<ReviewForm />}></Route>
       </Routes>
       
     </div>
