@@ -1,15 +1,17 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
+import UserContext from './contexts/user-context';
 import axios from '../utils/_axios-programming-interface.js';
 
 
 function ShowReview() {
   const { categories, setCategories } = useContext(CategoryContext);
   const { reviews, setReviews } = useContext(ReviewContext);
-  let _categories = React.useRef();
-  let _reviews = React.useRef();
-  let isSubscribed = React.useRef(true);
+  const { userId } = useContext(UserContext);
+  let _categories = useRef();
+  let _reviews = useRef();
+  let isSubscribed = useRef(true);
   useEffect(async () => {
     async function getData(userId) {
       try {

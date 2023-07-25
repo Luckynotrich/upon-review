@@ -1,23 +1,22 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useContext} from 'react';
 import { useForm} from 'react-hook-form';
 // import "../scss/App.css"
 import CategoryContext from './contexts/category-context';
+import UserContext from './contexts/user-context';
+
 import {useAxios} from './hooks/use-axios'
 import axios from '../utils/_axios-programming-interface.js'
-// const userId = '11d6af03-20ac-4f04-a21c-28ec418a2c18'/* lucky */
-// const userId = '92285056-ac27-4e03-a719-e19c36d87ae2';/* luckier */
-
 
 
 export default function CatForm(/* props */) {
     const { categories, addCategory} = React.useContext(CategoryContext);
-    const { register, handleSubmit, formState, formState: {errors, isDirty,isSubmitSuccessful}, reset, watch} = useForm({defaultValues:{name: "",
+    const { register, handleSubmit, formState, formState: {errors, isDirty,isSubmitSuccessful}, reset, watch} = useForm({defaultValues:{catName: "",
     pro1:"",pro2:"",pro3:"",pro4:"",pro5:"",con1:"",con2:"",con3:"",con4:"",con5:""}} );
-    
+    const { userId } = useContext(UserContext);
     const [data, error, loading, axiosFetch] = useAxios();
     
     
-    const name = watch("name");
+    const catName = watch("catName");
     
      const onSubmit = async (data) => {
         
@@ -45,16 +44,18 @@ export default function CatForm(/* props */) {
              id='category' method="post" action="send" encType="multipart/form-data">
 
                 <h4 id="nameLable" className="nameLable left">Name</h4>
-                <p>{name}</p>
-                <p>{errors.name?.message}</p>
+                <p>{categories.map((cat)=>{catName == cat.name?'Name is in use':catName})}</p>
+                <p>{errors.catName?.message}</p>
                 <input 
                     type="text"
                     autoFocus className="center"
                     aria-describedby="Category name"
-                    id="name" {...register("name",{required: 'A minimum 4 characters is required.', minLength: 4})}
+                    id="catName" {...register("catName",{required: 'A minimum 4 characters is required.', minLength: 4})}
                     placeholder="Category name"
                     onFocus={() => "this.placeholder=''"}
-                    onBlur={() => "this.placeholder=''"}>
+                    onBlur={() => "this.placeholder=''"}
+                    // onChange={(value)=> {categories.includes(value)?'Name in use':''} }
+                    >
                 </input>
                 <h4 className="left">Pros</h4>
 
