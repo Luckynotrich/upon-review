@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
 import UserContext from './contexts/user-context';
@@ -18,7 +18,7 @@ function ShowReview() {
           let response = await axios.get('/api/category-api/' + userId);
           _categories.current = await response.data;
           if (_categories.current.length > 0) {
-              console.log("categories", _categories.current);
+              console.log("useEffect categories", _categories.current);
               await setCategories(_categories.current);
               response = await axios.get('/api/review-api/' + userId);
               _reviews.current = await response.data;
