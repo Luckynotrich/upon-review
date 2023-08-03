@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
-import CatForm from "./components/cat-form.js";
+import CatForm from "./components/category/cat-form.js";
 import ReviewForm from "./components/review/review-form";
 import ShowReview from "./components/show-review";
 

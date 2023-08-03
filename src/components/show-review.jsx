@@ -1,14 +1,17 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
+
 import UserContext from './contexts/user-context';
-import axios from '../utils/_axios-programming-interface.js';
+
+ import axios from '../utils/_axios-programming-interface.js';
+
 
 
 function ShowReview() {
-  const { categories, setCategories } = useContext(CategoryContext);
+   const { categories, setCategories } = useContext(CategoryContext);
   const { reviews, setReviews } = useContext(ReviewContext);
-  const { userId } = useContext(UserContext);
+   const { userId } = useContext(UserContext);
   let _categories = useRef();
   let _reviews = useRef();
   let isSubscribed = useRef(true);
@@ -31,8 +34,8 @@ function ShowReview() {
       }
       return () => (isSubscribed.currentValue = false);
   }
-   
-    getData(userId);
+     getData(userId); 
+     
   }, []);
 
   return (

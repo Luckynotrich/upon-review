@@ -1,18 +1,22 @@
-import React, { createContext, useContext,useState, useEffect } from 'react';
+import React, { createContext, useContext,useState, useRef} from 'react';
 
 import UserContext from './user-context';
-import getCategories from '../get-categories';
 
 const CategoryContext = createContext();
+import getCategories from '../../utils/get-categories';
+// let _categories = useRef();
 export const CategoryContextProvider = ({ children }) => {
   const { userId } = useContext(UserContext);
   const [categories, setCategories] = useState([]);
+
+  let _categories = useRef();
  
   const addCategory = async (cat) => {
     await setCategories((prevState) => [...prevState, { cat }]);
   };
   const refreshCategories = async () => {
-    setCategories(getCategories(userId));
+    const refreshcat = async () => {await getCategories(userId, _categories)}
+    setCategories(getCategories( await refreshcat));
   }
   const providerProps = { categories,setCategories, addCategory, refreshCategories };
 

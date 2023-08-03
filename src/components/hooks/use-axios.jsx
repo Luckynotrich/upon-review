@@ -1,49 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
-export const useAxios = () => {
-    const [response, setResponse] = useState([]);
+
+export const useAxios = (axiosParams) => {
+    const [response, setResponse] = useState(undefined);
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false); //different!
-    const [controller, setController] = useState();
+    const [loading, setloading] = useState(true);
 
-    const  axiosFetch = async (configObj) => {
-        const {
-            axiosInstance,
-            method,
-            url,
-            // timeout,
-            requestConfig = {}
-        } = configObj;
-
-        try {
-            setLoading(true);
-            const ctrl = new AbortController();
-            setController(ctrl);
-            const res = await axiosInstance[method.toLowerCase()](url, {
-                ...requestConfig,
-                signal: ctrl.signal
-            });
-            // setTimeout(() => {"timeout"}, timeout);
-            console.log(res);
-            setResponse(res.data);
-        } catch (err) {
-            console.log(err.message);
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }
+    const fetchData = async (params) => {
+      try {
+       const result = await axios.request(params);
+       setResponse(result.data);
+       } catch( error ) {
+         setError(error);
+       } finally {
+         setLoading(false);
+       }
+    };
 
     useEffect(() => {
-        console.log(controller)
+        fetchData(axiosParams);
+    }, []); // execute once only
 
-        // useEffect cleanup function
-        return () => controller && controller.abort();
-
-    }, [controller]);
-
-    return [response, error, loading, axiosFetch];
-}
-
-//  export default useAxios;
+    return { response, error, loading };
+};

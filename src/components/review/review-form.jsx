@@ -18,28 +18,28 @@ const ReviewForm = () => {
   let _reviews = useRef();
   let isSubscribed = useRef(true);
 
-  useEffect(async () => {
-    async function getData(userId) {
-      try {
-          let response = await axios.get('/api/category-api/' + userId);
-          _categories.current = await response.data;
-          if (_categories.current.length > 0) {
-              console.log("useEffect categories", _categories.current);
-              await setCategories(_categories.current);
+  // useEffect(async () => {
+  //   async function getData(userId) {
+  //     try {
+  //         let response = await axios.get('/api/category-api/' + userId);
+  //         _categories.current = await response.data;
+  //         if (_categories.current.length > 0) {
+  //             console.log("useEffect categories", _categories.current);
+  //             await setCategories(_categories.current);
           //     response = await axios.get('/api/review-api/' + userId);
           //     _reviews.current = await response.data;
           //     if (_reviews.current.length > 0) setReviews(_reviews.current);
           // }else{
           //     console.log("no categories");
-           }
-      } catch (error) {
-          console.log(error);
-      }
-      return () => (isSubscribed.currentValue = false);
-  }
+          //  }
+  //     } catch (error) {
+  //         console.log(error);
+  //     }
+  //     return () => (isSubscribed.currentValue = false);
+  // }
    
-    getData(userId);
-  }, []);
+  //   getData(userId);
+  // }, []);
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
