@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import CategoryContext from '../contexts/category-context';
-// import  useAxios  from '../hooks/use-axios';
+
 import axios from '../../utils/future-self-api.js';
 
-export default function CatNameForm({ userId, getCatId, catId }) {
+
+export default function CatNameForm({ userId, getCatId, catId, catName, getCatName }) {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
-  // const [names, setNames] = useState([]);
+  
   
 
   const {
@@ -17,6 +18,7 @@ export default function CatNameForm({ userId, getCatId, catId }) {
     formState: { errors, isDirty, isSubmitSuccessful },
     reset,
     watch,
+    setError,
   } = useForm({
     defaultValues: {
       name: '',
@@ -41,7 +43,7 @@ export default function CatNameForm({ userId, getCatId, catId }) {
   // const [response, error, loading, axiosFetch] = useAxios();
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       let response = await axios.post('/api/category-api/addNew/?', {
         data,
@@ -57,13 +59,18 @@ export default function CatNameForm({ userId, getCatId, catId }) {
         pros: [],
         cons: [],
       });
+      loading && setLoading(false);
       getCatId(catId);
+      getCatName(name);
     } catch (err) {
       console.log(err.message);
     }
-    loading && setLoading(false);
+    
   };
-
+  
+// useEffect(() => {
+//    catNames.includes(name.toLocaleLowerCase().trim())? setError({name:'name',type: 'manual',message:'is in use'}):''/* setError(null) */;
+// }, [name]);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
@@ -84,12 +91,12 @@ export default function CatNameForm({ userId, getCatId, catId }) {
           Name:{' '}
           {
           catNames.includes(name.toLocaleLowerCase().trim()) ? (
-            <span style={{ color: 'red', fontSize: '1.1rem' }}> Is in use</span>
-          ) : (
+            <span style={{ color: 'red', fontSize: '1.1rem' }}> is in use</span>
+          ) :errors.name? (<span style={{ color: 'red', fontSize: '1.1rem' }}>{errors.name.message/* A minimum 4 characters is required. */} </span>): (
             name
-          )}
+          )} 
         </h3>
-        <p>{errors.name?.message}</p>
+        {/* <p>{errors.name?.message}</p> */}
         <input
           type="text"
           autoFocus
@@ -97,8 +104,8 @@ export default function CatNameForm({ userId, getCatId, catId }) {
           aria-describedby="Category name"
           id="name"
           {...register('name', {
-            required: 'A minimum 4 characters is required.',
-            minLength: 4,
+            required: 'This is required',
+            minLength: { value:4, message: 'A minimum 4 characters is required.'},
           })}
           placeholder="Category name"
           onFocus={() => "this.placeholder=''"}
@@ -112,13 +119,13 @@ export default function CatNameForm({ userId, getCatId, catId }) {
           disabled={catId}
           defaultValue="Create"
           onClick={() => {
-            "style.visibility='hidden'";
-          // setLoading(false);
+            !errors.name? "style.visibility='hidden'": "style.visibility='visible'";
+          
         }
         }
         ></input>
       </form>
-      {loading && <p>Loading...</p>}
+      {loading && <p>Loading.....</p>}
 
       {!loading && error && <p className="errMsg">{error.msg}</p>}
 

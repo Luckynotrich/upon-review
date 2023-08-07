@@ -11,6 +11,7 @@ import CatNameForm from './cat-name-form';
 export default function CatForm(/* props */) {
   const { categories, refreshCategories , addCategory } = useContext(CategoryContext);
   const [catId, setCatId] = useState('');
+  const [catName, setCatName] = useState('');
 
   function handleCatId(NewCatId) {setCatId(NewCatId)}
 
@@ -39,6 +40,7 @@ export default function CatForm(/* props */) {
   //  const [response, error, loading, axiosFetch] = useAxios();
   let error;
   const onSubmit = async (data) => {
+    console.log('cat-form catId', catId); 
      await axios.post('/api/category-api/updateOne/?',
        {
         data,
@@ -59,8 +61,9 @@ export default function CatForm(/* props */) {
 
   return (
     <div className="container">
-      <h1>Category</h1>
-      <CatNameForm userId={userId} catId = {catId} getCatId={handleCatId} />
+      <h1>Category</h1>{catName? <h2>{catName}</h2>: <h2>Choose a category name</h2>}
+      <CatNameForm userId={userId} catId = {catId} getCatId={handleCatId}
+      catName={catName} getCatName={setCatName} />
       <form
         onSubmit={handleSubmit(onSubmit, error)}
         id="category"
