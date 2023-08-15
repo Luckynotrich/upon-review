@@ -14,7 +14,7 @@ ReactDOM.render(
     <CategoryContextProvider>
     <SelectedDataContextProvider>
     <ReviewContextProvider>
-    <Router>
+    <Router basename='/'>
     <App />
     </Router>
     </ReviewContextProvider>

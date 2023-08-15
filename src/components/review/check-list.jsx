@@ -3,8 +3,6 @@ import CheckBox from './check-box';
 import SelectedDataContext  from "../contexts/selected-data-context";
 
 
-
-
 function CheckList({ name, propArray }) {
     const {toggleProp} = useContext(SelectedDataContext)
     

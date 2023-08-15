@@ -4,7 +4,8 @@ import React, {
   useState
 } from 'react';
 import SelectedDataContext from './selected-data-context';
-import getReview, {postReview} from '../../utils/get-reviews';
+import  {postReview} from '../../utils/get-reviews';
+
 
 const ReviewContext = createContext();
 const ReviewContextProvider = ({ children }) => {
@@ -29,11 +30,11 @@ const ReviewContextProvider = ({ children }) => {
     );
     setReviews([...reviews, newReview]);
       };
-const refreshReviews = async () => {setReviews(await getReview(catId))};
+// const refreshReviews = async () => {setReviews(await getReview(catId))};
   const providerProps = {
     reviews,
     setReviews,
-    refreshReviews,
+    /* refreshReviews, */
     handleSubmit,
     setCatId,
     setRevName,

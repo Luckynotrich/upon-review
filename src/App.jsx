@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 import CatForm from "./components/category/cat-form.js";
-import ReviewForm from "./components/review/review-form";
+import ReviewCategory from "./components/review/review-category.jsx";
 import ShowReview from "./components/show-review";
 
 import './scss/App.scss';
@@ -31,7 +31,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<ShowReview />}></Route>
         <Route path="/cat-form" element={<CatForm />}></Route>
-        <Route path="/review-form" element={<ReviewForm />}></Route>
+        <Route path="/review-form" element={<ReviewCategory />}></Route>
+        <Route path="*" element={<ShowReview />}></Route>
       </Routes>
       
     </div>

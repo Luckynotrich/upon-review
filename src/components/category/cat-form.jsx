@@ -8,7 +8,8 @@ import UserContext from '../contexts/user-context';
 import axios from '../../utils/future-self-api';
 import CatNameForm from './cat-name-form';
 
-export default function CatForm(/* props */) {
+export default function CatForm() {
+
   const { categories, refreshCategories , addCategory } = useContext(CategoryContext);
   const [catId, setCatId] = useState('');
   const [catName, setCatName] = useState('');
@@ -41,7 +42,7 @@ export default function CatForm(/* props */) {
   let error;
   const onSubmit = async (data) => {
     console.log('cat-form catId', catId); 
-     await axios.post('/api/category-api/updateOne/?',
+     await axios.put('/api/category-api/updateOne/?',
        {
         data,
         catId,
@@ -54,7 +55,7 @@ export default function CatForm(/* props */) {
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
-       refreshCategories();
+      //  refreshCategories();
       // return redirect('/');
     }
   }, [formState, reset]);
@@ -172,15 +173,16 @@ export default function CatForm(/* props */) {
           className="create"
           hidden={!catId}
           defaultValue="Create"
+          // onClick={() => {window.location.reload(false);}}
         ></input>
       </form>
       {/* {loading && <p>Loading...</p>}
 
       {!loading && error && <p className="errMsg">{error.msg}</p>} */}
 
-      {isSubmitSuccessful && !error && data.title && (
+      {/* {isSubmitSuccessful && !error && data.title && (
         <p>{`title: ${data?.title} was saved successfully`}</p>
-      )}
+      )} */}
     </div>
   );
 }
