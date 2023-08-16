@@ -36,6 +36,7 @@ const ReviewContextProvider = ({ children }) => {
     setReviews,
     /* refreshReviews, */
     handleSubmit,
+    catId,
     setCatId,
     setRevName,
     setRevURL,

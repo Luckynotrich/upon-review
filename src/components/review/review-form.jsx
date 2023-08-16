@@ -4,16 +4,17 @@ import { useForm, Controller } from 'react-hook-form';
 import SelectedDataContext  from "../contexts/selected-data-context";
 
 import CheckBox from './check-box';
-// import CheckList from './check-list';
 import StarRating from './star_rating';
+import axios from '../../utils/future-self-api';
 
 function ReviewForm({ pros, cons }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
-  // const {toggleProp} = useContext(SelectedDataContext)
+  const {toggleProp} = useContext(SelectedDataContext)
 
 
   const {
+    catId,
     setRevName,
     setRevURL,
     setRevDate,
@@ -35,13 +36,14 @@ function ReviewForm({ pros, cons }) {
       revDate: defaultDate,
       revRating: '',
       revText: '',
-      pros: [''],
-      cons: [''],
+      // pros: [''],
+      // cons: [''],
     },
   });
   let error;
   const onSubmit = async (data) => {
-    // await axios.post('/api/review-api/addNew', { data, catId, error });
+    console.log('reviw data ',data);
+    //  await axios.post('/api/review-api/addNew', { data, catId, error });
   };
 
   return (
@@ -91,7 +93,7 @@ function ReviewForm({ pros, cons }) {
               type="date"
               defaultValue={defaultDate}
               onChange={(e) => setRevDate(e.target.value)}
-              id="revDate"
+              // id="revDate"
               className="date"
             />
           </div>
@@ -99,10 +101,11 @@ function ReviewForm({ pros, cons }) {
             <Controller
               name="revRating"
               control={control}
-              render={(field) => <StarRating {...field} />}
+              render={(field) => <StarRating {...field}
+               rating={revRating}
+              setReviewRating={setRevRating} />}
               size={30}
-              rating={revRating}
-              setReviewRating={setRevRating}
+              
             />
           </div>
         </fieldset>
@@ -117,27 +120,31 @@ function ReviewForm({ pros, cons }) {
               <Controller
                 name={`pros${i}`}
                 control={control}
-                render={(field) => <CheckBox {...field} />}
-                text={prop.value}
-                key={prop.id}
-                id={prop.id}
-                prefArr={pros[i]}
+                render={(field) => <CheckBox {...field} id={prop.id} text={prop.value} toggleProp={toggleProp} />}
+                key={prop.id}                
+                prefArr={prop[i]}
+                onChange={(e) => field.value= prop.id}
               />
             ))}
           </div>
-
-          {/* <Controller
-          name="Pros"
-          control={control}
-          render={(field)=><CheckList{...field} />} 
-          propArray={pros}
-          />
-          <Controller
-          name="Cons"
-          control={control}
-          render={(field)=><CheckList{...field}   />}
-          propArray={cons}
-          /> */}
+        </fieldset>
+        <fieldset>
+          <div className="row">
+            <div className="right-90">
+              <h2>Cons</h2>
+            </div>
+          </div>
+          <div className="left-25">
+            {cons.map((prop, i) => (
+              <Controller
+                name={`cons${i}`}
+                control={control}
+                render={(field) => <CheckBox {...field} id={prop.id} text={prop.value} toggleProp={toggleProp} />}
+                key={prop.id}                
+                prefArr={prop[i]}
+              />
+            ))}
+          </div>
         </fieldset>
         <div className="container">
           <fieldset>

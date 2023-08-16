@@ -2,8 +2,8 @@ import React,{useContext} from "react";
 import SelectedDataContext from "../contexts/selected-data-context";
 
 
-function CheckBox({ id, text, procon = false}) {
-   const {isItemSelected, toggleProp} = useContext(SelectedDataContext)
+function CheckBox({ id, text, toggleProp}) {
+    const {isItemSelected} = useContext(SelectedDataContext)
    
         
     return (
@@ -17,7 +17,6 @@ function CheckBox({ id, text, procon = false}) {
                             onClick={()=>  isItemSelected(id)}
                             onChange={() =>{
                                 toggleProp(id)
-                                procon = !procon
                             }}
                             className="checkbox">
                         </input>
