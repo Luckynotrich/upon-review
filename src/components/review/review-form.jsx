@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ReviewContext from '../contexts/review-context';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 
-import CheckBox from './check-box';
-import StarRating from './star_rating';
+import StarRating from './star_rating_rhf';
 import axios from '../../utils/future-self-api';
 
 function ReviewForm({ pros, cons }) {
@@ -25,6 +24,7 @@ function ReviewForm({ pros, cons }) {
   } = useContext(ReviewContext);
 
   const {
+    register,
     control,
     handleSubmit,
     formState,
@@ -37,18 +37,21 @@ function ReviewForm({ pros, cons }) {
       revDate: defaultDate,
       revRating: '',
       revText: '',
-      // pros: [''],
-      // cons: [''],
+      propArray: [],
     },
   });
+
   let error;
   const onSubmit = async (data) => {
     console.log('reviw data ', data);
-    //  await axios.post('/api/review-api/addNew', { data, catId, error });
+    await axios.post('/api/review-api/addNew', { data, catId, error });
   };
-  const toggleValue = (value) => {
-    console.log('toggle value ', value);
-  };
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
 
   return (
     <form
@@ -62,70 +65,52 @@ function ReviewForm({ pros, cons }) {
         <fieldset>
           <div className="row">
             <label htmlFor="RevName">Name</label>
-            <Controller
+            <input
               name="revName"
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  id="RevName"
-                  type="text"
-                  autoComplete="on"
-                  aria-describedby="name"
-                  placeholder="Enter Name"
-                  required={true}
-                />
-              )}
+              {...register('revName', { required: true })}
+              id="RevName"
+              type="text"
+              autoComplete="on"
+              aria-describedby="name"
+              placeholder="Enter Name"
               onChange={(e) => setRevName(e.target.value)}
             />
           </div>
+          ''
           <div className="row">
             <label htmlFor="RevURL">URL &nbsp;</label>
-            <Controller
+            <input
               name="revURL"
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  id="RevURL"
-                  placeholder="Web url"
-                  type="text"
-                  autoComplete="on"
-                />
-              )}
+              {...register('revURL')}
+              id="RevURL"
+              placeholder="Web url"
+              type="text"
+              autoComplete="on"
               onChange={(e) => setRevURL(e.target.value)}
             />
           </div>
           <div className="row">
             <label htmlFor="RevDate">Date&nbsp;&nbsp;</label>
-            <Controller
+            <input
               name="revDate"
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  id="RevDate"
-                  className="date"
-                  type="date"
-                />
-              )}
+              {...register('revDate')}
+              id="RevDate"
+              className="date"
+              type="date"
+              defaultValue={defaultDate}
               onChange={(e) => setRevDate(e.target.value)}
             />
           </div>
           <div>
-            <Controller
-              name="revRating"
+            
+            <StarRating
               control={control}
-              render={(field) => (
-                <StarRating
-                  {...field}
-                  rating={revRating}
-                  setReviewRating={setRevRating}
-                  size={30}
-                />
-              )}
-              onChange={(e) => setRevRating(e.target.value)}
+              name="revRating"
+              size={30}
+              rating={revRating}
+              setReviewRating={setRevRating}
             />
+           
           </div>
         </fieldset>
         <fieldset>
@@ -136,33 +121,30 @@ function ReviewForm({ pros, cons }) {
           </div>
           <div className="left-25">
             {pros.map((prop, i) => (
-                <div className="row">
+              <div className="row">
                 <div className="right-75">
-                    <label forHtml={prop.id} value={prop.id} className="checkbox">
-               <Controller
-                name={`pros${i}`}
-                control={control}
-                render={(field) => (
-                  <input
-                    {...field}
-                    type="checkbox"
-                     className="checkbox"
-                     id={prop.id}
-                     toggleProp={toggleProp}
-                     key={prop.id}
-                    //  prefArr={prop[i]}
-                    //  onClick={()=>  isItemSelected(prop.id)}
-                  />
-                )}
-                onChange={() =>{
-                  toggleProp(prop.id)
-                  // value=prop.value?prop.value:prop.id
-              }}
-               />
-                 <span className="checkbox">{prop.value}</span>
-                     </label>
+                  <label
+                    key={prop.id + 1}
+                    htmlFor={'prosChecked'}
+                    value={prop}
+                    className="checkbox"
+                  >
+                    <input
+                      {...register('propArray')}
+                      type="checkbox"
+                      className="checkbox"
+                      id={prop.id}
+                      key={prop.id}
+                      value={prop.id}
+                      onClick={() => isItemSelected(prop.id)}
+                      onChange={() => {
+                        toggleProp(prop.id);
+                      }}
+                    />
+                    <span className="checkbox">{prop.value}</span>
+                  </label>
                 </div>
-             </div>
+              </div>
             ))}
           </div>
         </fieldset>
@@ -174,36 +156,42 @@ function ReviewForm({ pros, cons }) {
           </div>
           <div className="left-25">
             {cons.map((prop, i) => (
-              <Controller
-                name={`cons${i}`}
-                control={control}
-                render={(field) => (
-                  <CheckBox
-                    {...field}
-                    id={prop.id}
-                    text={prop.value}
-                    toggleProp={toggleProp}
-                    key={prop.id}
-                    prefArr={prop[i]}
-                  />
-                )}
-                onChange={(e) => toggleValue(e.target.value)}
-              />
+              <div className="row">
+                <div className="right-75">
+                  <label
+                    key={prop.id + 1}
+                    htmlFor={'consChecked'}
+                    value={prop}
+                    className="checkbox"
+                  >
+                    <input
+                      {...register('propArray')}
+                      type="checkbox"
+                      className="checkbox"
+                      id={prop.id}
+                      value={prop.id}
+                      key={prop.id}
+                      onClick={() => isItemSelected(prop.id)}
+                      onChange={() => {
+                        toggleProp(prop.id);
+                      }}
+                    />
+                    <span className="checkbox">{prop.value}</span>
+                  </label>
+                </div>
+              </div>
             ))}
           </div>
         </fieldset>
         <div className="container">
           <fieldset>
             <label htmlFor="revText">Review</label>
-            <Controller
-              name="revText"
-              control={control}
-              render={({ field }) => <textarea {...field} 
+            <textarea
+              {...register('revText')}
               columns=""
               rows="27"
               id="revText"
               placeholder="Write Something..."
-              />}
               onChange={(e) => setReviewTxt(e.target.value)}
             />
             <button type="submit">Submit</button>
