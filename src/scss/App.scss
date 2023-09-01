@@ -1,7 +1,17 @@
+.App{
+  width: 100%;
+  
+}
+// .routes{
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   width: 32%;
+// }
 [class^="large"]{
+  position: relative;
     width: 32%;
     height: 40%;
-    font-size: 36pt;
     color:#062442;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     text-align: center;
@@ -9,18 +19,28 @@
   }
   .large-center{
     background-color:#30ba52;
-    float:none;
+    left: .7%;
   }
   .large-left{
     background-color:#f5f842;
-    float: left;
+    left: .7%;
   }
   .large-right{
     background-color:darkorange;
-    float:right;
+    left: .7%;
   }
-  .show-title{
-    color: #30ba52
+  .show-view-title{
+    position: relative;
+    color: #30ba52;
+    left: -35%;
+    top: 10%;
+    // font-size: 28pt;
+  }
+  .categorTree{
+    position: relative;
+    left: 8%;
+    margin-top: 2%;
+    // font-size: 20pt;
   }
   @media screen and (max-width: 600px) {
     [class^="large"]{
@@ -35,3 +55,4 @@
 
 @import "./review";
 @import "./upon";
+@import "font_responsive"

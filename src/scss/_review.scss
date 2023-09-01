@@ -17,14 +17,14 @@
     margin: 3px;
     font-size: 12pt;
   }
-  textarea{
-    width: 100%;
-  }
+  // textarea{
+  //   width: 100%;
+  // }
   fieldset{
     background-color: #f1f1f1;
     border: none;
     border-radius: 2px;
-    margin-bottom: 12px;
+    margin-bottom: 0%;
     overflow: hidden;
     padding: 0 .625em;
 }
@@ -38,7 +38,7 @@
     width: 200px;
   }
   select.stars{
-    width: 10px;
+    width: 1px;
   }
   
 span{
@@ -46,10 +46,45 @@ span{
   padding-left: 3pt; 
 }
 #review-title{
+  position: relative;
   float: right;
   color: darkorange;
+  left: 67%;
 }
+.star{
+  cursor: pointer;
+  transition: color 200ms;
+  font-size: 3em;
+}
+p.star{
+  display: inline;
+}
+.starEnvelope{
+  max-width: 300px;
+  margin: 3px;
+  margin-bottom: .5%;
+}
+input[type="button"] {
+  opacity: 20%;
+  margin: 2px;
+}
+input[type="radio"]{
+  margin-bottom: 2%;
+}
+input[type="radio"]:after{
+  position: relative;
+  display: inline-block;
+  margin-bottom: .5%;
+  
+}
+label[for="star"] {
+  position: relative;
+  /* display:inline-block; */
+  top:10px;
+  /* left: px; */
+  margin-bottom: 20px;
 
+}
 
 .checkbox {
   display: inline-flex;
@@ -115,7 +150,7 @@ span{
     padding-left: 50px;
   }
   .date{
-    font-size: 12pt;
+    // font-size: 12pt;
     padding: .5em;
   }
   .container {
@@ -129,18 +164,18 @@ span{
   }
   .right-90 {
     float: right;
-    width: 90%;
+    width: 30%;
     margin: 6px;
   }
   .right-75 {
-    float: right;
-    width: 75%;
+    // float: right;
+    // width: 75%;
     margin-top: 6px;
   }
   
-  h1{
-    font-size: 25px;
-  }
+  // h1{
+  //   font-size: 25px;
+  // }
   h2,h3{ 
     text-align: left;
     display: block;
@@ -157,7 +192,7 @@ span{
     /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other 
   instead of next to each other */
   @media screen and (max-width: 600px) {
-    input[type=text], select, textarea {width: 100%;}
+    // input[type=text], select, textarea {width: 100%;}
 
     .left-25, .right-75 {
       width: 100% !important;

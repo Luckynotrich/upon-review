@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
 import ReviewContext from '../contexts/review-context';
-import { useForm } from 'react-hook-form';
+import { useForm/* , useController  */} from 'react-hook-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 
 import StarRating from './star_rating_rhf';
+import CheckBox from './checkbox_rhf';
 import axios from '../../utils/future-self-api';
 
 function ReviewForm({ pros, cons }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
-  const { toggleProp } = useContext(SelectedDataContext);
-
-  const { isItemSelected } = useContext(SelectedDataContext);
+  const { toggleProp,isItemSelected } = useContext(SelectedDataContext);
+  
 
   const {
     catId,
@@ -35,16 +35,16 @@ function ReviewForm({ pros, cons }) {
       revName: '',
       revURL: '',
       revDate: defaultDate,
-      revRating: '',
+      revRating: 0,
       revText: '',
-      propArray: [],
+      propArray: [0],
     },
   });
 
-  let error;
+  let error, i = 0;
   const onSubmit = async (data) => {
     console.log('reviw data ', data);
-    await axios.post('/api/review-api/addNew', { data, catId, error });
+    // await axios.post('/api/review-api/addNew', { data, catId, error });
   };
 
   useEffect(() => {
@@ -71,6 +71,7 @@ function ReviewForm({ pros, cons }) {
               id="RevName"
               type="text"
               autoComplete="on"
+              className="center"
               aria-describedby="name"
               placeholder="Enter Name"
               onChange={(e) => setRevName(e.target.value)}
@@ -83,6 +84,7 @@ function ReviewForm({ pros, cons }) {
               name="revURL"
               {...register('revURL')}
               id="RevURL"
+              className="center"
               placeholder="Web url"
               type="text"
               autoComplete="on"
@@ -106,7 +108,7 @@ function ReviewForm({ pros, cons }) {
             <StarRating
               control={control}
               name="revRating"
-              size={30}
+              // size={30}
               rating={revRating}
               setReviewRating={setRevRating}
             />
@@ -120,31 +122,14 @@ function ReviewForm({ pros, cons }) {
             </div>
           </div>
           <div className="left-25">
-            {pros.map((prop, i) => (
-              <div className="row">
-                <div className="right-75">
-                  <label
-                    key={prop.id + 1}
-                    htmlFor={'prosChecked'}
-                    value={prop}
-                    className="checkbox"
-                  >
-                    <input
-                      {...register('propArray')}
-                      type="checkbox"
-                      className="checkbox"
-                      id={prop.id}
-                      key={prop.id}
-                      value={prop.id}
-                      onClick={() => isItemSelected(prop.id)}
-                      onChange={() => {
-                        toggleProp(prop.id);
-                      }}
-                    />
-                    <span className="checkbox">{prop.value}</span>
-                  </label>
-                </div>
-              </div>
+            {pros.map((prop) => (
+              <CheckBox
+              control={control}
+              name={`propArray[${i++}]`}
+              prop={prop}
+              key={prop.id}
+              // setReviewRating={setRevRating}
+            />
             ))}
           </div>
         </fieldset>
@@ -155,31 +140,14 @@ function ReviewForm({ pros, cons }) {
             </div>
           </div>
           <div className="left-25">
-            {cons.map((prop, i) => (
-              <div className="row">
-                <div className="right-75">
-                  <label
-                    key={prop.id + 1}
-                    htmlFor={'consChecked'}
-                    value={prop}
-                    className="checkbox"
-                  >
-                    <input
-                      {...register('propArray')}
-                      type="checkbox"
-                      className="checkbox"
-                      id={prop.id}
-                      value={prop.id}
-                      key={prop.id}
-                      onClick={() => isItemSelected(prop.id)}
-                      onChange={() => {
-                        toggleProp(prop.id);
-                      }}
-                    />
-                    <span className="checkbox">{prop.value}</span>
-                  </label>
-                </div>
-              </div>
+            {cons.map((prop) => (
+              <CheckBox
+              control={control}
+              name={`propArray[${i++}]`}
+              prop={prop}
+              key={prop.id}
+              // setReviewRating={setRevRating}
+            />
             ))}
           </div>
         </fieldset>
@@ -190,6 +158,7 @@ function ReviewForm({ pros, cons }) {
               {...register('revText')}
               columns=""
               rows="27"
+              className="center"
               id="revText"
               placeholder="Write Something..."
               onChange={(e) => setReviewTxt(e.target.value)}

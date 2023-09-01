@@ -9,8 +9,9 @@ import './scss/App.scss';
 function App() {
   return (
     <div className="App">
+      <div className="routes">
       <Link to="/">
-        <button className="large-center">FutureSelf</button>
+        <button className="large-center">Future</button>
       </Link>
       
       <Link to="/cat-form">
@@ -25,7 +26,7 @@ function App() {
           Review
         </button>
       </Link>
-      
+      </div>
       <Outlet />
       
       <Routes>

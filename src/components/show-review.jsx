@@ -45,8 +45,8 @@ function ShowReview() {
 
   return (
     <div>
-      <h1 className="show-title">Views</h1>
-      <ul>
+      <h1 className="show-view-title">View</h1>
+      <ul className='categorTree'>
         {categories.length > 0 ? (
           categories.map((category) => {
             return <li key={category.id}>{category.name}</li>;

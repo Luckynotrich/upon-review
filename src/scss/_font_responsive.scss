@@ -1,0 +1,173 @@
+$breakpoints: (
+  media-300 : 300px,
+  media-400 : 400px,
+  media-512 : 512px,
+  media-576 : 576px,
+  media-640 : 640px,
+  media-704 : 704px,
+  media-768 : 768px,
+  media-870 : 870px,
+  media-1024 : 1024px,
+  media-1168 : 1168px,
+  media-1312 : 1312px,
+  media-1600 : 1600px,
+  media-1900 : 1900px
+);
+
+$h1-font-sizes: (
+  null : 24px,
+  media-300 : 30px,
+  media-400 : 36px,
+  media-512 : 40px,
+  //media-576 : 36px,
+  media-640 : 46px,
+  media-704 : 52px,
+  media-768 : 58px,
+  media-870 : 64px,
+  media-1024: 68px,
+  media-1168: 76px,
+  media-1600: 96px,
+  media-1900: 110px
+);
+$h2-font-sizes: (
+  null : 16px,
+  // media-300 : 22px,
+  // media-400 : 28px,
+  // media-512 : 18px,
+  //media-576 : 36px,
+  media-640 : 20px,
+  media-704 : 24px,
+  media-768 : 30px,
+  media-870 : 36px,
+  media-1024: 40px,
+  media-1168: 46px,
+  media-1600: 56px,
+  media-1900: 60px
+);
+$h3-font-sizes: (
+  null : 15px,
+  //media-300 : 18px,
+  media-400 : 18px,
+  // media-512 : 30px,
+  // media-576 : 36px,
+  media-640 : 20px,
+  media-704 : 22px,
+  media-768 : 25px,
+  media-870 : 30px,
+  media-1024: 35px,
+  media-1168: 40px,
+  media-1600: 50px,
+  media-1900: 56px
+);
+$h4-font-sizes: (
+  null : 14px,
+  //media-300 : 18px,
+  media-400 : 16px,
+  // media-512 : 30px,
+  // media-576 : 36px,
+  media-640 : 18px,
+  //media-704 : 20px,
+  media-768 : 20px,
+  //media-870 : 32px,
+  media-1024: 28px,
+  //media-1168: 42px
+  media-1600: 36px,
+  media-1900: 42px
+);
+$h5-font-sizes: (
+  null : 13px,
+  //media-300 : 18px,
+  media-400 : 15px,
+  // media-512 : 30px,
+  // media-576 : 36px,
+  media-640 : 17px,
+  //media-704 : 20px,
+  media-768 : 18px,
+  //media-870 : 32px,
+  media-1024: 24px,
+  //media-1168: 42px
+  // media-1600: 30px,
+  // media-1900: 36px
+);
+$p-font-sizes: (
+  null : 11px,
+  //media-300 : 12px,
+  media-400 : 13px,
+  media-512 : 14px,
+  //media-576 : 18px,
+  //media-640 : px,
+  media-704 : 15px,
+  media-768 : 16px,
+  media-870 : 17px,
+  media-1024: 18px,
+  media-1168: 19px,
+  media-1600: 20px,
+  media-1900: 21px
+);
+$a-font-sizes: (
+  null : 12px,
+  //media-300 : 12px,
+  media-400 : 13px,
+  media-512 : 14px,
+  //media-576 : 24px,
+  //media-640 : px,
+  media-704 : 15px,
+  media-768 : 16px,
+  media-870 : 17px,
+  media-1024: 18px,
+   media-1168: 20px,
+  media-1600: 24px,
+  media-1900: 28px
+);
+
+
+@mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+
+  @each $fs-breakpoint,
+  $fs-font-size in $fs-map {
+    @if $fs-breakpoint == null {
+      font-size: $fs-font-size;
+    }
+
+    @else {
+
+      // If $fs-font-size is a key that exists in
+      // $fs-breakpoints, use the value
+      @if map-has-key($fs-breakpoints, $fs-breakpoint) {
+        $fs-breakpoint: map-get($fs-breakpoints, $fs-breakpoint);
+      }
+
+      @media screen and (min-width: $fs-breakpoint) {
+        font-size: $fs-font-size;
+      }
+    }
+  }
+}
+
+h1 {
+  @include font-size($h1-font-sizes);
+}
+[class^="large"]{
+    @include font-size($h1-font-sizes);
+}
+h2 {
+  @include font-size($h2-font-sizes)
+}
+
+h3 {
+  @include font-size($h3-font-sizes)
+}
+
+h4 {
+  @include font-size($h4-font-sizes)
+}
+h5 {
+  @include font-size($h5-font-sizes)
+}
+p {
+  @include font-size($p-font-sizes)
+}
+
+a{
+    @include font-size($a-font-sizes)
+}

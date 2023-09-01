@@ -1,79 +1,60 @@
-import React from "react";
-import { FaStar } from "react-icons/fa";
-import { useController/* , useForm */ } from "react-hook-form";
+import React from 'react';
+import { FaStar } from 'react-icons/fa';
+import { useController } from 'react-hook-form';
+import ReviewContext from '../contexts/review-context'
 
-import { useState } from "react";
+import { useState } from 'react';
 
- function StarRating({
-  size,
-  setReviewRating,
-  rating,
-  control,
-  name,
-}) {
+function StarRating({ size, setReviewRating, rating, control, name }) {
   const { field } = useController({ name, control });
   const [value, setValue] = React.useState(field.value);
-  const [hover, setHover] = useState(null);
+  const [hover, setHover] = React.useState(null);
+  const { setRevRating } = React.useContext(ReviewContext);
+  React.useEffect(() => {
+    setValue(0);
+    setRevRating(0);
+  },[])
 
   return (
     <div className="starEnvelope">
       {rating > 0 ? (
-        <label className="star">
+        <label className="star-lable">
           {rating} Stars<span>&nbsp;&nbsp;</span>
         </label>
       ) : (
-        <label className="star">
+        <label className="star-lable">
           un-Rated<span>&nbsp;&nbsp;</span>
         </label>
       )}
-      <div style={{ display: "flex" }} className="starEnvelope">
+      <div style={{ display: 'flex' }} className="starEnvelope">
         {[...Array(5)].map((star, i) => {
           const ratingValue = i + 1;
           return (
-            
-               <FaStar
-                  color={
-                    ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"
-                  }
-                  className="star"
-                  size={size}
-                  onMouseEnter={() => setHover(ratingValue)}
-                  onMouseLeave={() => setHover(null)}
-                  key={"star" + ratingValue}
-                  onClick={() =>{ 
-                    setReviewRating(ratingValue)
-                  // setValue(ratingValue);
-                  field.onChange(ratingValue);
-                }}
-                  ><input
-                  name="starRating"
-                  type="radio"
-                  value={ratingValue}
-                  onChange={(e) => {
-                    field.onChange(/* e.target.value */);
-                    setValue(e.target.value);
-                    console.log("field.value: ", field.value);
-                  }}
-                  
-                >
-                  </input></FaStar>
-                
-          );
-          
-        })}
-        
-        {/* <label
-              htmlFor="starRating"
-              id={`starLable` + ratingValue}
-              key={"star" + ratingValue}
-              style={{
-                fontFamily: "react-icons/fa",
-                content: "FaStar",
-                color:ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9" ,
+            <FaStar
+              color={ratingValue <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+              className="star"
+              size={size}
+              onMouseEnter={() => setHover(ratingValue)}
+              onMouseLeave={() => setHover(null)}
+              key={'star' + ratingValue}
+              onClick={() => {
+                setReviewRating(ratingValue);
+                field.onChange(ratingValue);
               }}
             >
-            
-            </label> */}
+              <input
+                name="starRating"
+                type="radio"
+                value={ratingValue}
+                onChange={(e) => {
+                  field.onChange(/* e.target.value */);
+                  setValue(e.target.value);
+                  console.log('field.value: ', field.value);
+                }}
+              ></input>
+            </FaStar>
+          );
+        })}
       </div>
     </div>
   );
