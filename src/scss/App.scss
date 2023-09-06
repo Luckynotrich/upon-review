@@ -1,3 +1,4 @@
+$left-margin: 7%;
 .App{
   width: 100%;
   
@@ -29,28 +30,41 @@
     background-color:darkorange;
     left: .7%;
   }
-  .show-view-title{
+  .right-90 {
+    float: right;
+    width: 20%;
+  }
+  .header-title{
     position: relative;
-    color: #30ba52;
-    left: -35%;
     top: 10%;
-    // font-size: 28pt;
+    width: 20%;
+  }
+  #review-title{
+    // position: relative;
+    float: right;
+    color: darkorange;
+    left: 35%;
+  }
+  #show-view-title{
+    color: #30ba52;
+    left: -28%;
+  }
+  #category-title{
+    color: #f5f842;
+    left: -1%;
   }
   .categorTree{
     position: relative;
     left: 8%;
     margin-top: 2%;
-    // font-size: 20pt;
   }
   @media screen and (max-width: 600px) {
     [class^="large"]{
       align-items: center;
-      width: 95%;
-      margin-left: 2.5%
+      width: 32%;
+      margin-left: .5%
     }
-    .large-right{
-      margin-top: 15px;
-    }
+   
   }
 
 @import "./review";

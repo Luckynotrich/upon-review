@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import Header from './header';
+import Header from '../header';
 import Select from './select';
 import ReviewForm from './review-form';
 import SelectedDataContext from '../contexts/selected-data-context';
@@ -28,7 +28,7 @@ const ReviewCategory = () => {
 let i = 0;
   return (
     <div className="container">
-      <Header />
+      <Header ID={'review-title'} title={'Review'}/>
       <form>
         {categories.length > 0 ? (
           <Select

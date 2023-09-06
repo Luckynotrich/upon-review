@@ -61,7 +61,7 @@ function ReviewForm({ pros, cons }) {
       action="send"
       id="review"
     >
-      <div className="right-75">
+      <div className="barrier"></div>
         <fieldset>
           <div className="row">
             <label htmlFor="RevName">Name</label>
@@ -71,25 +71,12 @@ function ReviewForm({ pros, cons }) {
               id="RevName"
               type="text"
               autoComplete="on"
-              className="center"
+              // className="center"
               aria-describedby="name"
               placeholder="Enter Name"
               onChange={(e) => setRevName(e.target.value)}
             />
-          </div>
-          ''
-          <div className="row">
-            <label htmlFor="RevURL">URL &nbsp;</label>
-            <input
-              name="revURL"
-              {...register('revURL')}
-              id="RevURL"
-              className="center"
-              placeholder="Web url"
-              type="text"
-              autoComplete="on"
-              onChange={(e) => setRevURL(e.target.value)}
-            />
+            
           </div>
           <div className="row">
             <label htmlFor="RevDate">Date&nbsp;&nbsp;</label>
@@ -103,8 +90,20 @@ function ReviewForm({ pros, cons }) {
               onChange={(e) => setRevDate(e.target.value)}
             />
           </div>
+          <div className="row">
+            <label htmlFor="RevURL">URL &nbsp;</label>
+            <input
+              name="revURL"
+              {...register('revURL')}
+              id="RevURL"
+              // className="center"
+              placeholder="Web url"
+              type="text"
+              autoComplete="on"
+              onChange={(e) => setRevURL(e.target.value)}
+            />
+          </div>
           <div>
-            
             <StarRating
               control={control}
               name="revRating"
@@ -112,13 +111,12 @@ function ReviewForm({ pros, cons }) {
               rating={revRating}
               setReviewRating={setRevRating}
             />
-           
           </div>
         </fieldset>
         <fieldset>
           <div className="row">
-            <div className="right-90">
-              <h2>Pros</h2>
+            <div className="procon-label">
+              <h4>Pros</h4>
             </div>
           </div>
           <div className="left-25">
@@ -128,18 +126,17 @@ function ReviewForm({ pros, cons }) {
               name={`propArray[${i++}]`}
               prop={prop}
               key={prop.id}
-              // setReviewRating={setRevRating}
             />
             ))}
           </div>
         </fieldset>
         <fieldset>
           <div className="row">
-            <div className="right-90">
-              <h2>Cons</h2>
-            </div>
-          </div>
-          <div className="left-25">
+            <label htmlFor='cons' className="procon-label">
+              <h4>Cons</h4>
+            </label >
+          
+          <div id='cons'className="left-25">
             {cons.map((prop) => (
               <CheckBox
               control={control}
@@ -149,6 +146,7 @@ function ReviewForm({ pros, cons }) {
               // setReviewRating={setRevRating}
             />
             ))}
+            </div>
           </div>
         </fieldset>
         <div className="container">
@@ -166,7 +164,6 @@ function ReviewForm({ pros, cons }) {
             <button type="submit">Submit</button>
           </fieldset>
         </div>
-      </div>
     </form>
   );
 }

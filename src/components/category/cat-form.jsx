@@ -7,6 +7,7 @@ import UserContext from '../contexts/user-context';
 // import  useAxios  from '../hooks/use-axios-dep';
 import axios from '../../utils/future-self-api';
 import CatNameForm from './cat-name-form';
+import Header from '../header';
 
 export default function CatForm() {
 
@@ -62,7 +63,8 @@ export default function CatForm() {
 
   return (
     <div className="container">
-      <h1>Category</h1>{catName? <h2>{catName}</h2>: <h2>Choose a category name</h2>}
+      <Header ID={'category-title'} title={'Category'}/>
+      {catName? <h4>{catName}</h4>: <h4>create a category name</h4>}
       <CatNameForm userId={userId} catId = {catId} getCatId={handleCatId}
       catName={catName} getCatName={setCatName} />
       <form
@@ -74,7 +76,7 @@ export default function CatForm() {
         encType="multipart/form-data"
       >
         <h4 className="left">Pros</h4>
-
+<fieldset>
         <input
           type="text"
           {...register('pro1')}
@@ -119,9 +121,9 @@ export default function CatForm() {
           disabled={!catId}
           placeholder="I like..."
         ></input>
-
+</fieldset>
         <h4 className="left">Cons</h4>
-
+        <fieldset>
         <input
           type="text"
           {...register('con1')}
@@ -166,7 +168,7 @@ export default function CatForm() {
           disabled={!catId}
           placeholder="I don't like..."
         ></input>
-
+</fieldset>
         <input
           type="submit"
           id="submitButton"

@@ -87,21 +87,22 @@ export default function CatNameForm({ userId, getCatId, catId, catName, getCatNa
         hidden={catId}
         encType="multipart/form-data"
       >
-        <h3 id="nameLable" className="nameLable left">
-          Name:{' '}
+        <h4 id="nameLable" className="nameLable left">
+          
           {
           catNames.includes(name.toLocaleLowerCase().trim()) ? (
-            <span style={{ color: 'red', fontSize: '1.1rem' }}> is in use</span>
+            <span style={{ color: 'red', fontSize: '1.1rem' }}>{name} is in use</span>
           ) :errors.name? (<span style={{ color: 'red', fontSize: '1.1rem' }}>{errors.name.message/* A minimum 4 characters is required. */} </span>): (
             name
           )} 
-        </h3>
+        </h4>
         {/* <p>{errors.name?.message}</p> */}
+        <fieldset>
         <input
           type="text"
           autoFocus
           className="center"
-          aria-describedby="Category name"
+          aria-describedby="create category name"
           id="name"
           {...register('name', {
             required: 'This is required',
@@ -117,13 +118,16 @@ export default function CatNameForm({ userId, getCatId, catId, catName, getCatNa
           className="create"
           hidden={catId}
           disabled={catId}
-          defaultValue="Create"
+          value="Create"
           onClick={() => {
             !errors.name? "style.visibility='hidden'": "style.visibility='visible'";
           
         }
         }
         ></input>
+        
+        </fieldset>
+        <h5>then add pros and cons(optional)</h5>
       </form>
       {loading && <p>Loading.....</p>}
 

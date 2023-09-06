@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useController } from 'react-hook-form';
 import ReviewContext from '../contexts/review-context'
 
-import { useState } from 'react';
-
 function StarRating({ size, setReviewRating, rating, control, name }) {
   const { field } = useController({ name, control });
-  const [value, setValue] = React.useState(field.value);
-  const [hover, setHover] = React.useState(null);
-  const { setRevRating } = React.useContext(ReviewContext);
+  const [value, setValue] = useState(field.value);
+  const [hover, setHover] = useState(null);
+  const { setRevRating } = useContext(ReviewContext);
   React.useEffect(() => {
     setValue(0);
     setRevRating(0);
@@ -44,10 +42,10 @@ function StarRating({ size, setReviewRating, rating, control, name }) {
             >
               <input
                 name="starRating"
-                type="radio"
+                type="button"
                 value={ratingValue}
                 onChange={(e) => {
-                  field.onChange(/* e.target.value */);
+                  field.onChange();
                   setValue(e.target.value);
                   console.log('field.value: ', field.value);
                 }}

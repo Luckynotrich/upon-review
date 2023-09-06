@@ -15,24 +15,22 @@
     border-radius: 4px;
     resize: none;
     margin: 3px;
-    font-size: 12pt;
   }
   // textarea{
   //   width: 100%;
   // }
   fieldset{
-    background-color: #f1f1f1;
+    // background-color: #f1f1f1;
     border: none;
     border-radius: 2px;
     margin-bottom: 0%;
     overflow: hidden;
-    padding: 0 .625em;
+    padding: 0 1.625em;
 }
   label {
     padding: 12px 12px 12px 0px;
     display: inline;
     margin-right: 9px;
-    font-size: 12pt;
   }
   select{
     width: 200px;
@@ -42,19 +40,14 @@
   }
   
 span{
-  font-size: 16pt;
+  
   padding-left: 3pt; 
 }
-#review-title{
-  position: relative;
-  float: right;
-  color: darkorange;
-  left: 67%;
-}
+
 .star{
   cursor: pointer;
   transition: color 200ms;
-  font-size: 3em;
+  // font-size: 2.5em;
 }
 p.star{
   display: inline;
@@ -63,20 +56,22 @@ p.star{
   max-width: 300px;
   margin: 3px;
   margin-bottom: .5%;
+  position: relative;
+  left: $left-margin;
 }
 input[type="button"] {
   opacity: 20%;
   margin: 2px;
 }
-input[type="radio"]{
-  margin-bottom: 2%;
-}
-input[type="radio"]:after{
-  position: relative;
-  display: inline-block;
-  margin-bottom: .5%;
+// input[type="radio"]{
+//   margin-bottom: 2%;
+// }
+// input[type="radio"]:after{
+//   position: relative;
+//   display: inline-block;
+//   margin-bottom: .5%;
   
-}
+// }
 label[for="star"] {
   position: relative;
   /* display:inline-block; */
@@ -85,11 +80,15 @@ label[for="star"] {
   margin-bottom: 20px;
 
 }
-
+.procon-label{
+  margin: auto;
+    width: 100%;
+}
 .checkbox {
   display: inline-flex;
   cursor: pointer;
   position: relative;
+  left:$left-margin;
 }
 
 .checkbox > span {
@@ -145,44 +144,37 @@ label[for="star"] {
   input[type=submit]:hover {
     background-color: #45a049;
   }
-  input[type=date]{
-    width:270px;
-    padding-left: 50px;
-  }
+  // input[type=date]{
+  //   width:270px;
+  //   padding-left: 50px;
+  // }
   .date{
-    // font-size: 12pt;
     padding: .5em;
   }
   .container {
     border-radius: 5px;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 10px;
   }
    .left-25 {
-    margin-top: 6px;
-    text-align: left;
+    padding: 1%;
+    // text-align: left;
   }
-  .right-90 {
-    float: right;
-    width: 30%;
-    margin: 6px;
-  }
-  .right-75 {
-    // float: right;
-    // width: 75%;
-    margin-top: 6px;
+ 
+  .barrier {
+     margin-top: 6px;
   }
   
-  // h1{
-  //   font-size: 25px;
-  // }
+  
   h2,h3{ 
     text-align: left;
     display: block;
     margin-block-start: .25em;
     margin-block-end: .25em;
   }
-  
+  #selectCat{
+    width: 50%;
+  }
   /* Clear floats after the columns */
   .row:after {
     content: "";
@@ -196,10 +188,16 @@ label[for="star"] {
 
     .left-25, .right-75 {
       width: 100% !important;
-      margin-top: 6px;
+      // margin-top: 6px;
       text-align: left;
       padding: 0pt;
     } 
+    .starEnvelope{
+      margin-left: 5%;
+      width: 70%;
+      padding-left: 0%;
+      padding-right: 0%;
+    }
     input[type=text]{
       max-width: 70%;
       float:right

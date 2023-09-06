@@ -1,7 +1,8 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
-import getCategories from '../utils/get-categories';
+// import getCategories from '../utils/get-categories';
+import Header from './header';
 
 import UserContext from './contexts/user-context';
 
@@ -45,16 +46,17 @@ function ShowReview() {
 
   return (
     <div>
-      <h1 className="show-view-title">View</h1>
-      <ul className='categorTree'>
+      <Header ID={'show-view-title'} title={'View'}/>
+      {/* <h1 className="show-view-title">View</h1> */}
+      <div className='categorTree'>
         {categories.length > 0 ? (
           categories.map((category) => {
-            return <li key={category.id}>{category.name}</li>;
+            return <h4 key={category.id}>{category.name}</h4>;
           })
         ) : (
           <h3>{gotCats}</h3>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -17,22 +17,22 @@ $breakpoints: (
 $h1-font-sizes: (
   null : 24px,
   media-300 : 30px,
-  media-400 : 36px,
+  media-400 : 34px,
   media-512 : 40px,
   //media-576 : 36px,
   media-640 : 46px,
   media-704 : 52px,
   media-768 : 58px,
   media-870 : 64px,
-  media-1024: 68px,
-  media-1168: 76px,
-  media-1600: 96px,
-  media-1900: 110px
+  // media-1024: 68px,
+  // media-1168: 76px,
+  // media-1600: 96px,
+  // media-1900: 110px
 );
 $h2-font-sizes: (
   null : 16px,
-  // media-300 : 22px,
-  // media-400 : 28px,
+  media-300 : 22px,
+   media-400 : 28px,
   // media-512 : 18px,
   //media-576 : 36px,
   media-640 : 20px,
@@ -40,9 +40,9 @@ $h2-font-sizes: (
   media-768 : 30px,
   media-870 : 36px,
   media-1024: 40px,
-  media-1168: 46px,
-  media-1600: 56px,
-  media-1900: 60px
+  // media-1168: 46px,
+  // media-1600: 56px,
+  // media-1900: 60px
 );
 $h3-font-sizes: (
   null : 15px,
@@ -57,7 +57,22 @@ $h3-font-sizes: (
   media-1024: 35px,
   media-1168: 40px,
   media-1600: 50px,
-  media-1900: 56px
+  // media-1900: 56px
+);
+$star-font-sizes: (
+  null : 15px,
+  media-300 : 24px,
+   media-400 : 28px,
+  // media-512 : 30px,
+  // media-576 : 36px,
+  media-640 : 20px,
+  media-704 : 22px,
+  media-768 : 25px,
+  media-870 : 30px,
+  media-1024: 35px,
+  media-1168: 40px,
+  media-1600: 50px,
+  // media-1900: 56px
 );
 $h4-font-sizes: (
   null : 14px,
@@ -71,8 +86,8 @@ $h4-font-sizes: (
   //media-870 : 32px,
   media-1024: 28px,
   //media-1168: 42px
-  media-1600: 36px,
-  media-1900: 42px
+  // media-1600: 36px,
+  // media-1900: 42px
 );
 $h5-font-sizes: (
   null : 13px,
@@ -99,26 +114,12 @@ $p-font-sizes: (
   media-704 : 15px,
   media-768 : 16px,
   media-870 : 17px,
-  media-1024: 18px,
-  media-1168: 19px,
-  media-1600: 20px,
-  media-1900: 21px
+  media-1024: 19px,
+  // media-1168: 21px,
+  // media-1600: 23px,
+  // media-1900: 24px
 );
-$a-font-sizes: (
-  null : 12px,
-  //media-300 : 12px,
-  media-400 : 13px,
-  media-512 : 14px,
-  //media-576 : 24px,
-  //media-640 : px,
-  media-704 : 15px,
-  media-768 : 16px,
-  media-870 : 17px,
-  media-1024: 18px,
-   media-1168: 20px,
-  media-1600: 24px,
-  media-1900: 28px
-);
+
 
 
 @mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
@@ -154,20 +155,19 @@ h2 {
   @include font-size($h2-font-sizes)
 }
 
-h3 {
+h3  {
   @include font-size($h3-font-sizes)
 }
-
-h4 {
+.star  {
+  @include font-size($star-font-sizes)
+}
+h4{
   @include font-size($h4-font-sizes)
 }
 h5 {
   @include font-size($h5-font-sizes)
 }
-p {
+p,input,placeholder,select,textarea,button,span,div,li,ul,ol,a {
   @include font-size($p-font-sizes)
 }
 
-a{
-    @include font-size($a-font-sizes)
-}
