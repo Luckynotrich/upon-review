@@ -1,14 +1,37 @@
 $left-margin: 7%;
+* {
+    box-sizing: border-box;
+    max-width: 1240px; 
+	margin: 0 auto ; 
+	float: none !important; 
+  }
+  :root{
+    --max-width: 1200px;
+    --margin-left: calc((100%- var(--max-width))/2);
+    --input-width: calc(var(--max-width) - var(--margin-left) )
+    color-scheme: dark light;
+} 
+@media screen and (prefers-color-scheme: dark) {
+  p,a,h2,h3,h4,h5,h6,span,label/* ,:placeholder-shown */  {
+    color: #fff;
+  }
+  body, div.container {
+    background-color: #000;
+  }
+  
+}
+@media screen and (prefers-color-scheme: light) {
+  p,a,h2,h3,h4,h5,h6,span,label,div,li,ul,ol,button,select,input,textarea{
+    color: #000;
+  }
+  body, div.container {
+    background-color: #fff;
+  }
+}
 .App{
   width: 100%;
   
 }
-// .routes{
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-around;
-//   width: 32%;
-// }
 [class^="large"]{
   position: relative;
     width: 32%;
@@ -69,4 +92,4 @@ $left-margin: 7%;
 
 @import "./review";
 @import "./upon";
-@import "font_responsive"
+@import "./font_responsive";

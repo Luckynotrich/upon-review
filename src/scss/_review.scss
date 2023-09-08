@@ -1,11 +1,11 @@
-* {
-    box-sizing: border-box;
-    max-width: 1240px; 
-	margin: 0 auto ; 
-	float: none !important; 
-  background-color: black;
-  color: white;
-  }
+// * {
+//     box-sizing: border-box;
+//     max-width: 1240px; 
+// 	margin: 0 auto ; 
+// 	float: none !important; 
+//   background-color: black;
+//   color: white;
+//   }
   
   input[type=text], select, button{
     /* min-width: 270px; */
@@ -16,9 +16,9 @@
     resize: none;
     margin: 3px;
   }
-  // textarea{
-  //   width: 100%;
-  // }
+  textarea{
+    width: 100%;
+  }
   fieldset{
     // background-color: #f1f1f1;
     border: none;
@@ -31,6 +31,12 @@
     padding: 12px 12px 12px 0px;
     display: inline;
     margin-right: 9px;
+    @media screen and (prefers-color-scheme: dark) {
+      color: #fff;
+    }
+    @media screen and (prefers-color-scheme: light) {
+      color: #000;
+    }
   }
   select{
     width: 200px;
@@ -205,10 +211,10 @@ label[for="star"] {
     input[type=checkbox]{
       float: left;
     }
-    label{
-      display: inline-flex;
-        padding: 0;
-    }
+    // label{
+    //   display: inline-flex;
+    //     padding: 0;
+    // }
     input[type=date]{
       float: right;
     }

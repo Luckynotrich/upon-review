@@ -1,8 +1,4 @@
- :root{
-    --max-width: 1200px;
-    --margin-left: calc((100%- var(--max-width))/2);
-    --input-width: calc(var(--max-width) - var(--margin-left) )
-} 
+ 
 * {
     box-sizing: border-box;
     max-width: var(--max-width);
@@ -43,7 +39,7 @@
   }
   
   .container {
-    background-color: #91d694;
+    border: 1em solid #91d694;
     width: 100%;
   }
  

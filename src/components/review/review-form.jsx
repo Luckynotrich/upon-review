@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import ReviewContext from '../contexts/review-context';
-import { useForm/* , useController  */} from 'react-hook-form';
+import { useForm} from 'react-hook-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 
 import StarRating from './star_rating_rhf';
 import CheckBox from './checkbox_rhf';
 import axios from '../../utils/future-self-api';
 
-function ReviewForm({ pros, cons }) {
+function ReviewForm({ pros, cons, catState }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
   const { toggleProp,isItemSelected } = useContext(SelectedDataContext);
@@ -46,7 +46,8 @@ function ReviewForm({ pros, cons }) {
     console.log('reviw data ', data);
     // await axios.post('/api/review-api/addNew', { data, catId, error });
   };
-
+  useEffect(() => {console.log('pros:', pros);}, [pros]);
+useEffect(() => {setRevRating(0)}, []);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
@@ -96,7 +97,6 @@ function ReviewForm({ pros, cons }) {
               name="revURL"
               {...register('revURL')}
               id="RevURL"
-              // className="center"
               placeholder="Web url"
               type="text"
               autoComplete="on"
@@ -107,13 +107,14 @@ function ReviewForm({ pros, cons }) {
             <StarRating
               control={control}
               name="revRating"
-              // size={30}
               rating={revRating}
-              setReviewRating={setRevRating}
+              setRevRating={setRevRating}
             />
           </div>
         </fieldset>
-        <fieldset>
+       {pros.length > 0 ?()=>{ return(
+       <div>
+         <fieldset>
           <div className="row">
             <div className="procon-label">
               <h4>Pros</h4>
@@ -130,6 +131,9 @@ function ReviewForm({ pros, cons }) {
             ))}
           </div>
         </fieldset>
+        </div>)}:null}
+        {cons.length > 0 ?()=>{ return(
+        <div>
         <fieldset>
           <div className="row">
             <label htmlFor='cons' className="procon-label">
@@ -143,12 +147,12 @@ function ReviewForm({ pros, cons }) {
               name={`propArray[${i++}]`}
               prop={prop}
               key={prop.id}
-              // setReviewRating={setRevRating}
             />
             ))}
             </div>
           </div>
-        </fieldset>
+          </fieldset>
+          </div>)}:null}
         <div className="container">
           <fieldset>
             <label htmlFor="revText">Review</label>

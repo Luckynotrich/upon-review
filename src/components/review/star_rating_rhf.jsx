@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useController } from 'react-hook-form';
-import ReviewContext from '../contexts/review-context'
 
-function StarRating({ size, setReviewRating, rating, control, name }) {
+function StarRating({ size, setRevRating, rating, control, name }) {
   const { field } = useController({ name, control });
   const [value, setValue] = useState(field.value);
   const [hover, setHover] = useState(null);
-  const { setRevRating } = useContext(ReviewContext);
+ 
   React.useEffect(() => {
     setValue(0);
     setRevRating(0);
@@ -36,7 +35,7 @@ function StarRating({ size, setReviewRating, rating, control, name }) {
               onMouseLeave={() => setHover(null)}
               key={'star' + ratingValue}
               onClick={() => {
-                setReviewRating(ratingValue);
+                setRevRating(ratingValue);
                 field.onChange(ratingValue);
               }}
             >

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Header from '../header';
 import Select from './select';
 import ReviewForm from './review-form';
@@ -12,19 +12,21 @@ const ReviewCategory = () => {
   const { setCatId } = useContext(ReviewContext);
   const { categories} = useContext(CategoryContext);
   const [catState, setCatState] = useState('');
+  
     
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
+   console.log('id: ', id);
     const selectedCat = categories.filter((cat) => cat.id === id)[0];
-
+    console.log('selectedCat.id: ', selectedCat.id);
     if (selectedCat) {
       clearPropArray();
       setCatId(id);
       setCatState(selectedCat);
     }
   };
-  
+  useEffect(() => {console.log('catState: ', catState);}, [catState]);
 let i = 0;
   return (
     <div className="container">
@@ -35,13 +37,14 @@ let i = 0;
             categories={categories}
             onSelect={chooseCat}
             key={categories.id}
+            onClick={() => {setCatState(''); setCatId(0); clearPropArray();}}
           />
         ) : (
           ' Categories currently unavailable. Please check the internet connection and refresh the browser'
         )}
       </form>
 
-      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} />}
+      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} catState={catState}/>}
     </div>
   );
 };
