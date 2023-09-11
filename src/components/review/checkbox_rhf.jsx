@@ -1,8 +1,11 @@
 // checkbox_rhf.jsx
-import React from "react";
+import React,{useContext} from "react";
 import { useController } from "react-hook-form";
+import SelectedDataContext from '../contexts/selected-data-context';
+
 
 export default function Checkbox({ prop, control, name }) {
+  const { toggleProp, isItemSelected } = useContext(SelectedDataContext);
     const { field } = useController({
         control,
         name,
@@ -12,20 +15,14 @@ export default function Checkbox({ prop, control, name }) {
   return (
     <div className="row">
       <div className="right-75">
-        {/* <label
-          key={prop.id + 1}
-          htmlFor={"prosChecked"}
-          value={prop}
-          className="checkbox"
-        > */}
+        
           <input
             name={name}
             type="checkbox"
             className="checkbox"
             id={prop.id}
-      
+            onClick={() => toggleProp(prop.id)}
             value={prop.id}
-            // onClick={() => toggleProp(prop.id)}
             onChange={(e) => {
               let valueCopy = value;
               // update checkbox value

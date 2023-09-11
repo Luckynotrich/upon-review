@@ -44,7 +44,7 @@ let i = 0;
         )}
       </form>
 
-      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} catState={catState}/>}
+      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} setCatState={setCatState}/>}
     </div>
   );
 };

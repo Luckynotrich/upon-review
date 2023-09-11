@@ -1,17 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReviewContext from '../contexts/review-context';
-import { useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 
 import StarRating from './star_rating_rhf';
-import CheckBox from './checkbox_rhf';
+// import CheckBox from './checkbox_rhf';
 import axios from '../../utils/future-self-api';
+import CheckList from './check-list';
 
-function ReviewForm({ pros, cons, catState }) {
+function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
-  const { toggleProp,isItemSelected } = useContext(SelectedDataContext);
   
+  const [prosExist, setProsExist] = useState(false);
+  const [consExist, setConsExist] = useState(false);
 
   const {
     catId,
@@ -41,16 +43,29 @@ function ReviewForm({ pros, cons, catState }) {
     },
   });
 
-  let error, i = 0;
+  let error;
+ 
   const onSubmit = async (data) => {
-    console.log('reviw data ', data);
-    // await axios.post('/api/review-api/addNew', { data, catId, error });
+     await axios.post('/api/review-api/addNew', { data, catId, error });
   };
-  useEffect(() => {console.log('pros:', pros);}, [pros]);
-useEffect(() => {setRevRating(0)}, []);
+  useEffect(() => {
+    setProsExist(false);
+    setConsExist(false);
+    if (pros.length > 0) {
+      setProsExist(true);
+    }
+    if (cons.length > 0) {
+      setConsExist(true);
+    }
+  }, [pros, cons]);
+ 
+  useEffect(() => {
+    setRevRating(0);
+  }, []);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
+      setCatState('')
     }
   }, [formState, reset]);
 
@@ -63,111 +78,88 @@ useEffect(() => {setRevRating(0)}, []);
       id="review"
     >
       <div className="barrier"></div>
-        <fieldset>
-          <div className="row">
-            <label htmlFor="RevName">Name</label>
-            <input
-              name="revName"
-              {...register('revName', { required: true })}
-              id="RevName"
-              type="text"
-              autoComplete="on"
-              // className="center"
-              aria-describedby="name"
-              placeholder="Enter Name"
-              onChange={(e) => setRevName(e.target.value)}
-            />
-            
-          </div>
-          <div className="row">
-            <label htmlFor="RevDate">Date&nbsp;&nbsp;</label>
-            <input
-              name="revDate"
-              {...register('revDate')}
-              id="RevDate"
-              className="date"
-              type="date"
-              defaultValue={defaultDate}
-              onChange={(e) => setRevDate(e.target.value)}
-            />
-          </div>
-          <div className="row">
-            <label htmlFor="RevURL">URL &nbsp;</label>
-            <input
-              name="revURL"
-              {...register('revURL')}
-              id="RevURL"
-              placeholder="Web url"
-              type="text"
-              autoComplete="on"
-              onChange={(e) => setRevURL(e.target.value)}
-            />
-          </div>
-          <div>
-            <StarRating
-              control={control}
-              name="revRating"
-              rating={revRating}
-              setRevRating={setRevRating}
-            />
-          </div>
-        </fieldset>
-       {pros.length > 0 ?()=>{ return(
-       <div>
-         <fieldset>
-          <div className="row">
-            <div className="procon-label">
-              <h4>Pros</h4>
-            </div>
-          </div>
-          <div className="left-25">
-            {pros.map((prop) => (
-              <CheckBox
-              control={control}
-              name={`propArray[${i++}]`}
-              prop={prop}
-              key={prop.id}
-            />
-            ))}
-          </div>
-        </fieldset>
-        </div>)}:null}
-        {cons.length > 0 ?()=>{ return(
-        <div>
-        <fieldset>
-          <div className="row">
-            <label htmlFor='cons' className="procon-label">
-              <h4>Cons</h4>
-            </label >
-          
-          <div id='cons'className="left-25">
-            {cons.map((prop) => (
-              <CheckBox
-              control={control}
-              name={`propArray[${i++}]`}
-              prop={prop}
-              key={prop.id}
-            />
-            ))}
-            </div>
-          </div>
-          </fieldset>
-          </div>)}:null}
-        <div className="container">
-          <fieldset>
-            <label htmlFor="revText">Review</label>
-            <textarea
-              {...register('revText')}
-              columns=""
-              rows="27"
-              className="center"
-              id="revText"
-              placeholder="Write Something..."
-              onChange={(e) => setReviewTxt(e.target.value)}
-            />
-            <button type="submit">Submit</button>
-          </fieldset>
+      <fieldset>
+        <div className="row">
+          <label htmlFor="RevName">Name</label>
+          <input
+            name="revName"
+            {...register('revName', { required: true })}
+            id="RevName"
+            type="text"
+            autoComplete="on"
+            // className="center"
+            aria-describedby="name"
+            placeholder="Enter Name"
+            onChange={(e) => setRevName(e.target.value)}
+          />
         </div>
+        <div className="row">
+          <label htmlFor="RevDate">Date&nbsp;&nbsp;</label>
+          <input
+            name="revDate"
+            {...register('revDate')}
+            id="RevDate"
+            className="date"
+            type="date"
+            defaultValue={defaultDate}
+            onChange={(e) => setRevDate(e.target.value)}
+          />
+        </div>
+        <div className="row">
+          <label htmlFor="RevURL">URL &nbsp;</label>
+          <input
+            name="revURL"
+            {...register('revURL')}
+            id="RevURL"
+            placeholder="Web url"
+            type="text"
+            autoComplete="on"
+            onChange={(e) => setRevURL(e.target.value)}
+          />
+        </div>
+        <div>
+          <StarRating
+            control={control}
+            name="revRating"
+            rating={revRating}
+            setRevRating={setRevRating}
+          />
+        </div>
+      </fieldset>
+      {(prosExist && pros.length > 0 && pros[0].value != null) && (
+        <CheckList
+          control={control}
+          propArr={pros}
+          propArrCount={0}
+          name={'Pros'}
+        />
+      )}
+      
+      
+      {(consExist && cons.length > 0 && cons[0].value != null ) && (
+        <CheckList
+          control={control}
+          propArr={cons}
+          propArrCount={pros.length}
+          name={'Cons'}
+        />
+      )}
+      
+      <div className="container">
+        <fieldset>
+          <label htmlFor="revText">Review</label>
+          <textarea
+            {...register('revText')}
+            columns=""
+            rows="27"
+            className="center"
+            id="revText"
+            placeholder="Write Something..."
+            onChange={(e) => setReviewTxt(e.target.value)}
+          />
+          <button type="submit" onClick={()=>{setRevRating(0)}}>Submit</button>
+        </fieldset>
+      </div>
     </form>
   );
 }
