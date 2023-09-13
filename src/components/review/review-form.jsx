@@ -145,7 +145,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
         />
       )}
       
-      <div className="container">
+      {/* <div className="container"> */}
         <fieldset>
           <label htmlFor="revText">Review</label>
           <textarea
@@ -159,7 +159,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           />
           <button type="submit" onClick={()=>{setRevRating(0)}}>Submit</button>
         </fieldset>
-      </div>
+      {/* </div> */}
     </form>
   );
 }

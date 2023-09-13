@@ -17,20 +17,18 @@ const ReviewCategory = () => {
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
-   console.log('id: ', id);
     const selectedCat = categories.filter((cat) => cat.id === id)[0];
-    console.log('selectedCat.id: ', selectedCat.id);
     if (selectedCat) {
       clearPropArray();
       setCatId(id);
       setCatState(selectedCat);
     }
   };
-  useEffect(() => {console.log('catState: ', catState);}, [catState]);
+  //  useEffect(() => {console.log('catState: ', catState);}, [catState]);
 let i = 0;
   return (
     <div className="container">
-      <Header ID={'review-title'} title={'Review'}/>
+      {/* <Header ID={'review-title'} title={'Review'}/> */}
       <form>
         {categories.length > 0 ? (
           <Select

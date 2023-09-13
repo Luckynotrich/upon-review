@@ -20,7 +20,7 @@ function StarRating({ size, setRevRating, rating, control, name }) {
         </label>
       ) : (
         <label className="star-lable">
-          un-Rated<span>&nbsp;&nbsp;</span>
+          Un-rated<span>&nbsp;&nbsp;</span>
         </label>
       )}
       <div style={{ display: 'flex' }} className="starEnvelope">

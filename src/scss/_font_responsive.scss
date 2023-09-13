@@ -1,22 +1,28 @@
 $breakpoints: (
   media-300 : 300px,
+  media-337 : 337px,
+  media-390 : 390px,
   media-400 : 400px,
+  media-440 : 440px,
   media-512 : 512px,
   media-576 : 576px,
   media-640 : 640px,
+  media-672 : 672px,
   media-704 : 704px,
   media-768 : 768px,
   media-870 : 870px,
+  media-947 : 947px,
   media-1024 : 1024px,
   media-1168 : 1168px,
-  media-1312 : 1312px,
-  media-1600 : 1600px,
-  media-1900 : 1900px
+  media-1280 : 1280px,
+  // media-1600 : 1600px,
+  // media-1900 : 1900px
 );
 
 $h1-font-sizes: (
   null : 24px,
   media-300 : 30px,
+  media-390 : 32px,
   media-400 : 34px,
   media-512 : 40px,
   //media-576 : 36px,
@@ -26,6 +32,7 @@ $h1-font-sizes: (
   media-870 : 64px,
   // media-1024: 68px,
   // media-1168: 76px,
+  //media-1312 : 80px,
   // media-1600: 96px,
   // media-1900: 110px
 );
@@ -41,6 +48,7 @@ $h2-font-sizes: (
   media-870 : 36px,
   media-1024: 40px,
   // media-1168: 46px,
+  // media-1312 : 50px,
   // media-1600: 56px,
   // media-1900: 60px
 );
@@ -56,14 +64,14 @@ $h3-font-sizes: (
   media-870 : 30px,
   media-1024: 35px,
   media-1168: 40px,
-  media-1600: 50px,
+  // media-1600: 50px,
   // media-1900: 56px
 );
 $star-font-sizes: (
   null : 15px,
   media-300 : 24px,
    media-400 : 28px,
-  // media-512 : 30px,
+   media-512 : 30px,
   // media-576 : 36px,
   media-640 : 20px,
   media-704 : 22px,
@@ -71,7 +79,7 @@ $star-font-sizes: (
   media-870 : 30px,
   media-1024: 35px,
   media-1168: 40px,
-  media-1600: 50px,
+  // media-1600: 50px,
   // media-1900: 56px
 );
 $h4-font-sizes: (
@@ -119,7 +127,27 @@ $p-font-sizes: (
   // media-1600: 23px,
   // media-1900: 24px
 );
-
+$hidden: (
+  null : 7px,
+  media-300 : 8px,
+  media-337 : 8.5px,
+  media-390 : 9px,
+  media-400 : 11px,
+  media-440 : 12px,
+  media-512 : 13px,
+  media-576 : 15px,
+  media-640 : 16px,
+  media-672 : 17px,
+  media-704 : 18px,
+  media-768 : 19px,
+  media-870 : 22px,
+  media-947 : 23px,
+  media-1024: 25px,
+  media-1168: 29px,
+  // media-1280 : 29px,
+  // media-1600: 23px,
+  // media-1900: 24px
+);
 
 
 @mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
@@ -167,7 +195,10 @@ h4{
 h5 {
   @include font-size($h5-font-sizes)
 }
-p,input,placeholder,select,textarea,button,span,div,li,ul,ol,a {
+p,input,/* placeholder, */select,textarea,button,span,div,li,ul,ol,a {
   @include font-size($p-font-sizes)
 }
+// .hidden{
+//   @include font-size($hidden)
+// }
 

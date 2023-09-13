@@ -13,9 +13,7 @@ export default function Checkbox({ prop, control, name }) {
   const [value, setValue] = React.useState(field.value || []);
   
   return (
-    <div className="row">
-      <div className="right-75">
-        
+    <div className="check-row">
           <input
             name={name}
             type="checkbox"
@@ -34,8 +32,6 @@ export default function Checkbox({ prop, control, name }) {
             }}
           />
           <span key ={prop.id + 10}className="checkbox">{prop.value}</span>
-        {/* </label> */}
-      </div>
     </div>
   );
 }

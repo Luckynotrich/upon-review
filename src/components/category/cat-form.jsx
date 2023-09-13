@@ -63,7 +63,7 @@ export default function CatForm() {
 
   return (
     <div className="container">
-      <Header ID={'category-title'} title={'Category'}/>
+      {/* <Header ID={'category-title'} title={'Category'}/> */}
       {catName? <h4>{catName}</h4>: <h4>create a category name</h4>}
       <CatNameForm userId={userId} catId = {catId} getCatId={handleCatId}
       catName={catName} getCatName={setCatName} />
