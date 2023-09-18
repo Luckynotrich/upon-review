@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import CategoryContext from './contexts/category-context';
 import ReviewContext from './contexts/review-context';
 // import getCategories from '../utils/get-categories';
-// import Header from './header';
+import Header from './header';
 
 import UserContext from './contexts/user-context';
 
@@ -46,7 +46,7 @@ function ShowReview() {
 
   return (
     <div>
-      {/* <Header ID={'show-view-title'} title={'View'}/> */}
+      <Header ID={'show-view-title'} title={'View'}/>
       {/* <h1 className="show-view-title">View</h1> */}
       <div className='categorTree'>
         {categories.length > 0 ? (

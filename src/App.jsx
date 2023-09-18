@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect, useCallback} from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import CatForm from './components/category/cat-form.js';
 import ReviewCategory from './components/review/review-category.jsx';
 import ShowReview from './components/show-review';
-
 import './scss/App.scss';
 
 function App() {
@@ -15,13 +14,29 @@ function App() {
       setActive(newActive);
     };
   };
+  const handleKeyDown = useCallback((e) => {
+    // F5
+    if((e.which || e.keyCode) == 116) {
+      e.preventDefault();
+  }
+  // Ctrl+R
+  if (e.ctrlKey && (e.which === 82) ) {
+    e.preventDefault();
+  }
+  },[])
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown, true);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown, true);
+    };
+  }, [handleKeyDown]);
   return (
     <div className="App">
       <div className="routes">
         <Link to="/">
           <button
           onClick={handleClick(0)}
-            className={active[0] ? 'large-leftClicked': 'large-left'}
+            className={active[0] ? 'large-leftActive': 'large-left'}
             type="button"
           >
             Future
@@ -31,7 +46,7 @@ function App() {
         <Link to="/cat-form">
           <button
           onClick={handleClick(1)}
-            className={active[1] ? 'large-centerClicked' : 'large-center'}
+            className={active[1] ? 'large-centerActive' : 'large-center'}
             value="Upon"
             type="button"
           >
@@ -42,7 +57,7 @@ function App() {
         <Link to="/review-form">
           <button
           onClick={handleClick(2)}
-            className={active[2] ? 'large-rightClicked' : 'large-right'}
+            className={active[2] ? 'large-rightActive' : 'large-right'}
             value="Review"
             type="button"
           >

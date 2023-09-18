@@ -4,12 +4,19 @@ import CategoryContext from '../contexts/category-context';
 
 import axios from '../../utils/future-self-api.js';
 
-
-export default function CatNameForm({ userId, getCatId, catId, catName, getCatName }) {
+export default function CatNameForm({
+  userId,
+  getCatId,
+  catId,
+  catName,
+  getCatName,
+  inUse,
+  setInUse,
+}) {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
-  
-  
+
+  const [YELLOW] = useState('#FAFA37');
 
   const {
     register,
@@ -26,15 +33,14 @@ export default function CatNameForm({ userId, getCatId, catId, catName, getCatNa
   });
   let catNames = [];
   // useEffect(() => {
-    if (categories.length > 0) {
-      categories.map((cat) => {
-        let catName = cat.name;
-        let name2;
-        if (catName) name2 = catName.toLocaleLowerCase();
-        catNames.push( name2);
-      });
-    
-     }
+  if (categories.length > 0) {
+    categories.map((cat) => {
+      let catName = cat.name;
+      let name2;
+      if (catName) name2 = catName.toLocaleLowerCase();
+      catNames.push(name2);
+    });
+  }
   // }, []);
 
   const name = watch('name');
@@ -43,34 +49,39 @@ export default function CatNameForm({ userId, getCatId, catId, catName, getCatNa
   // const [response, error, loading, axiosFetch] = useAxios();
 
   const onSubmit = async (data) => {
-    // setLoading(true);
-    try {
-      let response = await axios.post('/api/category-api/addNew/?', {
-        data,
-        userId,
-        error,
-      });
-
-      catId = await response.data;
-      addCategory({
-        name: name,
-        id: catId,
-        userId: userId,
-        pros: [],
-        cons: [],
-      });
-      loading && setLoading(false);
-      getCatId(catId);
-      getCatName(name);
-    } catch (err) {
-      console.log(err.message);
-    }
     
+    if (!inUse) {
+      setLoading(true);
+      try {
+        let response = await axios.post('/api/category-api/addNew/?', {
+          data,
+          userId,
+          error,
+        });
+
+        catId = await response.data;
+        addCategory({
+          name: name,
+          id: catId,
+          userId: userId,
+          pros: [],
+          cons: [],
+        });
+        loading && setLoading(false);
+        getCatId(catId);
+        getCatName(name);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
   };
+useEffect(() => {
+  name.length > 3 && catNames.includes(name.toLocaleLowerCase().trim())
+      ? setInUse(true)
+      : setInUse(false);
+}, [name]);
   
-// useEffect(() => {
-//    catNames.includes(name.toLocaleLowerCase().trim())? setError({name:'name',type: 'manual',message:'is in use'}):''/* setError(null) */;
-// }, [name]);
+
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
@@ -88,46 +99,56 @@ export default function CatNameForm({ userId, getCatId, catId, catName, getCatNa
         encType="multipart/form-data"
       >
         <h4 id="nameLable" className="nameLable left">
-          
-          {
+          {name.length > 3 &&
           catNames.includes(name.toLocaleLowerCase().trim()) ? (
-            <span style={{ color: 'red', fontSize: '1.1rem' }}>{name} is in use</span>
-          ) :errors.name? (<span style={{ color: 'red', fontSize: '1.1rem' }}>{errors.name.message/* A minimum 4 characters is required. */} </span>): (
-            name
-          )} 
+            <span style={{ color: `${YELLOW}`, fontSize: '1.5rem' }}>
+              {name} -- is in use.--- Select button to edit this category.
+            </span>
+          ) : errors.name ? (
+            <span style={{ color: 'red', fontSize: '1.5rem' }}>
+              {errors.name.message}{' '}
+            </span>
+          ) : name.length > 3 ? (
+            <span style={{ color: 'green', fontSize: '1.5rem' }}>
+              {name} -- is available
+            </span>
+          ) : (
+            'create a category name'
+          )}
         </h4>
-        {/* <p>{errors.name?.message}</p> */}
         <fieldset>
-        <input
-          type="text"
-          autoFocus
-          className="center"
-          aria-describedby="create category name"
-          id="name"
-          {...register('name', {
-            required: 'This is required',
-            minLength: { value:4, message: 'A minimum 4 characters is required.'},
-          })}
-          placeholder="Category name"
-          onFocus={() => "this.placeholder=''"}
-          onBlur={() => "this.placeholder=''"}
-        ></input>
-        <input
-          type="submit"
-          id="submitButton"
-          className="create"
-          hidden={catId}
-          disabled={catId}
-          value="Create"
-          onClick={() => {
-            !errors.name? "style.visibility='hidden'": "style.visibility='visible'";
-          
-        }
-        }
-        ></input>
-        
+          <input
+            type="text"
+            autoFocus
+            className="center"
+            aria-describedby="create category name"
+            id="name"
+            {...register('name', {
+              required: 'This is required',
+              minLength: {
+                value: 4,
+                message: 'A minimum 4 characters is required.',
+              },
+            })}
+            placeholder="Category name"
+            onFocus={() => "this.placeholder=''"}
+            onBlur={() => "this.placeholder=''"}
+          ></input>
+          <input
+            type="submit"
+            id="submitButton"
+            className="create"
+            hidden={catId}
+            disabled={catId}
+            value={!inUse ? 'Create' : 'Edit'}
+            onClick={() => {
+              !errors.name
+                ? "style.visibility='hidden'"
+                : "style.visibility='visible'";
+            }}
+          ></input>
         </fieldset>
-        <h5>then add pros and cons(optional)</h5>
+        {!inUse && <h5>then add pros and cons (optional)</h5>}
       </form>
       {loading && <p>Loading.....</p>}
 

@@ -24,11 +24,13 @@ const ReviewCategory = () => {
       setCatState(selectedCat);
     }
   };
-  //  useEffect(() => {console.log('catState: ', catState);}, [catState]);
+  
 let i = 0;
   return (
+    <>
+    <Header ID={'review-title'} title={'Review'}/>
     <div className="container">
-      {/* <Header ID={'review-title'} title={'Review'}/> */}
+      
       <form>
         {categories.length > 0 ? (
           <Select
@@ -44,6 +46,7 @@ let i = 0;
 
       {catState && <ReviewForm pros={catState.pros} cons={catState.cons} setCatState={setCatState}/>}
     </div>
+    </>
   );
 };
 

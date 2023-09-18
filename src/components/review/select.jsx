@@ -5,7 +5,7 @@ const Select = ({ categories, onSelect, key}) => {
     return (
         <>
             <div>
-                <label htmlFor='selectCat'>Category </label>
+                <label htmlFor='selectCat'>choose </label>
                 <select name="selectCat" id="selectCat" onChange={onSelect}>
                     <option value="" defaultValue>Choose a Category</option>
                     {categories && categories.map((option) => (
