@@ -8,6 +8,7 @@ import StarRating from './star_rating_rhf';
 import axios from '../../utils/future-self-api';
 import CheckList from './check-list';
 
+
 function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');

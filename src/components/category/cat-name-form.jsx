@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext,useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import CategoryContext from '../contexts/category-context';
 
@@ -6,16 +6,17 @@ import axios from '../../utils/future-self-api.js';
 
 export default function CatNameForm({
   userId,
-  getCatId,
+  setCatId,
   catId,
-  catName,
-  getCatName,
+  setCatName,
+  setCat,
+  cat,
   inUse,
   setInUse,
 }) {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
-
+  let _category = useRef();
   const [YELLOW] = useState('#FAFA37');
 
   const {
@@ -49,7 +50,7 @@ export default function CatNameForm({
   // const [response, error, loading, axiosFetch] = useAxios();
 
   const onSubmit = async (data) => {
-    
+    let curCatId
     if (!inUse) {
       setLoading(true);
       try {
@@ -59,21 +60,28 @@ export default function CatNameForm({
           error,
         });
 
-        catId = await response.data;
-        addCategory({
+       curCatId = await response.data;
+
+        _category ={
           name: name,
-          id: catId,
+          id: curCatId,
           userId: userId,
           pros: [],
           cons: [],
-        });
+        };
+        addCategory(_category.current);
         loading && setLoading(false);
-        getCatId(catId);
-        getCatName(name);
       } catch (err) {
         console.log(err.message);
       }
     }
+    if (inUse) {
+      _category.current = categories.find((cat) => cat.name === name);
+    }
+    setCatId(_category.id);
+    setCatName(name);
+    setCat(_category.current)
+    console.log('catNameForm', cat)
   };
 useEffect(() => {
   name.length > 3 && catNames.includes(name.toLocaleLowerCase().trim())
@@ -100,7 +108,7 @@ useEffect(() => {
       >
         <h4 id="nameLable" className="nameLable left">
           {name.length > 3 &&
-          catNames.includes(name.toLocaleLowerCase().trim()) ? (
+          inUse ? (
             <span style={{ color: `${YELLOW}`, fontSize: '1.5rem' }}>
               {name} -- is in use.--- Select button to edit this category.
             </span>
