@@ -12,7 +12,6 @@ const SelectedDataContext = createContext({});
      else {
       newArray.push(...propArray, id)
     }
-
     setPropArray(newArray)
   }
   const isItemSelected = id => propArray.includes(id);

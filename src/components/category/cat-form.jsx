@@ -1,37 +1,50 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useContext, useRef} from 'react';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import CategoryContext from '../contexts/category-context';
-import UserContext from '../contexts/user-context';
-import ShowReview from '../show-review';
+
+// import ShowReview from '../show-review';
 
 // import  useAxios  from '../hooks/use-axios-dep';
 import axios from '../../utils/future-self-api';
-import CatNameForm from './cat-name-form';
+
 import Header from '../header';
-import TextInput from './text-input';
+// import TextInput from './text-input';
 
-export default function CatForm() {
-  const { /* categories, */ addCategory } = useContext(CategoryContext);
-  const [catId, setCatId] = useState('');
-  const [cat, setCat] = useState('');
-  const [catName, setCatName] = useState('');
-  const [inUse, setInUse] = useState(false);
-
-  const { userId } = useContext(UserContext);
+export default function CatForm(cat, catId, inUse) {
+  const { /* categories, */ updateCategory } = useContext(CategoryContext);
+  let _cat = useRef();  
+  _cat.current = cat;
+  
   const {
     register,
+    control,
     handleSubmit,
     formState,
     formState: { errors, isDirty, isSubmitSuccessful },
     reset,
   } = useForm({
     defaultValues: {
-      pros: [''],
-      cons: [''],
+      pros: _cat.current.pros,
+      cons: _cat.current.cons,
     },
   });
-
+  const {
+    fields: proFields,
+    append: proAppend,
+    remove: proRemove,
+  } = useFieldArray({
+    control,
+    name: "pros",
+  });
+  const {
+    fields: conFields,
+    append: conAppend,
+    remove: conRemove,
+  } = useFieldArray({
+    control,
+    name: "cons",
+  });
   //  const [response, error, loading, axiosFetch] = useAxios();
   let error;
   const onSubmit = async (data) => {
@@ -41,7 +54,7 @@ export default function CatForm() {
         catId,
         error,
       });
-      await addCategory(response);
+      await updateCategory(response);
     } else {
       await axios.put('/api/preference-api/updateOne/?', {
         data,
@@ -49,35 +62,22 @@ export default function CatForm() {
         error,
       });
     }
-    await useNavigate('/ShowReview');
+    await useNavigate(Link('/ShowReview'));
   };
-  
+
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
+    if (isSubmitSuccessful) {
       reset();
     }
   }, [formState, reset]);
-
-  useEffect(() => {
-    console.log('catForm cat', cat);
-  }, [cat]);
 
   return (
     <>
       <Header ID={'category-title'} title={'Category'} />
 
       <div className="container">
-        <CatNameForm
-          userId={userId}
-          catId={catId}
-          setCatId={setCatId}
-          setCatName={setCatName}
-          cat={cat}
-          setCat={setCat}
-          setInUse={setInUse}
-          inUse={inUse}
-        />
-        {cat && (
+        
+        {_cat && (
           <form
             onSubmit={handleSubmit(onSubmit, error)}
             id="category"
@@ -88,27 +88,51 @@ export default function CatForm() {
           >
             <h4 className="left">Pros</h4>
             <fieldset>
-              {[...Array(5)].map((e, i) => {
-                return (
-                  <TextInput
-                    register={register}
-                    procon={'pro' + i}
-                    value={
-                      i >! cat.pros.length - 1 ||
-                      typeof cat.pros[i] !== undefined
-                        ? setValue(cat.pros[i].value)
-                        : ''
-                    }
-                    id={cat.pros[i] !== undefined ? cat.pros[i].id : `pros${i}`}
-                  />
-                );
-              })}
-              
-            </fieldset>
+          {proFields.map((item, index) => {
+            return (
+              <li key={item.id}>
+                <input {...register(`pros.${index}.value`)} />
+                <button
+                  type="buton"
+                  onClick={() => {
+                    proRemove(index);
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
+           <button 
+            type="button" 
+            onClick={() => proAppend({ value: "" })}>
+          Append
+        </button>
+        </fieldset>
             <h4 className="left">Cons</h4>
             <fieldset>
-              
-            </fieldset>
+          {conFields.map((item, index) => {
+            return (
+              <li key={item.id}>
+                <input {...register(`cons.${index}.value`)} />
+                <button
+                  type="button"
+                  onClick={() => {
+                    conRemove(index);
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
+          <button 
+            type="button" 
+            onClick={() => conAppend({ value: "" })}>
+          Append
+        </button>
+        </fieldset>
+        
             <input
               type="submit"
               id="submitButton"

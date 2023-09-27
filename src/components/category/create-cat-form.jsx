@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useContext,useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import CategoryContext from '../contexts/category-context';
+import CatForm from './cat-form';
+import UserContext from '../contexts/user-context';
 
 import axios from '../../utils/future-self-api.js';
 
-export default function CatNameForm({
-  userId,
-  setCatId,
-  catId,
-  setCatName,
-  setCat,
-  cat,
-  inUse,
-  setInUse,
-}) {
+export default function CreateCatForm() {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
+  const { userId } = useContext(UserContext);
+  const [catId, setCatId] = useState('');
+  const [cat, setCat] = useState('');
+  const [catName, setCatName] = useState('');
+  const [inUse, setInUse] = useState(false);
   let _category = useRef();
   const [YELLOW] = useState('#FAFA37');
 
@@ -70,6 +68,7 @@ export default function CatNameForm({
           cons: [],
         };
         addCategory(_category.current);
+        setCatId(curCatId);
         loading && setLoading(false);
       } catch (err) {
         console.log(err.message);
@@ -79,7 +78,6 @@ export default function CatNameForm({
       _category.current = categories.find((cat) => cat.name === name);
     }
     setCatId(_category.id);
-    setCatName(name);
     setCat(_category.current)
     console.log('catNameForm', cat)
   };
@@ -162,9 +160,14 @@ useEffect(() => {
 
       {!loading && error && <p className="errMsg">{error.msg}</p>}
 
-      {isSubmitSuccessful && !error && name && (
+      {isSubmitSuccessful && !error && !inUse && (
         <p>{`title: ${name?.name} was saved successfully`}</p>
       )}
+      {cat && <CatForm
+          catId={catId}
+          cat={cat}
+          inUse={inUse}
+        />}
     </div>
   );
 }

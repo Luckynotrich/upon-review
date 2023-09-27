@@ -1,6 +1,6 @@
 import React, {useEffect, useCallback} from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
-import CatForm from './components/category/cat-form.js';
+import CreateCatForm from './components/category/create-cat-form.js';
 import ReviewCategory from './components/review/review-category.jsx';
 import ShowReview from './components/show-review';
 import './scss/App.scss';
@@ -43,7 +43,7 @@ function App() {
           </button>
         </Link>
 
-        <Link to="/cat-form">
+        <Link to="/create-cat-form">
           <button
           onClick={handleClick(1)}
             className={active[1] ? 'large-centerActive' : 'large-center'}
@@ -69,7 +69,7 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<ShowReview />}></Route>
-        <Route path="/cat-form" element={<CatForm />}></Route>
+        <Route path="/create-cat-form" element={<CreateCatForm />}></Route>
         <Route path="/review-form" element={<ReviewCategory />}></Route>
         <Route path="*" element={<ShowReview />}></Route>
       </Routes>
