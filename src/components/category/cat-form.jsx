@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef} from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import CategoryContext from '../contexts/category-context';
@@ -11,11 +11,28 @@ import axios from '../../utils/future-self-api';
 import Header from '../header';
 // import TextInput from './text-input';
 
-export default function CatForm(cat, catId, inUse) {
+export default function CatForm(cat, inUse) {
   const { /* categories, */ updateCategory } = useContext(CategoryContext);
-  let _cat = useRef();  
-  _cat.current = cat;
-  
+  const _cat = useRef({name: '',id: null, pros: [], cons: []});
+  let catId;
+  useEffect(() => {
+    if (cat) {
+      console.log('CatForm ->', cat);
+      _cat.current.id = cat.id;
+      if (cat.pros === undefined ) {
+        _cat.current.pros = [];
+        [...Array(5)].map((item = '') => {
+          _cat.current.pros.push(item);
+        });
+      if(cat.cons === undefined){
+        _cat.current.cons = [];
+        [...Array(5)].map((item = '') => {
+          _cat.current.cons.push(item);
+        });
+      }
+    }
+  }}, [cat]);
+
   const {
     register,
     control,
@@ -24,27 +41,27 @@ export default function CatForm(cat, catId, inUse) {
     formState: { errors, isDirty, isSubmitSuccessful },
     reset,
   } = useForm({
-    defaultValues: {
-      pros: _cat.current.pros,
-      cons: _cat.current.cons,
-    },
+  //   defaultValues: {
+  //     pros: _cat.current.pros,
+  //     cons: _cat.current.cons,
+  //   },
   });
-  const {
-    fields: proFields,
-    append: proAppend,
-    remove: proRemove,
-  } = useFieldArray({
-    control,
-    name: "pros",
-  });
-  const {
-    fields: conFields,
-    append: conAppend,
-    remove: conRemove,
-  } = useFieldArray({
-    control,
-    name: "cons",
-  });
+  // const {
+  //   fields: proFields,
+  //   append: proAppend,
+  //   remove: proRemove,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'pros',
+  // });
+  // const {
+  //   fields: conFields,
+  //   append: conAppend,
+  //   remove: conRemove,
+  // } = useFieldArray({
+  //   control,
+  //   name: 'cons',
+  // });
   //  const [response, error, loading, axiosFetch] = useAxios();
   let error;
   const onSubmit = async (data) => {
@@ -65,18 +82,17 @@ export default function CatForm(cat, catId, inUse) {
     await useNavigate(Link('/ShowReview'));
   };
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [formState, reset]);
+  // useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     reset();
+  //   }
+  // }, [formState, reset]);
 
   return (
     <>
       <Header ID={'category-title'} title={'Category'} />
-
+      {!inUse && <h5>then add pros and cons (optional)</h5>}
       <div className="container">
-        
         {_cat && (
           <form
             onSubmit={handleSubmit(onSubmit, error)}
@@ -86,53 +102,49 @@ export default function CatForm(cat, catId, inUse) {
             disabled={!catId}
             encType="multipart/form-data"
           >
-            <h4 className="left">Pros</h4>
-            <fieldset>
-          {proFields.map((item, index) => {
-            return (
-              <li key={item.id}>
-                <input {...register(`pros.${index}.value`)} />
-                <button
-                  type="buton"
-                  onClick={() => {
-                    proRemove(index);
-                  }}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
-           <button 
-            type="button" 
-            onClick={() => proAppend({ value: "" })}>
-          Append
-        </button>
-        </fieldset>
-            <h4 className="left">Cons</h4>
-            <fieldset>
-          {conFields.map((item, index) => {
-            return (
-              <li key={item.id}>
-                <input {...register(`cons.${index}.value`)} />
-                <button
-                  type="button"
-                  onClick={() => {
-                    conRemove(index);
-                  }}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
-          <button 
-            type="button" 
-            onClick={() => conAppend({ value: "" })}>
-          Append
-        </button>
-        </fieldset>
-        
+  {/*            <h4 className="left">Pros</h4> */}
+  {/*            <fieldset> */}
+  {/*              {proFields.map((item, index) => { */}
+               {/* return (
+                   <li key={item.id}>
+                     <input {...register(`pros.${index}.value`)} />
+                     <button
+                       type="buton"
+                       onClick={() => {
+                         proRemove(index);
+                       }}
+                     >
+                       Delete
+                     </button>
+                   </li>
+                 );
+               })}
+               <button type="button" onClick={() => proAppend({ value: '' })}>
+                 Append
+               </button>
+             </fieldset>
+             <h4 className="left">Cons</h4>
+             <fieldset>
+               {conFields.map((item, index) => {
+                 return (
+                   <li key={item.id}>
+                     <input {...register(`cons.${index}.value`)} />
+                     <button
+                       type="button"
+                       onClick={() => {
+                         conRemove(index);
+                       }}
+                     >
+                       Delete
+                     </button>
+                   </li>
+                 );
+               })}
+               <button type="button" onClick={() => conAppend({ value: '' })}>
+                 Append
+               </button>
+             </fieldset> */}
+
             <input
               type="submit"
               id="submitButton"

@@ -14,7 +14,7 @@ export const CategoryContextProvider = ({ children }) => {
   };
 
   const updateCategory = async ({name,id,userId,pros,cons}) => {
-    let newCat = {name:name,id:id,cat:userId,pros:pros,cons: cons};
+    let newCat = {name,id,userId,pros,cons};
     let newCategories = await categories.filter((cat) => cat.id !== id);
     await newCategories.push(newCat);
     await setCategories(newCategories);

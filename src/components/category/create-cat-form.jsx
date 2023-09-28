@@ -1,19 +1,24 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import CategoryContext from '../contexts/category-context';
-import CatForm from './cat-form';
-import UserContext from '../contexts/user-context';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '../../utils/error-fallback';
 
 import axios from '../../utils/future-self-api.js';
+import CategoryContext from '../contexts/category-context';
+import UserContext from '../contexts/user-context';
+
+import CatForm from './cat-form';
 
 export default function CreateCatForm() {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
   const { userId } = useContext(UserContext);
+
   const [catId, setCatId] = useState('');
   const [cat, setCat] = useState('');
-  const [catName, setCatName] = useState('');
+
   const [inUse, setInUse] = useState(false);
+  const [sent, setSent] = useState(false);
   let _category = useRef();
   const [YELLOW] = useState('#FAFA37');
 
@@ -31,7 +36,7 @@ export default function CreateCatForm() {
     },
   });
   let catNames = [];
-  // useEffect(() => {
+
   if (categories.length > 0) {
     categories.map((cat) => {
       let catName = cat.name;
@@ -40,7 +45,6 @@ export default function CreateCatForm() {
       catNames.push(name2);
     });
   }
-  // }, []);
 
   const name = watch('name');
   let error;
@@ -48,7 +52,9 @@ export default function CreateCatForm() {
   // const [response, error, loading, axiosFetch] = useAxios();
 
   const onSubmit = async (data) => {
-    let curCatId
+    setLoading(true);
+    let curCatId;
+    catNames.includes(name.toLocaleLowerCase().trim()) && setInUse(true);
     if (!inUse) {
       setLoading(true);
       try {
@@ -58,9 +64,9 @@ export default function CreateCatForm() {
           error,
         });
 
-       curCatId = await response.data;
+        curCatId = await response.data;
 
-        _category ={
+        _category = {
           name: name,
           id: curCatId,
           userId: userId,
@@ -75,18 +81,47 @@ export default function CreateCatForm() {
       }
     }
     if (inUse) {
-      _category.current = categories.find((cat) => cat.name === name);
+      console.log('inUse', name);
+
+      categories.map((cat) => {
+        if (
+          name.toLocaleLowerCase().trim() ===
+          cat.name.toLocaleLowerCase().trim()
+        ) {
+          _category.current = { name: cat.name, id: cat.id };
+          if (
+            cat.pros !== undefined &&
+            cat.pros.length > 0 &&
+            cat.pros[0].value !== null
+          ) {
+            _category.current.pros = [];
+            cat.pros.map((pro) => {
+              _category.current.pros.push(pro);
+            });
+          }
+          if (
+            cat.cons !== undefined &&
+            cat.cons.length > 0 &&
+            cat.cons[0].value !== null
+          ) {
+            _category.current.cons = [];
+            cat.cons.map((con) => {
+              _category.current.cons.push(con);
+            });
+          }
+        }
+      });
     }
-    setCatId(_category.id);
-    setCat(_category.current)
-    console.log('catNameForm', cat)
+    setSent(true);
+    setLoading(false)
+    setCat(_category.current);
   };
-useEffect(() => {
-  name.length > 3 && catNames.includes(name.toLocaleLowerCase().trim())
-      ? setInUse(true)
-      : setInUse(false);
-}, [name]);
-  
+  useEffect(() => {
+    name.length > 3 &&
+      catNames.includes(name.toLocaleLowerCase().trim()) &&
+      setInUse(true);
+    // : setInUse(false);
+  }, [name]);
 
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -95,7 +130,7 @@ useEffect(() => {
   }, [formState, reset]);
   return (
     <div>
-      <form
+       {!sent && <form
         onSubmit={handleSubmit(onSubmit, error)}
         id="catName"
         method="post"
@@ -105,8 +140,7 @@ useEffect(() => {
         encType="multipart/form-data"
       >
         <h4 id="nameLable" className="nameLable left">
-          {name.length > 3 &&
-          inUse ? (
+          {name.length > 3 && inUse ? (
             <span style={{ color: `${YELLOW}`, fontSize: '1.5rem' }}>
               {name} -- is in use.--- Select button to edit this category.
             </span>
@@ -154,8 +188,7 @@ useEffect(() => {
             }}
           ></input>
         </fieldset>
-        {!inUse && <h5>then add pros and cons (optional)</h5>}
-      </form>
+      </form>}
       {loading && <p>Loading.....</p>}
 
       {!loading && error && <p className="errMsg">{error.msg}</p>}
@@ -163,11 +196,12 @@ useEffect(() => {
       {isSubmitSuccessful && !error && !inUse && (
         <p>{`title: ${name?.name} was saved successfully`}</p>
       )}
-      {cat && <CatForm
-          catId={catId}
-          cat={cat}
-          inUse={inUse}
-        />}
+      {cat && (
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          
+          <CatForm cat={cat} inUse={inUse} />
+        </ErrorBoundary>
+      )}
     </div>
   );
 }
