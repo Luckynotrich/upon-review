@@ -21,6 +21,7 @@ textarea {
   width: 100%;
 }
 fieldset {
+  display: flexbox;
   border: none;
   border-radius: 2px;
   margin: 0%;
@@ -67,13 +68,6 @@ input[type='button'] {
   opacity: 20%;
   margin: 2px;
 }
-// input[type="radio"]{
-//   margin-bottom: 2%;
-// }
-// input[type="radio"]:after{
-//   position: relative;
-//   display: inline-block;
-//   margin-bottom: .5%;
 
 // }
 label[for='star'] {

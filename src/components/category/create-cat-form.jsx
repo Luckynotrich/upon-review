@@ -66,13 +66,11 @@ export default function CreateCatForm() {
 
         curCatId = await response.data;
 
-        _category = {
+        _category.current = {
           name: name,
           id: curCatId,
-          userId: userId,
-          pros: [],
-          cons: [],
         };
+
         addCategory(_category.current);
         setCatId(curCatId);
         loading && setLoading(false);
@@ -81,46 +79,28 @@ export default function CreateCatForm() {
       }
     }
     if (inUse) {
-      console.log('inUse', name);
+      //console.log('inUse', name);
 
       categories.map((cat) => {
         if (
           name.toLocaleLowerCase().trim() ===
           cat.name.toLocaleLowerCase().trim()
         ) {
-          _category.current = { name: cat.name, id: cat.id };
-          if (
-            cat.pros !== undefined &&
-            cat.pros.length > 0 &&
-            cat.pros[0].value !== null
-          ) {
-            _category.current.pros = [];
-            cat.pros.map((pro) => {
-              _category.current.pros.push(pro);
-            });
-          }
-          if (
-            cat.cons !== undefined &&
-            cat.cons.length > 0 &&
-            cat.cons[0].value !== null
-          ) {
-            _category.current.cons = [];
-            cat.cons.map((con) => {
-              _category.current.cons.push(con);
-            });
-          }
-        }
+          _category.current = cat;
+          setCatId(cat.id);
+         }
       });
     }
+    
     setSent(true);
     setLoading(false)
-    setCat(_category.current);
+    await setCat(_category.current);
   };
   useEffect(() => {
     name.length > 3 &&
-      catNames.includes(name.toLocaleLowerCase().trim()) &&
-      setInUse(true);
-    // : setInUse(false);
+      catNames.includes(name.toLocaleLowerCase().trim()) ?
+      setInUse(true)
+     : setInUse(false);
   }, [name]);
 
   useEffect(() => {
@@ -178,8 +158,8 @@ export default function CreateCatForm() {
             type="submit"
             id="submitButton"
             className="create"
-            hidden={catId}
-            disabled={catId}
+            //  hidden={catId.catId}
+            // disabled={catId}
             value={!inUse ? 'Create' : 'Edit'}
             onClick={() => {
               !errors.name
@@ -199,7 +179,7 @@ export default function CreateCatForm() {
       {cat && (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           
-          <CatForm cat={cat} inUse={inUse} />
+          <CatForm catId={catId}  />
         </ErrorBoundary>
       )}
     </div>
