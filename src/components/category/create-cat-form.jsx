@@ -7,6 +7,7 @@ import axios from '../../utils/future-self-api.js';
 import CategoryContext from '../contexts/category-context';
 import UserContext from '../contexts/user-context';
 
+import Header from '../header';
 import CatForm from './cat-form';
 
 export default function CreateCatForm() {
@@ -110,6 +111,7 @@ export default function CreateCatForm() {
   }, [formState, reset]);
   return (
     <div>
+      <Header ID={'category-title'} title={'Category'} />
        {!sent && <form
         onSubmit={handleSubmit(onSubmit, error)}
         id="catName"
@@ -133,7 +135,7 @@ export default function CreateCatForm() {
               {name} -- is available
             </span>
           ) : (
-            'create a category name'
+            'create / edit a category'
           )}
         </h4>
         <fieldset>
@@ -162,9 +164,9 @@ export default function CreateCatForm() {
             // disabled={catId}
             value={!inUse ? 'Create' : 'Edit'}
             onClick={() => {
-              !errors.name
-                ? "style.visibility='hidden'"
-                : "style.visibility='visible'";
+              // !errors.name
+              //   ? "style.visibility='hidden'"
+              //   : "style.visibility='visible'";
             }}
           ></input>
         </fieldset>

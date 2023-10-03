@@ -132,7 +132,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           control={control}
           propArr={pros}
           propArrCount={0}
-          name={'Pros'}
+          name={'Likes'}
         />
       )}
       
@@ -142,7 +142,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           control={control}
           propArr={cons}
           propArrCount={pros.length}
-          name={'Cons'}
+          name={'Dis-likes'}
         />
       )}
       

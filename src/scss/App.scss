@@ -1,6 +1,6 @@
 $left-margin: 7%;
 html {
-  width: 100%;
+  width: 99%;
   min-width: fit-content;
   overflow: scroll;
   font-family: Arial, Helvetica, sans-serif;
@@ -11,7 +11,7 @@ html {
   margin: 0 auto;
   float: none !important;
   // outline: 1px solid red;
-  width: 100%;
+  width: 99%;
 }
 :root {
   --max-width: 1200px;
@@ -64,7 +64,7 @@ html {
   visibility: hidden;
 }
 [class^='large'] {
-  width: 100%;
+  width: 99%;
   height: 90%;
   color:#000;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4),
@@ -74,7 +74,7 @@ html {
   text-align: center;
   vertical-align: middle;
   padding: 1%;
-  margin: 1%;
+  margin: 1% 0%;
 }
 .large-center {
   color: #cfad02;
@@ -102,17 +102,15 @@ html {
 }
 
 .header-title {
+  max-width: 99%;
   position: relative;
   color:transparent;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4),
-  0 6px 10px 0 rgba(240, 7, 7, 0.19);
+  // box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4),
+  // 0 6px 10px 0 rgba(240, 7, 7, 0.19);
   width: 32.9%;
   padding: 1%;
   z-index: -1;
-  // margin: 1%;
   margin-top: -3%;
-  // border-bottom-right-radius: 7px;
-  // border-bottom-left-radius: 7px;
 }
 #review-title {
   // position: relative;

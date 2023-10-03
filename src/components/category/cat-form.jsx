@@ -6,15 +6,13 @@ import { catObj } from '../../utils/cat-obj';
 
 import ShowReview from '../show-review';
 import axios from '../../utils/future-self-api';
-
-import Header from '../header';
 // import TextInput from './text-input';
 
 export default function CatForm(catId) {
   const { categories, updateCategory, categoryIndexOf } =
     useContext(CategoryContext);
   const _cat = useRef();
-//kind of wierd that I have to destructure catId to get the value of catId
+  //kind of wierd that I have to destructure catId to get the value of catId
   let index = categoryIndexOf(catId.catId);
   _cat.current = catObj(categories[index]);
 
@@ -68,7 +66,6 @@ export default function CatForm(catId) {
 
   return (
     <>
-      <Header ID={'category-title'} title={'Category'} />
       {_cat && <h5>then add likes and dislikes (optional)</h5>}
       <div className="container">
         {_cat && (
@@ -91,20 +88,25 @@ export default function CatForm(catId) {
                       className="center"
                       placeholder="I like..."
                     />
-                     
-                      {item.value && <button className="inputBtn"
-                        type="buton"
-                        onClick={(e) => {
-                          proRemove(index);
-                          }}>
-                        {item.value ? 'Delete' : 'Commit'}
-                      </button>}
-                    
+
+                    <button
+                      className="inputBtn material-symbols-outlined deleteBtn"
+                      type="buton"
+                      onClick={(e) => {
+                        proRemove(index);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 );
               })}
-              <button type="button" className="inputBtn appendBtn" onClick={() => proAppend({ value: '' })}>
-                Append
+              <button
+                type="button"
+                className="inputBtn appendBtn material-symbols-outlined"
+                onClick={() => proAppend({ value: '' })}
+              >
+                add_box
               </button>
             </fieldset>
             <h4 className="left">Dis-likes</h4>
@@ -118,21 +120,26 @@ export default function CatForm(catId) {
                       className="center"
                       placeholder="I don't like..."
                     />
-                    
-                      <button className="inputBtn"
-                        type="button"
-                        onClick={() => {
-                          conRemove(index);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    
+
+                    <button
+                      className="inputBtn material-symbols-outlined deleteBtn"
+                      type="button"
+                      onClick={() => {
+                        conRemove(index);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 );
               })}
-              <button type="button" className="inputBtn appendBtn" onClick={() => conAppend({ value: '' })}>
-                Append
+              <button
+                type="button"
+                className="inputBtn appendBtn material-symbols-outlined"
+                onClick={() => conAppend({ value: '' })}
+              >
+                add_box
+                {/* <span class="material-symbols-outlined">add_box</span> */}
               </button>
             </fieldset>
 
