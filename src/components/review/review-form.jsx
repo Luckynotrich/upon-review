@@ -146,7 +146,6 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
         />
       )}
       
-      {/* <div className="container"> */}
         <fieldset>
           <label htmlFor="revText">Review</label>
           <textarea

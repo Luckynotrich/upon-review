@@ -7,6 +7,7 @@ import './scss/App.scss';
 
 function App() {
   const [active, setActive] = React.useState([true, false, false]);
+  const [currentPage,setCurrentPage] = useState(<ShowReview />);
   const handleClick = (index) =>{
     return () => {
       const newActive = [false, false, false];

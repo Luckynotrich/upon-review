@@ -5,9 +5,9 @@
   }
  
   input[type=text], select, textarea {
-    width: 85%;
+    width: 84%;
     height: 10%;
-    margin: 0% 1% 4% ;
+    margin: .5% 1% .5% ;
 
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -15,8 +15,11 @@
   }
   .inputBtn{
     position: relative;
-    max-width: 12%;
+    width: 5%;
+    min-width: 40px;
     padding: .5%;
+    min-height: 14px;
+    height: 12%;
    }
    
    .material-symbols-outlined {
@@ -28,7 +31,7 @@
    }
 .appendBtn{
   padding: .5rem;
-    margin: .5% ; 
+    margin: 1% ; 
     margin-left: 86%;
 }
 
@@ -56,7 +59,7 @@
   }
   
   .container {
-    border: 1em solid #91d694;
+    border: .5em solid #91d694;
     width: 100%;
   }
  

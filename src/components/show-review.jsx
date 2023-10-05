@@ -15,7 +15,9 @@ function ShowReview() {
   let _categories = useRef();
   let _reviews = useRef();
   let isSubscribed = useRef(true);
-  let [gotCats, setGotCats] = useState('');
+  const [gotCats, setGotCats] = useState('');
+  
+
 
   useEffect(async () => {
     async function getData(userId) {
