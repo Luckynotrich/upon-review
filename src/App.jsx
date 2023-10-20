@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback} from 'react';
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Routes, Route, Link, Outlet, } from 'react-router-dom';
 import CreateCatForm from './components/category/create-cat-form.js';
 import ReviewCategory from './components/review/review-category.jsx';
 import ShowReview from './components/show-review';
@@ -7,7 +7,7 @@ import './scss/App.scss';
 
 function App() {
   const [active, setActive] = React.useState([true, false, false]);
-  const [currentPage,setCurrentPage] = useState(<ShowReview />);
+  console.log(`${import.meta.env.SNOWPACK_PUBLIC_TITLE}`+':',`${import.meta.env.SNOWPACK_PUBLIC_DESCRIPTION}`)
   const handleClick = (index) =>{
     return () => {
       const newActive = [false, false, false];
@@ -19,10 +19,17 @@ function App() {
     // F5
     if((e.which || e.keyCode) == 116) {
       e.preventDefault();
+      location.reload();
+      window.location.href = `${import.meta.env.SNOWPACK_PUBLIC_PROXY_URL}`///'http://localhost:8081';
+      
   }
   // Ctrl+R
   if (e.ctrlKey && (e.which === 82) ) {
     e.preventDefault();
+    //  const { href } = window.location;
+    // console.log('href ', window.location);
+    location.reload();
+    window.location.href = `${import.meta.env.SNOWPACK_PUBLIC_PROXY_URL}`;//'http://localhost:8081';
   }
   },[])
   useEffect(() => {

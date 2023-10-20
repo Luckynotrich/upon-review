@@ -25,4 +25,9 @@ export default {
   buildOptions: {
     /* ... */
   },
+  env: {
+    // API_URL: 'api.google.com',
+    SNOWPACK_PUBLIC_PROXY_URL:'http://localhost:8081',
+    SNOWPACK_PUBLIC_BASE_URL:'http://localhost:8081',
+  },
 };
