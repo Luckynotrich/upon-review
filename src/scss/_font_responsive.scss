@@ -198,7 +198,7 @@ h5 {
 p,input,/* placeholder, */select,textarea,button,span,div,li,ul,ol,a {
   @include font-size($p-font-sizes)
 }
-// .hidden{
-//   @include font-size($hidden)
-// }
+a[id*='large-']{
+  @include font-size($h1-font-sizes);
+}
 

@@ -1,14 +1,13 @@
 import React, { useEffect, useContext, useRef } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
+import  UserContext  from '../contexts/user-context';
 import CategoryContext from '../contexts/category-context';
 import { catObj } from '../../utils/cat-obj';
 
-import ShowReview from '../show-review';
 import axios from '../../utils/future-self-api';
-// import TextInput from './text-input';
 
 export default function CatForm(catId) {
+  const { userId } = useContext(UserContext);
   const { categories, updateCategory, categoryIndexOf } =
     useContext(CategoryContext);
   const _cat = useRef();
@@ -21,7 +20,7 @@ export default function CatForm(catId) {
     control,
     handleSubmit,
     formState,
-    formState: { errors, isDirty, isSubmitSuccessful },
+    formState: { errors, isDirty, isSubmitSuccessful,isLoading },
     reset,
   } = useForm({
     defaultValues: {
@@ -45,20 +44,20 @@ export default function CatForm(catId) {
     control,
     name: 'cons',
   });
-  //  const [response, /* error, */ loading, axiosFetch] = useAxios();
+  
   let error;
   const onSubmit = async (data) => {
+    await updateCategory(catId, data);
     setLoading(true);
-    await axios.put('/api/preference-api/updateOne/?', {
+    await axios.put('/api/category-api/updateOne/?', {
       data,
       catId,
       error,
     });
-    await updateCategory(response);
-    await useNavigate(Link('/ShowReview'));
   };
 
   useEffect(() => {
+    console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
     }
@@ -70,12 +69,12 @@ export default function CatForm(catId) {
       <div className="container">
         {_cat && (
           <form
-            // onSubmit={handleSubmit(onSubmit, error)}
-            id="category"
-            method="post"
-            action="send"
-            disabled={!catId}
+            onSubmit={handleSubmit(onSubmit, error)}
             encType="multipart/form-data"
+            method="put"
+            action='send'
+            id="category"
+            // disabled={!catId}
           >
             <h4 className="left">Likes</h4>
             <fieldset>

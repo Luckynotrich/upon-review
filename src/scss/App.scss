@@ -21,11 +21,12 @@ html {
 }
 @media screen and (prefers-color-scheme: dark) {
   p,a,h2,h3,h4,h5,h6,span,label/* ,:placeholder-shown */ {
-    color: #fff;
+    color: #f66809;
   }
   body,
   div.container {
-    background-color: #000;
+     background-color: #000;
+    // background-color: #fff;
   }
 }
 @media screen and (prefers-color-scheme: light) {
@@ -46,7 +47,7 @@ html {
   select,
   input,
   textarea {
-    color: #000;
+    color: #5d0303;
   }
   body,
   div.container {
@@ -63,10 +64,9 @@ html {
 .hidden {
   visibility: hidden;
 }
-[class^='large'] {
+@mixin large {
   width: 99%;
   height: 90%;
-  color:#000;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4),
     0 6px 10px 0 rgba(240, 7, 7, 0.19);
   border-top-right-radius: 7px;
@@ -74,33 +74,41 @@ html {
   text-align: center;
   vertical-align: middle;
   padding: 1%;
-  margin: 1% 0%;
+  margin: 1% 0;
 }
-.large-center {
+
+#large-center {
   color: #cfad02;
-  background-color: #FFDB00;
+  background-color: #ffdb00;
   left: 0.7%;
+  @include large;
 }
-.large-centerActive {
-  background-color: #FAFA37;
+
+#large-right {
+  color: #94480a;
+  background-color: #c46210;
+  left: 0.7%;
+  @include large;
 }
-.large-left {
+#large-left {
   color: #2e7d42;
   background-color: #0a6120;
   left: 0.7%;
-}
-.large-leftActive {
-  background-color:  	#8FD400;
-}
-.large-right {
-  color: #94480a;
-  background-color: #C46210;
-  left: 0.7%;
-}
-.large-rightActive {
-  background-color: #FF9933;
+  @include large;
 }
 
+#large-left.active {
+  background-color: #8fd400;
+  color: #000
+}
+#large-center.active {
+  background-color: #fafa37;
+  color: #000
+}
+#large-right.active {
+  background-color: #ff9933;
+  color: #000
+}
 .header-title {
   max-width: 99%;
   position: relative;
