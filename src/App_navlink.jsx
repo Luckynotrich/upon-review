@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect} from 'react';
 import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
-// import { useQuery } from '@tanstack/react-query';
-
-// import UserContext from './components/contexts/user-context.jsx';
-// import CategoryContext from './components/contexts/category-context.jsx';
-// import ReviewContext from './components/contexts/review-context.jsx';
 
 import CreateCatForm from './components/category/create-cat-form.jsx';
 import ReviewCategory from './components/review/review-category.jsx';
@@ -12,10 +7,7 @@ import ShowReview from './components/show-review.jsx';
 import './scss/App.scss';
 
 function App() {
-  // const {setCategories} = useContext(CategoryContext);
-  // const {setReviews} = useContext(ReviewContext);
-  // const userId = useContext(UserContext);
-   
+     
   const [isDefault, setIsDefault] = useState(false);
   
   useEffect(() => {

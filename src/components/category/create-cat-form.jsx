@@ -6,6 +6,7 @@ import ErrorFallback from '../../utils/error-fallback';
 import axios from '../../utils/future-self-api.js';
 import CategoryContext from '../contexts/category-context';
 import UserContext from '../contexts/user-context';
+import { useCategoriesQuery} from '../contexts/current-categories-context';
 
 import Header from '../header';
 import CatForm from './cat-form';
@@ -14,6 +15,7 @@ export default function CreateCatForm() {
   const [loading, setLoading] = useState(false);
   const { categories, addCategory } = useContext(CategoryContext);
   const { userId } = useContext(UserContext);
+  const {data: cats} = useCategoriesQuery(userId);
 
   const [catId, setCatId] = useState('');
   const [cat, setCat] = useState('');
@@ -38,8 +40,8 @@ export default function CreateCatForm() {
   });
   let catNames = [];
 
-  if (categories.length > 0) {
-    categories.map((cat) => {
+  if (cats) {
+    cats.map((cat) => {
       let catName = cat.name;
       let name2;
       if (catName) name2 = catName.toLocaleLowerCase();
@@ -82,7 +84,7 @@ export default function CreateCatForm() {
     if (inUse) {
       //console.log('inUse', name);
 
-      categories.map((cat) => {
+      cats.map((cat) => {
         if (
           name.toLocaleLowerCase().trim() ===
           cat.name.toLocaleLowerCase().trim()

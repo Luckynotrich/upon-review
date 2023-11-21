@@ -24,7 +24,7 @@ ReactDOM.render(
 
               <App />
               
-              <ReactQueryDevtools initialIsOpen={true} />
+              <ReactQueryDevtools initialIsOpen={true} position='bottom-left'/>
             </Router>
           </ReviewContextProvider>
         </SelectedDataContextProvider>

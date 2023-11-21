@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 
 import StarRating from './star_rating_rhf';
-// import CheckBox from './checkbox_rhf';
 import axios from '../../utils/future-self-api';
 import CheckList from './check-list';
 

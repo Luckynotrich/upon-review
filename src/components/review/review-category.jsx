@@ -1,23 +1,24 @@
 import React, { useState, useContext, useEffect } from 'react';
+import UserContext from '../contexts/user-context';
 import Header from '../header';
 import Select from './select';
 import ReviewForm from './review-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
-import CategoryContext from '../contexts/category-context';
-
+import { useCategoriesQuery} from '../contexts/current-categories-context';
 
 const ReviewCategory = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
   const { setCatId } = useContext(ReviewContext);
-  const { categories} = useContext(CategoryContext);
   const [catState, setCatState] = useState('');
+  const { userId } = useContext(UserContext);
+  const {data: cats} = useCategoriesQuery(userId);
   
-    
+  
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
-    const selectedCat = categories.filter((cat) => cat.id === id)[0];
+    const selectedCat = cats.filter((cat) => cat.id === id)[0];
     if (selectedCat) {
       clearPropArray();
       setCatId(id);
@@ -32,11 +33,11 @@ let i = 0;
     <div className="container">
       
       <form>
-        {categories.length > 0 ? (
+        {cats.length > 0 ? (
           <Select
-            categories={categories}
+            categories={cats}
             onSelect={chooseCat}
-            key={categories.id}
+            key={cats.id}
             onClick={() => {setCatState(''); setCatId(0); clearPropArray();}}
           />
         ) : (

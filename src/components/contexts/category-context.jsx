@@ -1,12 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
 
-import UserContext from './user-context';
-
 const CategoryContext = createContext(); 
 
 export const CategoryContextProvider = ({ children }) => {
-  const { userId } = useContext(UserContext);
-
+  
 
   const [categories, setCategories] = useState([]);
   const [catId, setCatId] = useState();
@@ -45,5 +42,3 @@ export const CategoryContextProvider = ({ children }) => {
   );
 };
 export default CategoryContext;
-//Brower says: either useQuery is not a function or its return value is not iterable. why is the getCats function is not being called?
-// That line is already in the file. I'm not sure why it's not working. I'll try to figure it out.Ok

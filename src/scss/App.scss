@@ -140,6 +140,11 @@ html {
   margin-top: 2%;
   width: 87%;
 }
+.noCategories{
+  position: relative;
+  left: -left-margin;
+  margin-top: 10%;
+}
 @media screen and (max-width: 600px) {
   [class^='large'] {
     align-items: center;
