@@ -33,6 +33,7 @@ const categoriesQuery = (userId) => {
     cacheTime: 1000 * 60 * 60, // 1 hour
     refetchOnMount: false,
   });
+  
 };
 export const useCategoriesQuery = (userId) => {
   return categoriesQuery(userId);

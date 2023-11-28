@@ -1,17 +1,15 @@
 import React, { useEffect, useContext, useRef } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
 
 // import { ErrorBoundary } from 'react-error-boundary';
 // import ErrorFallback from '../../utils/error-fallback';
-import CategoryContext from '../contexts/category-context';
-import { catObj } from '../../utils/cat-obj';
+import CategoryContext from './src/components/contexts/category-context';
+import { catObj } from './src/utils/cat-obj';
 
-import {updateCat} from '../../utils/future-self-api';
+import {updateCat} from './src/utils/future-self-api';
 
-
-export default function CatForm(catId, mutateAsync) {
-  // const { userId } = useContext(UserContext);
+export function CatForm(catId, mutateAsync) {
   const { categories, updateCategory, categoryIndexOf } =
     useContext(CategoryContext);
   const _cat = useRef();
@@ -50,18 +48,15 @@ export default function CatForm(catId, mutateAsync) {
   });
   let error;
   const onSubmit = async (data, error) => {
-    const { mutateAsync } = useMutation({
-      mutationFn: updateCat(data, catId),
-      onSuccess: () => {
-        QueryClient.invalidateQueries('cats')
-      }}); 
-    // await axios.put('/api/category-api/updateOne/?', {
-    //   data,
-    //   catId,
-    //   error,
-    // });
+    await updateCategory(catId, data);
+    await setLoading(true);
+    await mutateAsync(data, catId);  
   };
- 
+  const { mutateAsync } = useMutation({
+    mutationFn: updateCat(data, catId),
+    onSuccess: () => {
+      QueryClient.invalidateQueries('cats')
+    }});
   
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
@@ -89,13 +84,17 @@ export default function CatForm(catId, mutateAsync) {
               {proFields.map((item, index) => {
                 return (
                   <div key={item.id}>
+                    <Controller
+                    render={({ field }) => {
                     <input
                       {...register(`pros.${index}.value`)}
                       type="text"
                       className="center"
                       placeholder="I like..."
                     />
-
+                    }
+                    // />
+                }
                     <button
                       className="inputBtn material-symbols-outlined deleteBtn"
                       type="buton"

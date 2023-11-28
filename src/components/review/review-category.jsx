@@ -5,16 +5,19 @@ import Select from './select';
 import ReviewForm from './review-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
+import CategoryContext from '../contexts/category-context';
 import { useCategoriesQuery} from '../contexts/current-categories-context';
 
 const ReviewCategory = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
   const { setCatId } = useContext(ReviewContext);
-  const [catState, setCatState] = useState('');
+  const { setCategories } = useContext(CategoryContext);
   const { userId } = useContext(UserContext);
+  
+  const [catState, setCatState] = useState('');
+
   const {data: cats} = useCategoriesQuery(userId);
-  
-  
+  useEffect(() => {setCategories(cats)}, [cats]);
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);

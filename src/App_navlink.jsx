@@ -6,8 +6,7 @@ import ReviewCategory from './components/review/review-category.jsx';
 import ShowReview from './components/show-review.jsx';
 import './scss/App.scss';
 
-function App() {
-     
+function App() {    
   const [isDefault, setIsDefault] = useState(false);
   
   useEffect(() => {
@@ -19,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <div className="routes">
+      
         <NavLink
           to="/"
           id="large-left"
@@ -34,6 +34,7 @@ function App() {
         >
           Future
         </NavLink>
+        
         <NavLink to="/create-cat-form" id="large-center">
           Upon
         </NavLink>

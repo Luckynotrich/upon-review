@@ -1,11 +1,11 @@
 //src/components/show-review.jsx
 
-import React,{ useContext } from 'react';
+import React,{ useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 
 import CategoryContext from './contexts/category-context';
-import ReviewContext from './contexts/review-context';
+// import ReviewContext from './contexts/review-context';
 import UserContext from './contexts/user-context';
                       //src/utils/future-self-api.js
 import { getRevs } from '../utils/future-self-api';
@@ -15,8 +15,10 @@ import { useCategoriesQuery} from './contexts/current-categories-context';
 function ShowReview() {
   //                                        
   const { userId } = useContext(UserContext);
+  const { setCategories } = useContext(CategoryContext);
+  
   const {data: cats} = useCategoriesQuery(userId);
-  const { setReviews } = useContext(CategoryContext);
+  useEffect(() => {setCategories(cats)}, [cats]);
 
 const {
   data: revs,
@@ -28,11 +30,12 @@ const {
   queryKey: ['revs', userId],
   queryFn: () => getRevs(userId),
   staleTime: 1000 * 60 * 5, // 5 minute
-  onSucess: (revs) => {
-    console.log('show-review::revs ', revs);
-    setReviews(revs);    
+  cacheTime: 1000 * 60 * 60, // 1 hour    
   }
-});
+);
+
+
+
 if (isLoading) return <div>Loading...</div>;
 else if (isError) return <div>Error: {error.message}</div>;
 else if(!cats) return <div className="noCategories"><h4>No categories yet. Please add a category</h4></div>;
