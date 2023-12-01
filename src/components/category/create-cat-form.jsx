@@ -9,7 +9,7 @@ import UserContext from '../contexts/user-context';
 // import { useCategoriesQuery} from '../contexts/current-categories-context';
 
 import Header from '../header';
-import CallCatForm from './cat-form';
+import CatForm from './cat-form';
 
 export default function CreateCatForm() {
   const [loading, setLoading] = useState(false);
@@ -19,6 +19,7 @@ export default function CreateCatForm() {
 
   const [catId, setCatId] = useState('');
   const [cat, setCat] = useState('');
+  const [catName, setCatName] = useState('');
 
   const [inUse, setInUse] = useState(false);
   const [sent, setSent] = useState(false);
@@ -51,9 +52,6 @@ export default function CreateCatForm() {
 
   const name = watch('name');
   let error;
-
-  // const [response, error, loading, axiosFetch] = useAxios();
-
   const onSubmit = async (data) => {
     setLoading(true);
     let curCatId;
@@ -66,14 +64,12 @@ export default function CreateCatForm() {
           userId,
           error,
         });
-
         curCatId = await response.data;
 
         _category.current = {
           name: name,
           id: curCatId,
         };
-
         addCategory(_category.current);
         setCatId(curCatId);
         loading && setLoading(false);
@@ -82,8 +78,6 @@ export default function CreateCatForm() {
       }
     }
     if (inUse) {
-      //console.log('inUse', name);
-
       categories.map((cat) => {
         if (
           name.toLocaleLowerCase().trim() ===
@@ -104,6 +98,7 @@ export default function CreateCatForm() {
       catNames.includes(name.toLocaleLowerCase().trim()) ?
       setInUse(true)
      : setInUse(false);
+     setCatName(name);
   }, [name]);
 
   useEffect(() => {
@@ -180,10 +175,11 @@ export default function CreateCatForm() {
       {isSubmitSuccessful && !error && !inUse && (
         <p>{`title: ${name?.name} was saved successfully`}</p>
       )}
+      
       {cat && (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          
-          <CallCatForm catId={catId}  />
+          {cat.name}
+          <CatForm catId={catId} catName={catName}  />
         </ErrorBoundary>
       )}
     </div>

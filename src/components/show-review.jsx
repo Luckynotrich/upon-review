@@ -3,21 +3,19 @@
 import React,{ useContext, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-
 import CategoryContext from './contexts/category-context';
-// import ReviewContext from './contexts/review-context';
 import UserContext from './contexts/user-context';
                       //src/utils/future-self-api.js
 import { getRevs } from '../utils/future-self-api';
 import Header from './header';
-import { useCategoriesQuery} from './contexts/current-categories-context';
+import { useCatsQuery} from './contexts/current-cats-context';
 
 function ShowReview() {
   //                                        
   const { userId } = useContext(UserContext);
   const { setCategories } = useContext(CategoryContext);
   
-  const {data: cats} = useCategoriesQuery(userId);
+  const {data: cats} = useCatsQuery(userId);
   useEffect(() => {setCategories(cats)}, [cats]);
 
 const {
@@ -33,8 +31,6 @@ const {
   cacheTime: 1000 * 60 * 60, // 1 hour    
   }
 );
-
-
 
 if (isLoading) return <div>Loading...</div>;
 else if (isError) return <div>Error: {error.message}</div>;

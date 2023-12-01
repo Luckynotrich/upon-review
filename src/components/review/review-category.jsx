@@ -1,12 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
+
 import UserContext from '../contexts/user-context';
-import Header from '../header';
-import Select from './select';
-import ReviewForm from './review-form';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
 import CategoryContext from '../contexts/category-context';
-import { useCategoriesQuery} from '../contexts/current-categories-context';
+import { useCatsQuery} from '../contexts/current-cats-context';
+
+import Header from '../header';
+import Select from './select';
+import ReviewForm from './review-form';
+
+
 
 const ReviewCategory = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
@@ -16,7 +20,7 @@ const ReviewCategory = () => {
   
   const [catState, setCatState] = useState('');
 
-  const {data: cats} = useCategoriesQuery(userId);
+  const {data: cats} = useCatsQuery(userId);
   useEffect(() => {setCategories(cats)}, [cats]);
 
   const chooseCat = (e) => {

@@ -1,22 +1,27 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useContext, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import {useMutation} from '@tanstack/react-query';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 
-// import { ErrorBoundary } from 'react-error-boundary';
-// import ErrorFallback from '../../utils/error-fallback';
+//  import { ErrorBoundary } from 'react-error-boundary';
+//  import ErrorFallback from '../../utils/error-fallback';
+
+// import { useCategoriesQuery} from '../contexts/current-categories-context'; 
 import CategoryContext from '../contexts/category-context';
 import { catObj } from '../../utils/cat-obj';
 
 import {updateCat} from '../../utils/future-self-api';
 
 
-export default function CatForm(catId, mutateAsync) {
-  // const { userId } = useContext(UserContext);
-  const { categories, updateCategory, categoryIndexOf } =
+export default function CatForm({catId, catName}) {
+  const [display, setDisplay] = useState(false);
+  useEffect(() => { if(catId) setDisplay(true)}, [])
+  const queryClient = useQueryClient();
+
+  const { categories, categoryIndexOf } =
     useContext(CategoryContext);
   const _cat = useRef();
-  //kind of wierd that I have to destructure catId to get the value of catId
-  let index = categoryIndexOf(catId.catId);
+  
+  let index = categoryIndexOf(catId);
   _cat.current = catObj(categories[index]);
 
   const {
@@ -49,40 +54,39 @@ export default function CatForm(catId, mutateAsync) {
     name: 'cons',
   });
   let error;
-  const onSubmit = async (data, error) => {
-    const { mutateAsync } = useMutation({
-      mutationFn: updateCat(data, catId),
+   
+    const { mutateAsync: updateCatMutation } = useMutation({
+      mutationFn: async (data) => await updateCat(data, catId),
       onSuccess: () => {
-        QueryClient.invalidateQueries('cats')
+        queryClient.invalidateQueries('cats')
+        reset();
       }}); 
-    // await axios.put('/api/category-api/updateOne/?', {
-    //   data,
-    //   catId,
-    //   error,
-    // });
-  };
  
-  
+  // const {data: cats} = useCategoriesQuery(userId);
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [formState, reset]);
+  }, [formState, reset, isSubmitSuccessful]);
 
   return (
     <>
-      {_cat && <h5>then add likes and dislikes (optional)</h5>}
+      {_cat && <h5>{catName} add likes and dislikes (optional)</h5>}
       <div className="container">
+      {/* {_cat && } */}
         {_cat && (
-          // <ErrorBoundary FallbackComponent={ErrorFallback}>
+          //  <ErrorBoundary FallbackComponent={ErrorFallback}>
+          
+          
           <form
-            onSubmit={handleSubmit(onSubmit, error)}
+            onSubmit={handleSubmit(updateCatMutation, error)}
             encType="multipart/form-data"
             method="put"
             action='send'
             id="category"
-            // disabled={!catId}
+            disabled={!display}
+            hidden={!display}
           >
             <h4 className="left">Likes</h4>
             <fieldset>
@@ -154,11 +158,21 @@ export default function CatForm(catId, mutateAsync) {
               type="submit"
               id="submitButton"
               className="create"
-              hidden={!catId}
+              hidden={!display}
               defaultValue="Create"
-            ></input>
+              onClick={ async () => {
+              //   try {
+              //     await updateCatMutation();
+                  setDisplay(false)
+              //   }
+              //   catch (err) {
+              //     console.log(err);
+              //   } 
+                
+              }
+            }></input>
           </form>
-          // {/* </ErrorBoundary> */}
+          // </ErrorBoundary>
         )}
         {/* {loading && <p>Loading...</p>}
 
