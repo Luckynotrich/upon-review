@@ -5,24 +5,25 @@ import {useMutation, useQueryClient} from '@tanstack/react-query';
 //  import { ErrorBoundary } from 'react-error-boundary';
 //  import ErrorFallback from '../../utils/error-fallback';
 
-// import { useCategoriesQuery} from '../contexts/current-categories-context'; 
+ import { useCatsQuery} from '../contexts/current-cats-context'; 
 import CategoryContext from '../contexts/category-context';
-import { catObj } from '../../utils/cat-obj';
-
+import { katObj } from '../../utils/kat-obj';
+import UserContext from '../contexts/user-context';
 import {updateCat} from '../../utils/future-self-api';
 
 
 export default function CatForm({catId, catName}) {
+  const { userId} = useContext(UserContext);
   const [display, setDisplay] = useState(false);
   useEffect(() => { if(catId) setDisplay(true)}, [])
   const queryClient = useQueryClient();
 
-  const { categories, categoryIndexOf } =
+  const { categories, setCategories, categoryIndexOf } =
     useContext(CategoryContext);
   const _cat = useRef();
   
   let index = categoryIndexOf(catId);
-  _cat.current = catObj(categories[index]);
+  _cat.current = katObj(categories[index]);
 
   const {
     register,
@@ -62,19 +63,18 @@ export default function CatForm({catId, catName}) {
         reset();
       }}); 
  
-  // const {data: cats} = useCategoriesQuery(userId);
+   const {data: cats} = useCatsQuery(userId);
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
-    }
-  }, [formState, reset, isSubmitSuccessful]);
+    }setCategories(cats);
+  }, [formState, reset, cats, isSubmitSuccessful]);
 
   return (
     <>
       {_cat && <h5>{catName} add likes and dislikes (optional)</h5>}
       <div className="container">
-      {/* {_cat && } */}
         {_cat && (
           //  <ErrorBoundary FallbackComponent={ErrorFallback}>
           

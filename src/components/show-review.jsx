@@ -13,10 +13,11 @@ import { useCatsQuery} from './contexts/current-cats-context';
 function ShowReview() {
   //                                        
   const { userId } = useContext(UserContext);
-  const { setCategories } = useContext(CategoryContext);
+  const {categories,setCategories } = useContext(CategoryContext);
   
   const {data: cats} = useCatsQuery(userId);
-  useEffect(() => {setCategories(cats)}, [cats]);
+  useEffect(() => {setCategories(cats)}, [cats])
+  
 
 const {
   data: revs,
