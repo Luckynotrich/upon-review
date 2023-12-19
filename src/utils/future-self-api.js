@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const SendData = axios.create({
-    baseURL: 'http://localhost:8081',//(import.meta.env.SNOWPACK_PUBLIC_BASE_URL),//
+    baseURL: 'http://localhost:8081',//(import.meta.env.VITE_PUBLIC_BASE_URL),//
     timeout: 1000,
     headers: { 'Content-Type': 'multipart/form-data' }
 });

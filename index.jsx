@@ -6,11 +6,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { SelectedDataContextProvider } from './components/contexts/selected-data-context';
-import { ReviewContextProvider } from './components/contexts/review-context';
-import { CategoryContextProvider } from './components/contexts/category-context';
-import { UserContextProvider } from './components/contexts/user-context';
-import App from './App.jsx';
+import { SelectedDataContextProvider } from './src/components/contexts/selected-data-context';
+import { ReviewContextProvider } from './src/components/contexts/review-context';
+import { CategoryContextProvider } from './src/components/contexts/category-context';
+import { UserContextProvider } from './src/components/contexts/user-context';
+import App from './src/App.jsx';
 //import './index.css';
 const queryClient = new QueryClient();
 ReactDOM.render(

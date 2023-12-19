@@ -162,5 +162,4 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
     </form>
   );
 }
-
 export default ReviewForm;

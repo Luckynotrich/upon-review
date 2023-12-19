@@ -1,0 +1,70 @@
+#review-title {
+    // position: relative;
+    float: right;
+    background-color: #FF9933;
+    left: 33.3%;
+  }
+  #show-view-title {
+    background-color: #8FD400;
+    left: -33.3%;
+  }
+  #category-title {
+    background-color: #FAFA37;
+    left: 0%;
+  }
+  .categorTree {
+    position: relative;
+    left: -3%;
+    margin-top: 2%;
+    width: 87%;
+  }
+  .noCategories{
+    position: relative;
+    left: -left-margin;
+    margin-top: 10%;
+  }
+  ul{
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    list-style: none;
+    list-style-type: none;
+    
+  }
+  .MuiButton-root{
+    position: relative;
+    width:50%;
+    word-break: keep-all;
+    white-space: nowrap;
+    margin-top: 0%;
+    background-color: transparent;
+    border: none;
+    padding-left: 5%;
+    
+  }
+
+  .MuiRating-root{
+    position: relative;
+    width: 1.4ch;
+    margin-top: 0%;
+    background-color: transparent;
+    border-color: #fbc793;
+    margin-left: 0%;
+  }
+  .MuiRating-iconFilled{
+    color: #FF9933;
+    border-color: #fbc793;
+  }
+  .MuiRating-iconEmpty{
+    border-color: lightgray;
+  }
+  .column {
+  flex-flow: column;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+.right{
+ padding-left:150%;
+}

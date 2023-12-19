@@ -3,7 +3,7 @@ import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
 
 import CreateCatForm from './components/category/create-cat-form.jsx';
 import ReviewCategory from './components/review/review-category.jsx';
-import ShowReview from './components/show-review.jsx';
+import ShowReview from './components/show/show-review.jsx';
 import './scss/App.scss';
 
 function App() {    

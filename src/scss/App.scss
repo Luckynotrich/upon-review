@@ -120,38 +120,14 @@ html {
   z-index: -1;
   margin-top: -3%;
 }
-#review-title {
-  // position: relative;
-  float: right;
-  background-color: #FF9933;
-  left: 33.3%;
-}
-#show-view-title {
-  background-color: #8FD400;
-  left: -33.3%;
-}
-#category-title {
-  background-color: #FAFA37;
-  left: 0%;
-}
-.categorTree {
-  position: relative;
-  left: -left-margin;
-  margin-top: 2%;
-  width: 87%;
-}
-.noCategories{
-  position: relative;
-  left: -left-margin;
-  margin-top: 10%;
-}
+
 @media screen and (max-width: 600px) {
   [class^='large'] {
     align-items: center;
     margin-left: 0.5%;
   }
 }
-
+@import './show';
 @import './review';
 @import './upon';
 @import './font_responsive';
