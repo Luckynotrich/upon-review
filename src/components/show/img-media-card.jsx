@@ -6,17 +6,24 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function ImgMediaCard({id}) {
-  let caption = 'See a Review (or 3)';
-  let Text = 'Click a to see a review';
+export default function ImgMediaCard({category, rev }) {
+  let caption, Text;
+  {
+    if (rev) {
+      (caption = rev.name), (Text = rev.text);
+    } else {
+      (caption = 'See a Review (or 3)'), (Text = 'Click on a name to see a review. Names appear below and to the right of their category');
+    }
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
+      {/* <CardMedia
         component="img"
         alt="green iguana"
         height="140"
         image="/static/images/cards/contemplative-reptile.jpg"
-      />
+      /> */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {caption}
