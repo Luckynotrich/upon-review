@@ -15,7 +15,7 @@ const ReviewContextProvider = ({ children }) => {
   const [revDate, setRevDate] = useState();
   const [revRating, setRevRating] = useState(0);
   const [reviewTxt, setReviewTxt] = useState();
-  const { propArray } = useContext(SelectedDataContext);
+  // const { propArray } = useContext(SelectedDataContext);
   const [reviews, setReviews] = useState([]);
     
   const handleSubmit = () => {

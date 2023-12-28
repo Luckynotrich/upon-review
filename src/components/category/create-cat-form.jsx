@@ -4,6 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../utils/error-fallback';
 
 import axios from '../../utils/future-self-api.js';
+import {createCat} from '../../utils/future-self-api.js';
 import CategoryContext from '../contexts/category-context';
 import UserContext from '../contexts/user-context';
 // import { useCategoriesQuery} from '../contexts/current-categories-context';
@@ -66,16 +67,17 @@ export default function CreateCatForm() {
         });
         curCatId = await response.data;
 
-        _category.current = {
+         _category.current = {
           name: name,
-          id: curCatId,
+          id: await curCatId,
         };
-        addCategory(_category.current);
-        setCatId(curCatId);
-        loading && setLoading(false);
+        await addCategory(_category.current);
+        await setCatId(curCatId);
+        await loading && setLoading(false);
       } catch (err) {
         console.log(err.message);
       }
+    
     }
     if (inUse) {
       categories.map((cat) => {
@@ -177,9 +179,9 @@ export default function CreateCatForm() {
       )}
       
       {cat && (
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          {cat.name}
-          <CatForm catId={catId} catName={catName}  />
+       <ErrorBoundary FallbackComponent={ErrorFallback}>
+           {catName}
+           <CatForm catId={catId} catName={catName}  />
         </ErrorBoundary>
       )}
     </div>

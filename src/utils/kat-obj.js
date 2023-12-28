@@ -3,7 +3,9 @@
 export const katObj = (kat) => {
     let pros = [], cons = [], catName = '', id = null;
     if (kat.name !== undefined) catName = kat.name;
+    else console.log('kat.name is undefined')
     if (kat.id !== undefined) id = kat.id;
+    else console.log('kat.id is undefined')
     if (kat.pros !== undefined && kat.pros.length > 0 && kat.pros[0].value !== null) {
         pros = kat.pros.map((pro) => {
             return { value: pro.value, id: pro.id }

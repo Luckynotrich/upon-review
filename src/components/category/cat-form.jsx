@@ -2,17 +2,14 @@ import React, { useEffect, useContext, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
-//  import { ErrorBoundary } from 'react-error-boundary';
-//  import ErrorFallback from '../../utils/error-fallback';
-
- import { useCatsQuery} from '../contexts/current-cats-context'; 
+import { useCatsQuery} from '../contexts/current-cats-context'; 
 import CategoryContext from '../contexts/category-context';
 import { katObj } from '../../utils/kat-obj';
 import UserContext from '../contexts/user-context';
 import {updateCat} from '../../utils/future-self-api';
 
 
-export default function CatForm({catId, catName}) {
+export default function CatForm({/* catId,  */catName}) {
   const { userId} = useContext(UserContext);
   const [display, setDisplay] = useState(false);
   useEffect(() => { if(catId) setDisplay(true)}, [])

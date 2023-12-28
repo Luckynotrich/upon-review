@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 const SelectedDataContext = createContext({});
 
@@ -16,8 +16,6 @@ const SelectedDataContext = createContext({});
   }
   const isItemSelected = id => propArray.includes(id);
   const clearPropArray = () => setPropArray([])
-
-  // useEffect(() => console.log('UI:propArray ', propArray), [propArray])
 
   const providerProps = {
     isItemSelected,

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReviewContext from '../contexts/review-context';
 import { useForm } from 'react-hook-form';
-import SelectedDataContext from '../contexts/selected-data-context';
 
 import StarRating from './star_rating_rhf';
 import axios from '../../utils/future-self-api';
@@ -87,7 +86,6 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
             id="RevName"
             type="text"
             autoComplete="on"
-            // className="center"
             aria-describedby="name"
             placeholder="Enter Name"
             onChange={(e) => setRevName(e.target.value)}
@@ -156,7 +154,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
             placeholder="Write Something..."
             onChange={(e) => setReviewTxt(e.target.value)}
           />
-          <button type="submit" onClick={()=>{setRevRating(0)}}>Submit</button>
+          <button type="submit" /* onClick={()=>{setRevRating(0)}} */>Submit</button>
         </fieldset>
       {/* </div> */}
     </form>

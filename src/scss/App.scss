@@ -110,6 +110,21 @@ html {
   background-color: #ff9933;
   color: #000
 }
+#review-title {
+  // position: relative;
+  float: right;
+  background-color: #ff9933;
+  left: 33.3%;
+}
+
+#show-view-title {
+  background-color: #8fd400;
+  left: -33.3%;
+}
+#category-title {
+  background-color: #fafa37;
+  left: 0%;
+}
 .header-title {
   max-width: 99%;
   position: relative;

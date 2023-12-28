@@ -5,13 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import CategoryContext from '../contexts/category-context';
 import UserContext from '../contexts/user-context';
-//src/utils/future-self-api.js
+
 import { getRevs } from '../../utils/future-self-api';
 import Header from '../header';
 import { useCatsQuery } from '../contexts/current-cats-context';
 import { Rating, Box, Button } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImgMediaCard from './img-media-card';
+import ImgMediaCardTop from './img-media-card-top';
 
 function ShowReview() {
   const theme = createTheme({
@@ -29,8 +30,8 @@ function ShowReview() {
     },
   });
 
-  const [selected, setSelected] = useState([]);
-  const toggleProp = (id) => {
+  const [selected, setSelected] = useState([0]);
+  const toggleItem = (id) => {
     let newArray = [];
     if (selected.includes(id)) {
       newArray = selected.filter((itemId) => itemId !== id);
@@ -74,11 +75,14 @@ function ShowReview() {
   else {
     return (
       <ThemeProvider theme={theme}>
-        <div>
+        <div className="show-view">
+          <header>
           <Header ID={'show-view-title'} title={'View'} />
+          {/* <ImgMediaCardTop className="topCard" /> */}
+          </header>
           <div className="columns">
-          <ImgMediaCard className="column" />
-          <div className="categorTree">
+          
+          {/* <div className="categorTree"> */}
             {cats &&
               cats.map((category, i) => {
                 return (
@@ -86,20 +90,20 @@ function ShowReview() {
                     <h4 className="categories" key={category.id}>
                       {category.name}
                     </h4>
-                    <ul key={(i + 1) * 10}>
+                    <div key={(i + 1) * 10}>
                       {revs.map((rev) => {
                         if (Number(rev.cat_id) === Number(category.id))
                           return (
-                            <div key={rev.id}>
+                            <div key={rev.id} className='review'>
                               {isItemSelected(rev.id) && (
-                                <ImgMediaCard className="column right" category={category} rev={rev} />
+                                <ImgMediaCard className="column" category={category} rev={rev} toggleItem={toggleItem}/>
                               )}
-                              <Box
+                             {!isItemSelected(rev.id)&&( <Box 
                                   width="30%"
                                   key={rev.id + 1000}
                                   sx={{
-                                    marginLeft: '25%',
-                                    paddingTop: '5%',
+                                    marginLeft: '10%',
+                                    paddingBottom: '0%',
                                     display: 'flex',
                                     flexDirection: 'row',
                                     alignItems: 'left',
@@ -108,58 +112,39 @@ function ShowReview() {
                                   <Button
                                     className="rev-butt"
                                     id={rev.id}
-                                    sx={{
-                                      marginLeft: '25%',
-                                      paddingTop: '5%',
-                                      fontSize: '1.2rem',
-                                    }}
                                     onClick={() => {
-                                      toggleProp(rev.id);
+                                      toggleItem(rev.id);
                                     }}
                                   >
                                     {rev.name}
                                   </Button>
-                                </Box>
-                              <li key={rev.id}>
-                                <Box
-                                  width="30%"
-                                  key={rev.id + 500}
-                                  sx={{
-                                    marginLeft: '20%',
-                                    paddingBottom: '3%',
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    alignItems: 'left',
-                                  }}
-                                >
                                   {rev.rating && rev.rating > 0 ? (
                                     <Rating
                                       name="read-only"
                                       value={rev.rating}
                                       size="large"
                                       readOnly
-                                      sx={{ paddingBottom: '5%' }}
                                     />
-                                  ) : (
+                                   ) : ( 
                                     <Rating
                                       name="no-value"
                                       value={null}
                                       readOnly
                                       fontSize="inherit"
                                     />
-                                  )}
-                                </Box>
+                                   )} 
+                                </Box>)}
                                 
-                              </li>
+                              {/* </li> */}
                               
                             </div>
                           );
                       })}
-                    </ul>
+                    </div>
                   </div>
                 );
               })}
-          </div>
+          {/* </div> */}
           </div>
         </div>
       </ThemeProvider>

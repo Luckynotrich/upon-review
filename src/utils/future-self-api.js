@@ -14,6 +14,10 @@ export const getRevs = async (userId) => {
     const response = await axios.get('http://localhost:8081/api/review-api/' + userId);
     return response.data;
 }
+export const createCat = async (data) => {
+    const response = await SendData.post('api/category-api/addNew/?', data);
+    return response.data;
+}
  export const updateCat = async (data,catId) => {
     const response = await SendData.put('api/category-api/updateOne/?', {catId, data});
     return response.data;
