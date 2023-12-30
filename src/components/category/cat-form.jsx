@@ -9,18 +9,24 @@ import UserContext from '../contexts/user-context';
 import {updateCat} from '../../utils/future-self-api';
 
 
-export default function CatForm({/* catId,  */catName}) {
+export default async function CatForm({catName, catId}) {
   const { userId} = useContext(UserContext);
   const [display, setDisplay] = useState(false);
-  useEffect(() => { if(catId) setDisplay(true)}, [])
+  
   const queryClient = useQueryClient();
-
+  
   const { categories, setCategories, categoryIndexOf } =
     useContext(CategoryContext);
-  const _cat = useRef();
+
+    useEffect(() => { if(catName) setDisplay(true)}, [])
+    const _cat = useRef();
+
+    const {data: cats} = await useCatsQuery(userId);
+
+    await setCategories(cats);
   
-  let index = categoryIndexOf(catId);
-  _cat.current = katObj(categories[index]);
+  let index = await categoryIndexOf(catId);
+  _cat.current = await katObj(categories[index]);
 
   const {
     register,
@@ -54,18 +60,19 @@ export default function CatForm({/* catId,  */catName}) {
   let error;
    
     const { mutateAsync: updateCatMutation } = useMutation({
-      mutationFn: async (data) => await updateCat(data, catId),
+      mutationFn: async (data) => await updateCat(data, _cat.current.id),
       onSuccess: () => {
         queryClient.invalidateQueries('cats')
         reset();
       }}); 
  
-   const {data: cats} = useCatsQuery(userId);
+   
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
-    }setCategories(cats);
+    }
+    setCategories(cats);
   }, [formState, reset, cats, isSubmitSuccessful]);
 
   return (

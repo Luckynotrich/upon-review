@@ -12,9 +12,11 @@ export const CategoryContextProvider = ({ children }) => {
     await setCategories((prevState) => [...prevState, { name, id, userId }]);
     await console.log('category-context::Added ', categories);
   };
-  const categoryIndexOf = (id) => {
+  const categoryIndexOf = (id,catName) => {
     // console.log('category-context::categoryIndexOf ', id.catId);
-    let index = categories.findIndex((cat) => cat.id === id);
+    let index
+    id ? index = categories.findIndex((cat) => cat.id === id)
+    : index = categories.findIndex((cat) => cat.name === catName)
     return index;
   };
   const updateCategory = async ({ id, userId, pros, cons }) => {

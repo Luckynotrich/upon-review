@@ -31,7 +31,7 @@ const catsQuery = (userId) => {
     queryFn: () => getCats(userId),
     staleTime: 1000 * 60 * 5, // 5 minutes
     cacheTime: 1000 * 60 * 60, // 1 hour
-    refetchOnMount: false,
+    refetchOnMount: true,
   });
   
 };
