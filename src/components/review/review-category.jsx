@@ -3,7 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import UserContext from '../contexts/user-context';
 import SelectedDataContext from '../contexts/selected-data-context';
 import ReviewContext from '../contexts/review-context';
-import CategoryContext from '../contexts/category-context';
+// import CategoryContext from '../contexts/category-context';
 import { useCatsQuery} from '../contexts/current-cats-context';
 
 import Header from '../header';
@@ -15,13 +15,13 @@ import ReviewForm from './review-form';
 const ReviewCategory = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
   const { setCatId } = useContext(ReviewContext);
-  const { setCategories } = useContext(CategoryContext);
+  // const { setCategories } = useContext(CategoryContext);
   const { userId } = useContext(UserContext);
   
   const [catState, setCatState] = useState('');
 
   const {data: cats} = useCatsQuery(userId);
-  useEffect(() => {setCategories(cats)}, [cats]);
+  // useEffect(() => {setCategories(cats)}, [cats]);
 
   const chooseCat = (e) => {
     const id = Number(e.target.value);
@@ -51,8 +51,6 @@ let i = 0;
           ' Categories currently unavailable. Please check the internet connection and refresh the browser'
         )}
       </form>
-
-      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} setCatState={setCatState}/>}
     </div>
     </>
   );

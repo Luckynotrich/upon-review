@@ -13,7 +13,7 @@ export const CategoryContextProvider = ({ children }) => {
     await console.log('category-context::Added ', categories);
   };
   const categoryIndexOf = (id,catName) => {
-    // console.log('category-context::categoryIndexOf ', id.catId);
+    
     let index
     id ? index = categories.findIndex((cat) => cat.id === id)
     : index = categories.findIndex((cat) => cat.name === catName)

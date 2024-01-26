@@ -8,18 +8,22 @@ const SendData = axios.create({
 
 export const getCats = async (userId) => {
     const response = await axios.get('http://localhost:8081/api/category-api/' + userId);
-    return response.data;
+    return await response.data;
 }
 export const getRevs = async (userId) => {
     const response = await axios.get('http://localhost:8081/api/review-api/' + userId);
-    return response.data;
+    return await response.data;
 }
 export const createCat = async (data) => {
     const response = await SendData.post('api/category-api/addNew/?', data);
-    return response.data;
+    let category = await response.data;
+    // console.log("category ", category);
+    return await category;
 }
- export const updateCat = async (data,catId) => {
-    const response = await SendData.put('api/category-api/updateOne/?', {catId, data});
-    return response.data;
- }
+export const updateCat = async (data, catId) => {
+    console.log("data ", data);
+    const response = await SendData.put('api/category-api/updateOne/?', /* { catId, */ data /* } */);
+    return await response.data;
+}
+
 export default SendData;

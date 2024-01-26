@@ -1,39 +1,33 @@
 import React, { useEffect, useContext, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
-import {useMutation, useQueryClient} from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useCatsQuery} from '../contexts/current-cats-context'; 
-import CategoryContext from '../contexts/category-context';
+import { useCatsQuery } from '../contexts/current-cats-context';
+
 import { katObj } from '../../utils/kat-obj';
 import UserContext from '../contexts/user-context';
-import {updateCat} from '../../utils/future-self-api';
 
-
-export default async function CatForm({catName, catId}) {
-  const { userId} = useContext(UserContext);
-  const [display, setDisplay] = useState(false);
-  
+export default function CatModForm({ _cat }) {
+  console.log('_cat ', _cat)
   const queryClient = useQueryClient();
-  
-  const { categories, setCategories, categoryIndexOf } =
-    useContext(CategoryContext);
+  const { userId } = useContext(UserContext);
 
-    useEffect(() => { if(catName) setDisplay(true)}, [])
-    const _cat = useRef();
+  const { data: cats } = useCatsQuery(userId);
 
-    const {data: cats} = await useCatsQuery(userId);
+  const [display, setDisplay] = useState(false);
 
-    await setCategories(cats);
-  
-  let index = await categoryIndexOf(catId);
-  _cat.current = await katObj(categories[index]);
+  // useEffect(() => { if(catName) setDisplay(true)}, [])
+  // const _cat = useRef();
+
+  // let index = cats.findIndex((cat) => cat.name === catName)
+  // _cat.current = katObj(cats[index]);
 
   const {
     register,
     control,
     handleSubmit,
     formState,
-    formState: { errors, isDirty, isSubmitSuccessful,isLoading },
+    formState: { errors, isDirty, isSubmitSuccessful, isLoading },
     reset,
   } = useForm({
     defaultValues: {
@@ -58,36 +52,42 @@ export default async function CatForm({catName, catId}) {
     name: 'cons',
   });
   let error;
-   
-    const { mutateAsync: updateCatMutation } = useMutation({
-      mutationFn: async (data) => await updateCat(data, _cat.current.id),
-      onSuccess: () => {
-        queryClient.invalidateQueries('cats')
-        reset();
-      }}); 
- 
-   
+
+  const updateCatMutation = useMutation({
+    mutationFn: async (data) => await updateCat(data, _cat.current.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries('cats');
+      reset();
+    },
+  });
+
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
     }
-    setCategories(cats);
+    // setCategories(cats);
   }, [formState, reset, cats, isSubmitSuccessful]);
 
   return (
     <>
-      {_cat && <h5>{catName} add likes and dislikes (optional)</h5>}
+      {_cat && (
+        <h5>
+          <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+            {_cat.name}
+          </span>{' '}
+          &nbsp; &nbsp; add likes and dislikes (optional)
+        </h5>
+      )}
       <div className="container">
         {_cat && (
           //  <ErrorBoundary FallbackComponent={ErrorFallback}>
-          
-          
+
           <form
-            onSubmit={handleSubmit(updateCatMutation, error)}
+            onSubmit={handleSubmit((data)=> updateCatMutation.mutate(data))}
             encType="multipart/form-data"
             method="put"
-            action='send'
+            action="send"
             id="category"
             disabled={!display}
             hidden={!display}
@@ -96,9 +96,11 @@ export default async function CatForm({catName, catId}) {
             <fieldset>
               {proFields.map((item, index) => {
                 return (
-                  <div key={item.id}>
+                  <div>
                     <input
-                      {...register(`pros.${index}.value`)}
+                      {...register(`pros.${index}`)}
+                      key={item.id}
+                      value={item.value}
                       type="text"
                       className="center"
                       placeholder="I like..."
@@ -128,9 +130,11 @@ export default async function CatForm({catName, catId}) {
             <fieldset>
               {conFields.map((item, index) => {
                 return (
-                  <div key={item.id}>
+                  <div>
                     <input
-                      {...register(`cons.${index}.value`)}
+                    key={item.id}
+                      {...register(`cons.${index}`)}
+                      value={item.value}
                       type="text"
                       className="center"
                       placeholder="I don't like..."
@@ -164,17 +168,16 @@ export default async function CatForm({catName, catId}) {
               className="create"
               hidden={!display}
               defaultValue="Create"
-              onClick={ async () => {
-              //   try {
-              //     await updateCatMutation();
-                  setDisplay(false)
-              //   }
-              //   catch (err) {
-              //     console.log(err);
-              //   } 
-                
-              }
-            }></input>
+              onClick={async () => {
+                //   try {
+                //     await updateCatMutation();
+                setDisplay(false);
+                //   }
+                //   catch (err) {
+                //     console.log(err);
+                //   }
+              }}
+            ></input>
           </form>
           // </ErrorBoundary>
         )}

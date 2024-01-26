@@ -44,9 +44,9 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
 
   let error;
  
-  const onSubmit = async (data) => {
-     await axios.post('/api/review-api/addNew', { data, catId, error });
-  };
+  // const onSubmit = async (data) => {
+  //    await axios.post('/api/review-api/addNew', { data, catId});
+  // };
   useEffect(() => {
     setProsExist(false);
     setConsExist(false);
