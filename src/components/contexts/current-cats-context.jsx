@@ -29,7 +29,7 @@ const catsQuery = (userId) => {
   return useQuery({
     queryKey: ['cats', userId],
     queryFn: () => getCats(userId),
-    staleTime: 1000 * 60 , // 1 minutes
+    staleTime: 0,//1000 * 60 , // 1 minutes
     cacheTime: 1000 * 60 * 60, // 1 hour
     refetchOnMount: true,
   });

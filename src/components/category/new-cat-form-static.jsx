@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCatsQuery } from '../contexts/current-cats-context.jsx';
+import { redirect } from "react-router-dom";
 
-import { createCat } from '../../utils/future-self-api.js';
+import SendData from '../../utils/future-self-api.js';
 
 const NewCatForm = ({ catName, userId }) => {
-   let cons= [];
-  let pros= [];
+  const [display, setDisplay] = useState(false);
+  useEffect(() => {
+    setDisplay(true);
+  }, []);
+
+  let cons = [];
+  let pros = [];
+
   const {
     register,
     control,
@@ -17,12 +24,13 @@ const NewCatForm = ({ catName, userId }) => {
   } = useForm(
     {
       defaultValues: {
-        name: catName, userId: userId,
-        pros: pros =["","","","",""],
-        cons: cons=["","","","",""],
+        name: catName,
+        userId: userId,
+        pros: (pros = ['', '', '', '', '']),
+        cons: (cons = ['', '', '', '', '']),
       },
     },
-    { mode: 'onChange' }
+    { mode: 'onChange' },
   );
   const {
     fields: proFields,
@@ -40,23 +48,29 @@ const NewCatForm = ({ catName, userId }) => {
     control,
     name: 'cons',
   });
-  
+
   const [YELLOW] = useState('#FAFA37');
   const queryClient = useQueryClient();
 
   const { data: cats } = useCatsQuery(userId);
   const createCatMutation = useMutation({
-    mutationFn: (data) => createCat(data), //SendData.post('api/category-api/addNew/?', { /* data, */ userId }),//
+    mutationFn: (data) => {
+      SendData.post('api/category-api/addNew/?', data);
+    }, //createCat(data),//
     onSucess: (data) => {
-      console.log('data =', data)
-      queryClient.setQueryData(['catsQuery'],(oldData)=>oldData?{...oldData,data}: data);
-      reset();
+      queryClient.setQueryData(['cats'], (oldData) =>
+        oldData ? { ...oldData, data } : data,
+        reset(),
+      );
+    },
+    onSettled: async () => {
+      return redirect('/')
     },
   });
-  
+
   return (
     <>
-      {catName && (
+      {catName && display && (
         <>
           <h5>
             <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
@@ -70,84 +84,87 @@ const NewCatForm = ({ catName, userId }) => {
         {catName && (
           <form
             encType="multipart/form-data"
+            hidden={!display}
             method="post"
-            action='send'
-            onSubmit={handleSubmit((data)=>  createCatMutation.mutate(data))}
+            action="send"
+            onSubmit={handleSubmit((data) => createCatMutation.mutate(data))}
           >
-            
             <h4 className="left">Likes</h4>
             <fieldset>
-            
-                    <input
-                      {...register(`pros.0`)}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
-                    <input
-                      {...register(`pros.1`)}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
-                    <input
-                      {...register(`pros.2`)}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
-                    <input
-                      {...register(`pros.3`)}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
-                    <input
-                      {...register(`pros.4`)}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
-              
-             
+              <input
+                {...register(`pros.0`)}
+                type="text"
+                className="center"
+                placeholder="I like..."
+              />
+              <input
+                {...register(`pros.1`)}
+                type="text"
+                className="center"
+                placeholder="I like..."
+              />
+              <input
+                {...register(`pros.2`)}
+                type="text"
+                className="center"
+                placeholder="I like..."
+              />
+              <input
+                {...register(`pros.3`)}
+                type="text"
+                className="center"
+                placeholder="I like..."
+              />
+              <input
+                {...register(`pros.4`)}
+                type="text"
+                className="center"
+                placeholder="I like..."
+              />
             </fieldset>
             <h4 className="left">Dis-likes</h4>
             <fieldset>
-            
-                    <input
-                      {...register(`cons.0`)}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
-                    <input
-                      {...register(`cons.1`)}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
+              <input
+                {...register(`cons.0`)}
+                type="text"
+                className="center"
+                placeholder="I don't like..."
+              />
+              <input
+                {...register(`cons.1`)}
+                type="text"
+                className="center"
+                placeholder="I don't like..."
+              />
 
-                    <input
-                      {...register(`cons.2`)}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
-                    <input
-                      {...register(`cons.3`)}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
-                    <input
-                      {...register(`cons.4`)}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
-              
+              <input
+                {...register(`cons.2`)}
+                type="text"
+                className="center"
+                placeholder="I don't like..."
+              />
+              <input
+                {...register(`cons.3`)}
+                type="text"
+                className="center"
+                placeholder="I don't like..."
+              />
+              <input
+                {...register(`cons.4`)}
+                type="text"
+                className="center"
+                placeholder="I don't like..."
+              />
             </fieldset>
-            <button type="submit">Submit</button>
+            <button
+              type="submit"
+              onClick={() => {
+                setDisplay(false);
+              }}
+              className="create"
+            >
+              Submit
+            </button>
           </form>
         )}
       </div>
