@@ -1,40 +1,47 @@
 import React, { useEffect, useContext, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { useCatsQuery } from '../contexts/current-cats-context';
+import SendData,{updateCat} from '../../utils/future-self-api';
 
 import { katObj } from '../../utils/kat-obj';
 import UserContext from '../contexts/user-context';
+import { Container } from '@mui/material';
 
-export default function CatModForm({ _cat }) {
-  console.log('_cat ', _cat)
-  const queryClient = useQueryClient();
+export default function CatModForm({ catId }) {
+  const navigate = useNavigate();
   const { userId } = useContext(UserContext);
-
+  const queryClient = useQueryClient();
   const { data: cats } = useCatsQuery(userId);
+  let catIndex = cats.findIndex((cat) => cat.id === catId);
 
-  const [display, setDisplay] = useState(false);
+  const _cat = useRef();
+  _cat.current = katObj(cats[catIndex]);
 
-  // useEffect(() => { if(catName) setDisplay(true)}, [])
-  // const _cat = useRef();
-
-  // let index = cats.findIndex((cat) => cat.name === catName)
-  // _cat.current = katObj(cats[index]);
+  let cat = {
+    catId: _cat.current.id,
+    pros: [],
+    cons: [],
+  };
+  cat.pros = _cat.current.pros.map((pro) => ( pro.value));
+  cat.cons = _cat.current.cons.map((con) => ( con.value));
 
   const {
     register,
     control,
     handleSubmit,
-    formState,
     formState: { errors, isDirty, isSubmitSuccessful, isLoading },
     reset,
   } = useForm({
     defaultValues: {
-      pros: _cat.current.pros,
-      cons: _cat.current.cons,
+      catId: cat.catId,
+      pros: cat.pros,
+      cons: cat.cons,
     },
   });
+
   const {
     fields: proFields,
     append: proAppend,
@@ -51,144 +58,162 @@ export default function CatModForm({ _cat }) {
     control,
     name: 'cons',
   });
+
   let error;
 
   const updateCatMutation = useMutation({
-    mutationFn: async (data) => await updateCat(data, _cat.current.id),
+    mutationFn: (data) => {updateCat(data)},
+    // mutationFn: async (data) => await SendData.post('api/category-api/updateOne/?', data),
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
+      runDontWalk('onSuccess'),
       reset();
     },
+    onError: (error) => {
+      console.log('error: ', error);
+      runDontWalk('onError')
+    },
+    onSettled: async () => {
+      return runDontWalk('onSettled')
+    },
   });
-
+  async function runDontWalk(Caller) {  
+    while (true) {  
+      console.log('Running...');  
+      await new Promise(resolve => setInterval(resolve, 1000));  
+      console.log('sent by ', Caller);
+    return navigate('/') 
+    } }
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
     }
-    // setCategories(cats);
-  }, [formState, reset, cats, isSubmitSuccessful]);
+  }, [/* formState, */ reset, cats, isSubmitSuccessful]);
+
+  //  const [display, setDisplay] = useState(false);
+  //  useEffect(() => { if(catId) setDisplay(true)}, [])
 
   return (
     <>
-      {_cat && (
-        <h5>
-          <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
-            {_cat.name}
-          </span>{' '}
-          &nbsp; &nbsp; add likes and dislikes (optional)
-        </h5>
-      )}
-      <div className="container">
-        {_cat && (
-          //  <ErrorBoundary FallbackComponent={ErrorFallback}>
+      {_cat.current.name && (
+        <>
+          <h5>
+            <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+              {_cat.current.name}
+            </span>{' '}
+            &nbsp; &nbsp; add likes and dislikes (optional)
+          </h5>
 
-          <form
-            onSubmit={handleSubmit((data)=> updateCatMutation.mutate(data))}
-            encType="multipart/form-data"
-            method="put"
-            action="send"
-            id="category"
-            disabled={!display}
-            hidden={!display}
-          >
-            <h4 className="left">Likes</h4>
-            <fieldset>
-              {proFields.map((item, index) => {
-                return (
-                  <div>
-                    <input
-                      {...register(`pros.${index}`)}
-                      key={item.id}
-                      value={item.value}
-                      type="text"
-                      className="center"
-                      placeholder="I like..."
-                    />
+          <Container key={'Container'} className="container">
+            <form
+              onSubmit={handleSubmit(async (data) =>
+                updateCatMutation.mutateAsync(data),
+              )}
+              encType="multipart/form-data"
+              method="put"
+              action="send"
+              id="category"
+              key={"form"}
+              // disabled={!display}
+              // hidden={!display}
+            >
+              <input type="text" readOnly value={cat.catId} hidden key={cat.catId} />
+              <h4 className="left">Likes</h4>
+              <fieldset>
+                {proFields.map((item, index) => {
+                  return (
+                    <>
+                      <input
+                        {...register(`pros.${index}`)}
+                        type="text"
+                        className="center"
+                        placeholder="I like..."
+                      />
 
-                    <button
-                      className="inputBtn material-symbols-outlined deleteBtn"
-                      type="buton"
-                      onClick={(e) => {
-                        proRemove(index);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                );
-              })}
-              <button
-                type="button"
-                className="inputBtn appendBtn material-symbols-outlined"
-                onClick={() => proAppend({ value: '' })}
-              >
-                add_box
-              </button>
-            </fieldset>
-            <h4 className="left">Dis-likes</h4>
-            <fieldset>
-              {conFields.map((item, index) => {
-                return (
-                  <div>
-                    <input
-                    key={item.id}
-                      {...register(`cons.${index}`)}
-                      value={item.value}
-                      type="text"
-                      className="center"
-                      placeholder="I don't like..."
-                    />
+                      <button
+                        className="inputBtn material-symbols-outlined deleteBtn"
+                        type="buton"
+                        key={`pros.${index + 10}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          proRemove(index);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  );
+                })}
+                <button
+                  type="button"
+                  key={cat.pros.length+100}
+                  className="inputBtn appendBtn material-symbols-outlined"
+                  onClick={() => proAppend('')}
+                >
+                  add_box
+                </button>
+              </fieldset>
+              <h4 className="left">Dis-likes</h4>
 
-                    <button
-                      className="inputBtn material-symbols-outlined deleteBtn"
-                      type="button"
-                      onClick={() => {
-                        conRemove(index);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                );
-              })}
-              <button
-                type="button"
-                className="inputBtn appendBtn material-symbols-outlined"
-                onClick={() => conAppend({ value: '' })}
-              >
-                add_box
-                {/* <span class="material-symbols-outlined">add_box</span> */}
-              </button>
-            </fieldset>
+              <fieldset>
+                {conFields.map((item, index) => {
+                  return (
+                    <>
+                      <input
+                        {...register(`cons.${index}`)}
+                        type="text"
+                        className="center"
+                        placeholder="I don't like..."
+                      />
 
-            <input
-              type="submit"
-              id="submitButton"
-              className="create"
-              hidden={!display}
-              defaultValue="Create"
-              onClick={async () => {
-                //   try {
-                //     await updateCatMutation();
-                setDisplay(false);
-                //   }
-                //   catch (err) {
-                //     console.log(err);
-                //   }
-              }}
-            ></input>
-          </form>
-          // </ErrorBoundary>
-        )}
-        {/* {loading && <p>Loading...</p>}
+                      <button
+                        className="inputBtn material-symbols-outlined deleteBtn"
+                        type="button"
+                        key={`cons.${index + 10}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          conRemove(index);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  );
+                })}
+                <button
+                  type="button"
+                  className="inputBtn appendBtn material-symbols-outlined"
+                  key={cat.cons.length+100}
+                  onClick={() => conAppend('')}
+                >
+                  add_box
+                </button>
+              </fieldset>
+
+              <input
+                type="submit"
+                id="submitButton"
+                key={cat.toString()}
+                className="create"
+                // hidden={!display}
+                defaultValue="Create"
+                // onClick={async () => {
+                // setDisplay(false);
+                // }}
+              ></input>
+            </form>
+
+            {/* {loading && <p>Loading...</p>}
 
       {!loading && error && <p className="errMsg">{error.msg}</p>} */}
 
-        {/* {isSubmitSuccessful && !error && data.title && (
+            {/* {isSubmitSuccessful && !error && data.title && (
         <p>{`title: ${data?.title} was saved successfully`}</p>
       )} */}
-      </div>
+          </Container>
+        </>
+      )}
     </>
   );
 }

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCatsQuery } from '../contexts/current-cats-context.jsx';
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import SendData from '../../utils/future-self-api.js';
 
 const NewCatForm = ({ catName, userId }) => {
+  const navigate = useNavigate();
   const [display, setDisplay] = useState(false);
   useEffect(() => {
     setDisplay(true);
@@ -56,18 +57,31 @@ const NewCatForm = ({ catName, userId }) => {
   const createCatMutation = useMutation({
     mutationFn: (data) => {
       SendData.post('api/category-api/addNew/?', data);
-    }, //createCat(data),//
+    }, 
     onSucess: (data) => {
       queryClient.setQueryData(['cats'], (oldData) =>
         oldData ? { ...oldData, data } : data,
+        runDontWalk('onSuccess'),
         reset(),
       );
     },
+    onError: (error) => {
+      runDontWalk('onError')
+    },
     onSettled: async () => {
-      return redirect('/')
+      return runDontWalk('onSettled')
     },
   });
 
+async function runDontWalk(Caller) {  
+  while (true) {  
+    console.log('Running...');  
+    await new Promise(resolve => setInterval(resolve, 1000));  
+    console.log('sent by ', Caller);
+  return navigate('/') 
+  } 
+  
+}
   return (
     <>
       {catName && display && (
@@ -87,7 +101,7 @@ const NewCatForm = ({ catName, userId }) => {
             hidden={!display}
             method="post"
             action="send"
-            onSubmit={handleSubmit((data) => createCatMutation.mutate(data))}
+            onSubmit={handleSubmit((data) => createCatMutation.mutateAsync(data))}
           >
             <h4 className="left">Likes</h4>
             <fieldset>
@@ -159,7 +173,8 @@ const NewCatForm = ({ catName, userId }) => {
             <button
               type="submit"
               onClick={() => {
-                setDisplay(false);
+                // setDisplay(false);
+                runDontWalk('onClick')
               }}
               className="create"
             >

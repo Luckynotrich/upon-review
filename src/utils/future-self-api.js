@@ -19,10 +19,10 @@ export const getRevs = async (userId) => {
 //     console.log("category ", category);
 //     return await response.data;
 // }
-// export const updateCat = async (data, catId) => {
-//     console.log("data ", data);
-//     const response = await SendData.put('api/category-api/updateOne/?', /* { catId, */ data /* } */);
-//     return await response.data;
-// }
+export const updateCat = async (data, catId) => {
+    console.log("data ", data);
+    const response = await SendData.put('api/category-api/updateOne/?', data);
+    return await response.data;
+}
 
 export default SendData;

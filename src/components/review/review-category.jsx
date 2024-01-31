@@ -14,7 +14,7 @@ import ReviewForm from './review-form';
 
 const ReviewCategory = () => {
   const { clearPropArray } = useContext(SelectedDataContext);
-  const { setCatId } = useContext(ReviewContext);
+  const { catId, setCatId } = useContext(ReviewContext);
   // const { setCategories } = useContext(CategoryContext);
   const { userId } = useContext(UserContext);
   
@@ -51,6 +51,7 @@ let i = 0;
           ' Categories currently unavailable. Please check the internet connection and refresh the browser'
         )}
       </form>
+      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} id={catId} setCatState={setCatState}/>}
     </div>
     </>
   );

@@ -34,7 +34,7 @@ export default function CreateCat() {
       )}
       {inUse && _cat.current.id && sent &&(
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <CatModForm  _cat={_cat} />
+          <CatModForm  catId={_cat.current.id} />
         </ErrorBoundary>
       )}
     </div>

@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReviewContext from '../contexts/review-context';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import StarRating from './star_rating_rhf';
 import axios from '../../utils/future-self-api';
 import CheckList from './check-list';
 
-
-function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
+function ReviewForm({ pros, cons, id, setCatState }) {
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
-  
+
   const [prosExist, setProsExist] = useState(false);
   const [consExist, setConsExist] = useState(false);
 
@@ -33,6 +33,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
     reset,
   } = useForm({
     defaultValues: {
+      catId: id,
       revName: '',
       revURL: '',
       revDate: defaultDate,
@@ -43,7 +44,19 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
   });
 
   let error;
- 
+  const queryClient = useQueryClient();
+  const reviewMutation = useMutation({
+    mutationFn: (data) => {
+      axios.post('/api/review-api/addNew', data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries('revs');
+    },
+  });
   // const onSubmit = async (data) => {
   //    await axios.post('/api/review-api/addNew', { data, catId});
   // };
@@ -57,20 +70,20 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
       setConsExist(true);
     }
   }, [pros, cons]);
- 
+
   useEffect(() => {
     setRevRating(0);
   }, []);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset();
-      setCatState('')
+      setCatState('');
     }
   }, [formState, reset]);
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, error)}
+      onSubmit={handleSubmit(reviewMutation.mutateAsync)}
       encType="multi-part/form"
       method="post"
       action="send"
@@ -78,6 +91,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
     >
       <div className="barrier"></div>
       <fieldset>
+        <input type="hidden" {...register('catId')} value={id} readOnly/>
         <div className="row">
           <label htmlFor="RevName">Name</label>
           <input
@@ -124,7 +138,7 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           />
         </div>
       </fieldset>
-      {(prosExist && pros.length > 0 && pros[0].value != null) && (
+      {prosExist && pros.length > 0 && pros[0].value != null && (
         <CheckList
           control={control}
           propArr={pros}
@@ -132,9 +146,8 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           name={'Likes'}
         />
       )}
-      
-      
-      {(consExist && cons.length > 0 && cons[0].value != null ) && (
+
+      {consExist && cons.length > 0 && cons[0].value != null && (
         <CheckList
           control={control}
           propArr={cons}
@@ -142,20 +155,22 @@ function ReviewForm({ pros, cons, /* catState, */ setCatState }) {
           name={'Dis-likes'}
         />
       )}
-      
-        <fieldset>
-          <label htmlFor="revText">Review</label>
-          <textarea
-            {...register('revText')}
-            columns=""
-            rows="27"
-            className="center"
-            id="revText"
-            placeholder="Write Something..."
-            onChange={(e) => setReviewTxt(e.target.value)}
-          />
-          <button type="submit" /* onClick={()=>{setRevRating(0)}} */>Submit</button>
-        </fieldset>
+
+      <fieldset>
+        <label htmlFor="revText">Review</label>
+        <textarea
+          {...register('revText')}
+          columns=""
+          rows="27"
+          className="center"
+          id="revText"
+          placeholder="Write Something..."
+          onChange={(e) => setReviewTxt(e.target.value)}
+        />
+        <button type="submit" /* onClick={()=>{setRevRating(0)}} */>
+          Submit
+        </button>
+      </fieldset>
       {/* </div> */}
     </form>
   );
