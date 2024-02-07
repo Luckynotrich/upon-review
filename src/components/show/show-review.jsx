@@ -12,13 +12,13 @@ import { useCatsQuery } from '../contexts/current-cats-context';
 import { Rating, Box, Button } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImgMediaCard from './img-media-card';
-import ImgMediaCardTop from './img-media-card-top';
+// import ImgMediaCardTop from './img-media-card-top';
 
 function ShowReview() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: 'rgb(143,212,0)',
+        main: '#2c9905',
       },
       typography: {
         fontFamily: 'Poppins',
@@ -80,9 +80,14 @@ function ShowReview() {
           <Header ID={'show-view-title'} title={'View'} />
           {/* <ImgMediaCardTop className="topCard" /> */}
           </header>
+          <h3 key={"title"}>
+            
+              Categories
+            
+            &nbsp; &nbsp; &nbsp; 
+            <span style={{ color: '#2c9905', fontSize: '2.3rem' }}>Reviews</span> &nbsp; &nbsp; &nbsp; &nbsp; <span style={{ color: '#ff9933', fontSize: '2.3rem' }}>Rating</span>
+          </h3>
           <div className="columns">
-          
-          {/* <div className="categorTree"> */}
             {cats &&
               cats.map((category, i) => {
                 return (

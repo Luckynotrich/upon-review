@@ -20,7 +20,7 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
   }
 
   return (
-    <Card sx={{ maxWidth: 645, minWidth: 290 }}>
+    <Card sx={{ maxWidth: 645, minWidth: 290, backgroundColor: 'lightblue' }}>
            {/* <CardMedia
         component="img"
         alt="green iguana"

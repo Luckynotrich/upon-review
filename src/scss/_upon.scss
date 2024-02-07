@@ -15,7 +15,7 @@
   }
   .inputBtn{
     position: relative;
-    width: 5%;
+    width: 2%;
     min-width: 40px;
     padding: .5%;
     min-height: 14px;
@@ -33,13 +33,17 @@
   padding: .5rem;
     margin: 1% ; 
     margin-left: 86%;
+    background: transparent;
+    border: none;
 }
 
    .deleteBtn{
     position: relative;
     padding: .5rem;
-    margin: 3% .5% -.5 ;
-    top: .5rem;
+    margin: 3% .5% -.6 ;
+    top: .3rem;
+    background: transparent;
+    border: none;
    }
   .create input[type=submit] {
     background-color: #04AA6D;
@@ -59,7 +63,8 @@
   }
   
   .container {
-    border: .5em solid #91d694;
+    border: .2em solid #2f2f2f;
+    border-style: inset;
     width: 100%;
   }
  
@@ -97,14 +102,14 @@
     height: 2em;
     outline-style: solid;
     width: 8em;
-    top: .5em;
+    top: .1em;
     left: 0em;
     text-align: center;
-    margin-bottom: 10rem;
   }
 
   #submitButton:hover {
     background-color: #45a049;
+    
   }
 
   .displayTip {
@@ -147,36 +152,9 @@
       opacity: 1;
     }
   }
-  #shim {
-    opacity: .75;
-    filter: alpha(opacity=75);
-    -ms-filter: "alpha(opacity=75)";
-    -khtml-opacity: .75;
-    -moz-opacity: .75;
-    background: #B8B8B8;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 100%;
-    width: 100%;
-    z-index: 990;
-  }
   
-  #msgbx {
-    position:relative;
-    left: 25%;
-    margin-top: -90%; 
-    height: 120px;
-    width: 250px;
-    background: #fff;
-    border: 1px solid rgb(129, 128, 128);
-    box-shadow: 3px 3px 7px #777;
-    -webkit-box-shadow: 3px 3px 7px #777;
-    z-index: 999;
-    overflow-x: auto;
-    text-align: center;
-    background-color: #d4f7d6;
-  }
+  
+ 
   
   #parent {
     width: calc(115px * 2);

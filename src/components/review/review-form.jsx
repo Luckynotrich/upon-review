@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ReviewContext from '../contexts/review-context';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
 
+import ReviewContext from '../contexts/review-context';
 import StarRating from './star_rating_rhf';
-import axios from '../../utils/future-self-api';
 import CheckList from './check-list';
 
-function ReviewForm({ pros, cons, id, setCatState }) {
+function ReviewForm({ catState, setCatState }) {
+  const { name ,pros, cons, id } = catState;
+  const navigate = useNavigate();
   const date = new Date();
   const defaultDate = date.toLocaleDateString('en-CA');
 
@@ -47,19 +50,32 @@ function ReviewForm({ pros, cons, id, setCatState }) {
   const queryClient = useQueryClient();
   const reviewMutation = useMutation({
     mutationFn: (data) => {
-      axios.post('/api/review-api/addNew', data);
+      axios.post('http://localhost:8081/api/review-api/addNew',data,{headers: { 'Content-Type': 'multipart/form-data' }});
     },
     onError: (error) => {
       console.log(error);
     },
-    onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries('revs');
+    onSuccess: async (data) => {
+      // console.log('data =',await data);
+      queryClient.setQueryData(['revs', id],async (oldData) => oldData?{...oldData, data}:await data);
+      runDontWalk(`reviewMutation.onSuccess`);
     },
+    onSettled: (data) => {
+      // console.log('data =',data);
+      queryClient.invalidateQueries('revs');
+      runDontWalk(`reviewMutation.onSettled`);
+    }
   });
-  // const onSubmit = async (data) => {
-  //    await axios.post('/api/review-api/addNew', { data, catId});
-  // };
+
+  async function runDontWalk(Caller) {  
+    while (true) {  
+      console.log('Running...');  
+      await new Promise(resolve => setInterval(resolve, 1000));  
+      // console.log('sent by ', Caller);
+    return navigate('/') 
+    }  
+  }
+  
   useEffect(() => {
     setProsExist(false);
     setConsExist(false);
@@ -76,12 +92,20 @@ function ReviewForm({ pros, cons, id, setCatState }) {
   }, []);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
+      console.log('formState.isSubmitSuccessful =', formState.isSubmitSuccessful);
       reset();
       setCatState('');
     }
   }, [formState, reset]);
 
   return (
+    <>
+     <h5 key={"title"}>
+            <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+              {name}
+            </span>{' '}
+            &nbsp; &nbsp; is the category you are reviewing
+          </h5>
     <form
       onSubmit={handleSubmit(reviewMutation.mutateAsync)}
       encType="multi-part/form"
@@ -118,7 +142,7 @@ function ReviewForm({ pros, cons, id, setCatState }) {
           />
         </div>
         <div className="row">
-          <label htmlFor="RevURL">URL &nbsp;</label>
+          <label htmlFor="RevURL">URL &nbsp;&nbsp;&nbsp;</label>
           <input
             name="revURL"
             {...register('revURL')}
@@ -152,27 +176,29 @@ function ReviewForm({ pros, cons, id, setCatState }) {
           control={control}
           propArr={cons}
           propArrCount={pros.length}
-          name={'Dis-likes'}
+          name={'Dislikes'}
         />
       )}
 
       <fieldset>
+      <button type="submit" id={'reviewSubmit'}>
+          Submit
+        </button>
         <label htmlFor="revText">Review</label>
         <textarea
           {...register('revText')}
           columns=""
-          rows="27"
+          rows="15"
           className="center"
           id="revText"
           placeholder="Write Something..."
           onChange={(e) => setReviewTxt(e.target.value)}
         />
-        <button type="submit" /* onClick={()=>{setRevRating(0)}} */>
-          Submit
-        </button>
+      
       </fieldset>
       {/* </div> */}
     </form>
+    </>
   );
 }
 export default ReviewForm;

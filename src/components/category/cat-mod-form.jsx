@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+// import DeleteBtn from '@mui/icons-material/DeleteBtn';
 
 import { useCatsQuery } from '../contexts/current-cats-context';
 import SendData,{updateCat} from '../../utils/future-self-api';
@@ -98,14 +99,14 @@ export default function CatModForm({ catId }) {
     <>
       {_cat.current.name && (
         <>
-          <h5>
+          <h5 key={"title"}>
             <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
               {_cat.current.name}
             </span>{' '}
             &nbsp; &nbsp; add likes and dislikes (optional)
           </h5>
 
-          <Container key={'Container'} className="container">
+          <Container key={'Container'} /* className="container" */>
             <form
               onSubmit={handleSubmit(async (data) =>
                 updateCatMutation.mutateAsync(data),
@@ -114,7 +115,7 @@ export default function CatModForm({ catId }) {
               method="put"
               action="send"
               id="category"
-              key={"form"}
+              key={"catForm"}
               // disabled={!display}
               // hidden={!display}
             >
@@ -140,7 +141,8 @@ export default function CatModForm({ catId }) {
                           proRemove(index);
                         }}
                       >
-                        Delete
+                        delete
+
                       </button>
                     </>
                   );
@@ -154,7 +156,7 @@ export default function CatModForm({ catId }) {
                   add_box
                 </button>
               </fieldset>
-              <h4 className="left">Dis-likes</h4>
+              <h4 className="left">Dislikes</h4>
 
               <fieldset>
                 {conFields.map((item, index) => {
@@ -176,7 +178,7 @@ export default function CatModForm({ catId }) {
                           conRemove(index);
                         }}
                       >
-                        Delete
+                        delete
                       </button>
                     </>
                   );

@@ -1,11 +1,4 @@
-// * {
-//     box-sizing: border-box;
-//     max-width: 1240px;
-// 	margin: 0 auto ;
-// 	float: none !important;
-//   background-color: black;
-//   color: white;
-//   }
+
 
 input[type='text'],
 select {
@@ -16,6 +9,9 @@ select {
   border-radius: 4px;
   resize: none;
   margin: 3px;
+}
+.catSelect {
+  min-height: 10rem;
 }
 textarea {
   width: 100%;
@@ -52,7 +48,6 @@ span {
 .star {
   cursor: pointer;
   transition: color 200ms;
-  // font-size: 2.5em;
 }
 p.star {
   display: inline;
@@ -153,10 +148,10 @@ input[type='submit'] {
 input[type='submit']:hover {
   background-color: #45a049;
 }
-// input[type=date]{
-//   width:270px;
-//   padding-left: 50px;
-// }
+#reviewSubmit{
+  width: 25%;
+  margin-left: 75%;
+}
 .date-label {
   width: 15%;
   margin-left: $left-margin;
@@ -168,6 +163,7 @@ input[type='submit']:hover {
 .container {
   border-radius: 5px;
   background-color: #f2f2f2;
+  border-color: transparent;
 }
 .left-25 {
   padding: 1%;

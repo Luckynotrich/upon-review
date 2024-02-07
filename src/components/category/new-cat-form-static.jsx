@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCatsQuery } from '../contexts/current-cats-context.jsx';
 import { useNavigate } from "react-router-dom";
 
-import SendData from '../../utils/future-self-api.js';
+import axios from '../../utils/future-self-api.js';
 
 const NewCatForm = ({ catName, userId }) => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const NewCatForm = ({ catName, userId }) => {
   const { data: cats } = useCatsQuery(userId);
   const createCatMutation = useMutation({
     mutationFn: (data) => {
-      SendData.post('api/category-api/addNew/?', data);
+      axios.post('api/category-api/addNew/?', data);
     }, 
     onSucess: (data) => {
       queryClient.setQueryData(['cats'], (oldData) =>
@@ -136,7 +136,7 @@ async function runDontWalk(Caller) {
                 placeholder="I like..."
               />
             </fieldset>
-            <h4 className="left">Dis-likes</h4>
+            <h4 className="left">Dislikes</h4>
             <fieldset>
               <input
                 {...register(`cons.0`)}

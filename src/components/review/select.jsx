@@ -4,7 +4,7 @@ import Option from "./option.jsx"
 const Select = ({ categories, onSelect, key}) => {
     return (
         <>
-            <div>
+            <div className='selectCat'>
                 <label htmlFor='selectCat'>choose </label>
                 <select name="selectCat" id="selectCat" onChange={onSelect}>
                     <option value="" defaultValue>Choose a Category</option>

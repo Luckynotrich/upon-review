@@ -37,9 +37,10 @@ let i = 0;
   return (
     <>
     <Header ID={'review-title'} title={'Review'}/>
-    <div className="container">
+    <div >
       
-      <form>
+     {!catState && <form>
+      <fieldset>
         {cats.length > 0 ? (
           <Select
             categories={cats}
@@ -50,8 +51,11 @@ let i = 0;
         ) : (
           ' Categories currently unavailable. Please check the internet connection and refresh the browser'
         )}
-      </form>
-      {catState && <ReviewForm pros={catState.pros} cons={catState.cons} id={catId} setCatState={setCatState}/>}
+        </fieldset>
+      </form>}
+      
+      {catState && <ReviewForm catState={catState} setCatState={setCatState} />}
+      
     </div>
     </>
   );

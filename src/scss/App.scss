@@ -27,7 +27,9 @@ html {
   body,
   div.container {
      background-color: #000;
-    // background-color: #fff;
+     border: 1px solid white;
+     border-style: solid;
+     padding-bottom: 10rem;
   }
 }
 @media screen and (prefers-color-scheme: light) {
@@ -52,8 +54,14 @@ html {
   }
   body,
   div.container {
-    background-color: #fff;
+    background-color: #b9cbd8;
+    border: 3px solid black;
+    padding-bottom: 10rem;
   }
+}
+.container{
+  min-height: 15rem;
+  
 }
 .App {
   width: 100%;
@@ -76,23 +84,24 @@ html {
   vertical-align: middle;
   padding: 1%;
   margin: 1% 0;
+  color:#000
 }
 
 #large-center {
-  color: #cfad02;
+  // color: #cfad02;
   background-color: #ffdb00;
   left: 0.7%;
   @include large;
 }
 
 #large-right {
-  color: #94480a;
+  // color: #94480a;
   background-color: #c46210;
   left: 0.7%;
   @include large;
 }
 #large-left {
-  color: #2e7d42;
+  // color: #2e7d42;
   background-color: #0a6120;
   left: 0.7%;
   @include large;
