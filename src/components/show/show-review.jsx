@@ -107,7 +107,7 @@ function ShowReview() {
                                   width="30%"
                                   key={rev.id + 1000}
                                   sx={{
-                                    marginLeft: '10%',
+                                    marginLeft: '23%',
                                     paddingBottom: '0%',
                                     display: 'flex',
                                     flexDirection: 'row',
