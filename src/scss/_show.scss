@@ -37,6 +37,7 @@
   padding-bottom:3rem;
 }
 .MuiCardContent-root {
+  width: 100%;
   display: flex;
   padding: 0% 0% 0% 0%;
 }
@@ -77,7 +78,8 @@
 }
 .show-rating{
   position: relative;
-  left:70%;
+  left:-50%;
+  top: 50%
 }
 .column {
   flex-flow: column;
