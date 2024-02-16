@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -7,35 +7,63 @@ import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { Box, CardHeader } from '@mui/material';
-import  List  from '@mui/material/List';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import UrlButton from './url_button_mui';
+import Grid from './grid';
 
 export default function ImgMediaCard({ category, rev, toggleItem }) {
   let caption, Text, kategori;
-  const [pros,setPros] = useState([])
-   const [cons,setCons] = useState([]);
+  const [rows, setRows] = useState([]);
+
   useEffect(() => {
-    console.log('card rev.name', rev.name, ' rev ', rev);
-    console.log('card category.name', category.name, ' category ', category);
-    if (rev.pros && rev.pros.length > 0) {
-      rev.pros.map((pro) => {
+    console.log('category =', category);
+    console.log('rev =', rev);
+    let phoRows = [];
+    if (rev.pros && rev.pros.length > 0 && rev.pros[0].value !== null) {
+      rev.pros.forEach((pro, index) => {
         category.pros.find((catPro) => {
-          catPro.id === pro.id &&
-            setPros([...pros,{ value: catPro.value, id: catPro.id }]);
+          if (catPro.id === pro.id) {
+            phoRows[index] = {
+              id: index,
+              col1: `${catPro.value}`,
+              textCenter: true,
+            };
+          }
         });
       });
-      console.log('pros =', pros);
     }
-    if (rev.cons && rev.cons.length > 0) {
-      rev.cons.map((con) => {
-        category.cons.find((catCon) => {
-          catCon.id === con.id &&
-            setCons([...cons,{ value: catCon.value, id: catCon.id }]);
+    
+      if (rev.cons && rev.cons.length > 0 && rev.cons[0].value !== null ) {
+       
+        rev.cons.forEach((con, index) => {
+          category.cons.find((catCon) => {
+            if (catCon.id === con.id)
+              phoRows[index] = { ...phoRows[index], col2: `${catCon.value}` };
+          });
         });
-      });
-      console.log('cons', cons);
-    }
+        if (rev.cons.length > rev.pros.length) {
+          for (let i = rev.pros.length; i < rev.cons.length; i++) {
+            category.cons.find((catCon) => {
+              if (catCon.id === rev.con[i].id) {
+                phoRows[i] = {
+                  id: i,
+                  col1: '',
+                  col2: `${category.cons[i].value}`,
+                };
+              }
+            });
+          }
+        }
+      
+    }else if(phoRows.length > 0) phoRows[0] = {
+      id: 0,
+      col2: 'none',
+      textCenter: true,
+    };
+    console.log('phoRows =', phoRows);
+    setRows(phoRows);
   }, [rev, category]);
   {
     if (rev) {
@@ -50,10 +78,10 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
   return (
     <Card
       sx={{
-        width: '70%',
-        maxWidth: 1045,
-        minWidth: 1045,//290,
-        minHeight: 1000,
+        width: 620,
+        maxWidth: 700,
+        minWidth: 300, //290,
+        minHeight: 100,
         backgroundColor: 'lightblue',
       }}
     >
@@ -63,37 +91,18 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
         height="140"
         image="/static/images/cards/contemplative-reptile.jpg"
       /> */}
-      {/* <CardActions>
+      <CardActions>
         <Button size="medium">
           <span className="material-symbols-outlined">share</span>
         </Button>
-        {rev.url &&
-          (rev.url.includes('http') || rev.url.includes('www') ? (
-            <Button
-              href={rev.url}
-              target="_blank"
-              size="medium"
-              variant="outlined"
-            >
-              <span className="material-symbols-outlined">Forward</span>
-            </Button>
-          ) : (
-            <Button
-              href={`https:\\www.${rev.url}`}
-              target="_blank"
-              size="medium"
-              variant="outlined"
-            >
-              <span className="material-symbols-outlined">Forward</span>
-            </Button>
-          ))}
+        {rev.url && <UrlButton url={rev.url} />}
         <Button size="medium" onClick={() => toggleItem(rev.id)}>
           <span className="material-symbols-outlined">cancel</span>
         </Button>
-      </CardActions> */}
+      </CardActions>
 
       <CardContent>
-        {/* <Box
+        <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -125,37 +134,20 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
               size="large"
             />
           )}
-        </Box> */}
-      {/* </CardContent>
-      <CardContent> */}
-        <Box /* className="proConBox" */>
-          <div>LIKES</div>
-            <List>
-          {pros.map((pro) => {
-              <ListItem key={pro.id}>
-                <ListItemText primary={pro.value} />
-              </ListItem>
-            })}
-            </List>
         </Box>
-        {/* <Box className="proConBox">
-          <div>DISLIKES</div>
-          <List>
-          {cons &&
-            cons.length > 0 &&
-            cons.map((con) => {
-              <ListItem key={con.id}>
-                <ListItemText primary={con.value} />
-              </ListItem>;
-            })}
-            </List>
-        </Box> */}
       </CardContent>
-      {/* <CardContent>
+      { rows && rows.length > 0 && rows[0] !== Number(0) && (
+        <CardContent>
+          <Box className="proConBox">
+            <Grid rows={rows} />
+          </Box>
+        </CardContent>
+      )}
+      <CardContent>
         <Typography variant="body2" color="text.secondary">
           {Text}
         </Typography>
-      </CardContent> */}
+      </CardContent>
     </Card>
   );
 }
