@@ -76,6 +76,12 @@
 .MuiRating-iconEmpty {
   border-color: lightgray;
 }
+.MuiDataGrid-footerContainer {
+visibility: hidden;
+}
+.MuiDataGrid-sortIcon{
+  visibility: hidden;
+}
 .show-rating{
   position: relative;
   left:-50%;

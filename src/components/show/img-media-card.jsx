@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
+import {createTheme} from '@mui/material/styles';
+// import { ThemeProvider } from '@tanstack/react-query-devtools/build/lib/theme';}
 import Button from '@mui/material/Button';
-import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { Box, CardHeader } from '@mui/material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import UrlButton from './url_button_mui';
 import Grid from './grid';
+import RevRating from './rev-rating';
+
 
 export default function ImgMediaCard({ category, rev, toggleItem }) {
   let caption, Text, kategori;
   const [rows, setRows] = useState([]);
+  const theme = createTheme();
+  theme.spacing(2);
 
   useEffect(() => {
-    console.log('category =', category);
-    console.log('rev =', rev);
+    // console.log('category =', category);
+    // console.log('rev =', rev);
     let phoRows = [];
     if (rev.pros && rev.pros.length > 0 && rev.pros[0].value !== null) {
       rev.pros.forEach((pro, index) => {
@@ -62,7 +64,6 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
       col2: 'none',
       textCenter: true,
     };
-    console.log('phoRows =', phoRows);
     setRows(phoRows);
   }, [rev, category]);
   {
@@ -78,9 +79,9 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
   return (
     <Card
       sx={{
-        width: 620,
+        width: '100%',
         maxWidth: 700,
-        minWidth: 300, //290,
+        minWidth: 320, //290,
         minHeight: 100,
         backgroundColor: 'lightblue',
       }}
@@ -112,34 +113,19 @@ export default function ImgMediaCard({ category, rev, toggleItem }) {
         >
           <Typography gutterBottom variant="p" component="div">
             <div style={{ display: 'flex', flexFlow: 'row nowrap' }}>
-              {kategori}
+              {kategori}:&nbsp;
               {caption}
             </div>
           </Typography>
-          {rev.rating && rev.rating > 0 ? (
-            <Rating
-              className="show-rating"
-              name="read-only"
-              value={rev.rating}
-              size="large"
-              readOnly
-            />
-          ) : (
-            <Rating
-              className="show-rating"
-              name="no-value"
-              value={null}
-              readOnly
-              fontSize="inherit"
-              size="large"
-            />
-          )}
+          <RevRating rating={rev.rating} />
         </Box>
       </CardContent>
       { rows && rows.length > 0 && rows[0] !== Number(0) && (
         <CardContent>
           <Box className="proConBox">
+            {/* <ThemeProvider theme={theme}> */}
             <Grid rows={rows} />
+            {/* </ThemeProvider> */}
           </Box>
         </CardContent>
       )}
