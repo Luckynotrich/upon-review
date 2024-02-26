@@ -11,7 +11,7 @@ import Header from '../header';
 import { useCatsQuery } from '../contexts/current-cats-context';
 import { Rating, Box, Button } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ImgMediaCard from './img-media-card';
+import ImgMediaCard from './card/img-media-card';
 // import ImgMediaCardTop from './img-media-card-top';
 
 function ShowReview() {

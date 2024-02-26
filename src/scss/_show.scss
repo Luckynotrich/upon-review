@@ -81,6 +81,7 @@ visibility: hidden;
 }
 .MuiDataGrid-sortIcon{
   visibility: hidden;
+  width:fit-content;
 }
 .show-rating{
   position: relative;
@@ -95,9 +96,9 @@ visibility: hidden;
   width: 50%;
   margin-left: 75%;
 }
-.proConBox{
-  display: flex;
-  flex-direction: column
-}
+// .proConBox{
+//   display: flex;
+//   flex-direction: column
+// }
 
 
