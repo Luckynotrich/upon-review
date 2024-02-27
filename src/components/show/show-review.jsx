@@ -9,10 +9,11 @@ import UserContext from '../contexts/user-context';
 import { getRevs } from '../../utils/future-self-api';
 import Header from '../header';
 import { useCatsQuery } from '../contexts/current-cats-context';
-import { Rating, Box, Button } from '@mui/material/';
+import {  Box, Button } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImgMediaCard from './card/img-media-card';
-// import ImgMediaCardTop from './img-media-card-top';
+import RevRating from './rev-rating';
+
 
 function ShowReview() {
   const theme = createTheme({
@@ -85,7 +86,7 @@ function ShowReview() {
               Categories
             
             &nbsp; &nbsp; &nbsp; 
-            <span style={{ color: '#2c9905', fontSize: '2.3rem' }}>Reviews</span> &nbsp; &nbsp; &nbsp; &nbsp; <span style={{ color: '#ff9933', fontSize: '2.3rem' }}>Rating</span>
+            <span style={{ color: '#2c9905', fontSize: '2.3rem' }}>Reviews</span> {/* &nbsp; &nbsp; &nbsp; &nbsp; <span style={{ color: '#ff9933', fontSize: '2.3rem' }}>Rating</span> */}
           </h3>
           <div className="columns">
             {cats &&
@@ -122,22 +123,8 @@ function ShowReview() {
                                     }}
                                   >
                                     {rev.name}
-                                  </Button>
-                                  {rev.rating && rev.rating > 0 ? (
-                                    <Rating
-                                      name="read-only"
-                                      value={rev.rating}
-                                      size="large"
-                                      readOnly
-                                    />
-                                   ) : ( 
-                                    <Rating
-                                      name="no-value"
-                                      value={null}
-                                      readOnly
-                                      fontSize="inherit"
-                                    />
-                                   )} 
+                                   <RevRating rating={rev.rating} className="show-rating"/>
+                                   </Button>
                                 </Box>)}
                                 
                               {/* </li> */}
