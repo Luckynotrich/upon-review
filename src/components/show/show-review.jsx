@@ -19,7 +19,7 @@ function ShowReview() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: '#2c9905',
+        main:  '#2c9905',
       },
       typography: {
         fontFamily: 'Poppins',
@@ -102,7 +102,7 @@ function ShowReview() {
                           return (
                             <div key={rev.id} className='review'>
                               {isItemSelected(rev.id) && (
-                                <ImgMediaCard className="column" category={category} rev={rev} toggleItem={toggleItem}/>
+                                <ImgMediaCard className="column" category={category} review={rev} toggleItem={toggleItem}/>
                               )}
                              {!isItemSelected(rev.id)&&( <Box 
                                   width="30%"

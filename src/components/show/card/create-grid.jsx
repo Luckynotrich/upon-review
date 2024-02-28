@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Grid from './grid.jsx';
 
+
+export const meld =(cats,revs)=>{
+  let Array =[];
+  
+  if(revs.length === 0 || revs[0].value === null){
+    Array.push({value:'none',id:0})
+    return (Array)
+  }
+  Array = revs.map((rev)=>{         
+       return (cats.find((cat)=>(cat.id === rev.id)))
+    })
+    Array = Array.filter(Boolean);
+return Array;
+}
+
 function createGridData(pros, cons) {
   let phoRows = [pros.length];
+  
   pros.forEach((pro, index) => {
     phoRows[index] = {
       id: index,
@@ -11,10 +27,10 @@ function createGridData(pros, cons) {
       wordWrap: 'break-word',
     };
   });
-  if (cons.length > 0)
+  if (cons.length > 0 && cons[0] != 0)
     phoRows.forEach((row, index) => {
-      if (phoRows.length > index && cons.length > index)
-        phoRows[index] = { ...phoRows[index], col2: `${cons[index].value}` };
+      if (phoRows.length > index && cons.length > index){
+        phoRows[index] = { ...phoRows[index], col2: `${cons[index].value}` };}
     });
   if (cons.length > pros.length) {
     for (let i = pros.length; i < cons.length; i++) {
@@ -24,9 +40,12 @@ function createGridData(pros, cons) {
   return phoRows;
 }
 
-export default function CreateGrid({ pros, cons }) {
+export default function CreateGrid({ cats, revs }) {
+ 
+  const [pros,setPros] = useState(meld(cats.pros,revs.pros));
+  const [cons,setCons] = useState(meld(cats.cons,revs.cons));
+
   const [rows, setRows] = useState(createGridData(pros, cons));
-  console.log('cons =', cons);
 
   const columns = [
     {
@@ -48,6 +67,6 @@ export default function CreateGrid({ pros, cons }) {
   return <Grid rows={rows} columns={columns} />;
 }
 CreateGrid.propTypes = {
-  pros: PropTypes.arrayOf(PropTypes.object),
-  cons: PropTypes.arrayOf(PropTypes.object),
+  cats: PropTypes.object,
+  revs: PropTypes.object,
 };
