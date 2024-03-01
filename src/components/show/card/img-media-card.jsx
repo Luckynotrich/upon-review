@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import { ThemeProvider } from '@mui/material/styles';
+
+// import { ThemeProvider,createTheme } from '@mui/material/styles';
+
+
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box/* , CardHeader */ } from '@mui/material';
 import UrlButton from '../url_button_mui';
-import { theme } from "./styles/styles.js";
+
 import RevRating from '../rev-rating';
 import CreateMuiTable from './create-mui-table';
 import CreateGrid from './create-grid';
@@ -26,6 +29,7 @@ export default function ImgMediaCard({ category, review, toggleItem }) {
         (Text =
           'Click on a name to see a review. Names appear below and to the right of their category');
     }
+   
     return (
     <Card
       sx={{
@@ -66,16 +70,14 @@ export default function ImgMediaCard({ category, review, toggleItem }) {
       </CardContent>
       
         <CardContent>
-           <ThemeProvider theme={theme}>
       <Box sx={{ display: { mobile: "block", tablet: "none", desktop: 'none' } }}>
         <CreateMuiTable cats={category.pros} revs={review.pros} name={"Likes"} />
         <CreateMuiTable cats={category.cons} revs={review.cons} name={"Disikes"} />
       </Box>
       
-      <Box sx={{ height: 400, display: { mobile: "none", tablet: "block" } }}>
+      <Box sx={{ height: 'fit-content', display: { mobile: "none", tablet: "block" } }}>
         <CreateGrid cats={category} revs={review}/>
         </Box>
-        </ThemeProvider>
         </CardContent>
       
       <CardContent>

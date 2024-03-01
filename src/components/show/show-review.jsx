@@ -3,33 +3,26 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
+import { Box, Button } from '@mui/material/';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import CategoryContext from '../contexts/category-context';
 import UserContext from '../contexts/user-context';
-
-import { getRevs } from '../../utils/future-self-api';
-import Header from '../header';
 import { useCatsQuery } from '../contexts/current-cats-context';
-import {  Box, Button } from '@mui/material/';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ImgMediaCard from './card/img-media-card';
+import { getRevs } from '../../utils/future-self-api';
+
+import Header from '../header';
 import RevRating from './rev-rating';
 
+import ImgMediaCard from './card/img-media-card';
+import { theme, getDesignTokens } from './card/mui-styles/cardTheme.js';
+
+const darkModeTheme = createTheme(getDesignTokens('dark'));
+const lightModeTheme = createTheme(getDesignTokens('light'));
 
 function ShowReview() {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main:  '#2c9905',
-      },
-      typography: {
-        fontFamily: 'Poppins',
-        fontWeightLight: 300,
-        fontWeightRegular: 400,
-        fontWeightMedium: 500,
-        fontWeightBold: 600,
-      },
-    },
-  });
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const [selected, setSelected] = useState([0]);
   const toggleItem = (id) => {
@@ -75,36 +68,38 @@ function ShowReview() {
     );
   else {
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={prefersDarkMode ? darkModeTheme : lightModeTheme}>
         <div className="show-view">
           <header>
-          <Header ID={'show-view-title'} title={'View'} />
-          {/* <ImgMediaCardTop className="topCard" /> */}
+            <Header ID={'show-view-title'} title={'View'} />
           </header>
-          <h3 key={"title"}>
-            
-              Categories
-            
-            &nbsp; &nbsp; &nbsp; 
-            <span style={{ color: '#2c9905', fontSize: '2.3rem' }}>Reviews</span> {/* &nbsp; &nbsp; &nbsp; &nbsp; <span style={{ color: '#ff9933', fontSize: '2.3rem' }}>Rating</span> */}
-          </h3>
+          <div style={{ display: 'flex', flex: 'row' }}>
+            <h2 key={'title'}>Categories</h2>
+            <h2 style={{ color: '#2c9905' }}>Reviews</h2>
+          </div>
           <div className="columns">
             {cats &&
               cats.map((category, i) => {
                 return (
                   <div className="categories" key={i + 1}>
-                    <h4 className="categories" key={category.id}>
+                    <h3 className="categories" key={category.id}>
                       {category.name}
-                    </h4>
+                    </h3>
                     <div key={(i + 1) * 10}>
                       {revs.map((rev) => {
                         if (Number(rev.cat_id) === Number(category.id))
                           return (
-                            <div key={rev.id} className='review'>
+                            <div key={rev.id} className="review">
                               {isItemSelected(rev.id) && (
-                                <ImgMediaCard className="column" category={category} review={rev} toggleItem={toggleItem}/>
+                                <ImgMediaCard
+                                  className="column"
+                                  category={category}
+                                  review={rev}
+                                  toggleItem={toggleItem}
+                                />
                               )}
-                             {!isItemSelected(rev.id)&&( <Box 
+                              {!isItemSelected(rev.id) && (
+                                <Box
                                   width="30%"
                                   key={rev.id + 1000}
                                   sx={{
@@ -121,14 +116,22 @@ function ShowReview() {
                                     onClick={() => {
                                       toggleItem(rev.id);
                                     }}
+                                    sx={{
+                                      textDecoration: 'underline',
+                                      textAlign: 'left',
+                                      width: 'fit-content'
+                                    }}
                                   >
                                     {rev.name}
-                                   <RevRating rating={rev.rating} className="show-rating"/>
-                                   </Button>
-                                </Box>)}
-                                
+                                    <RevRating
+                                      rating={rev.rating}
+                                      className="show-rating"
+                                    />
+                                  </Button>
+                                </Box>
+                              )}
+
                               {/* </li> */}
-                              
                             </div>
                           );
                       })}
@@ -136,7 +139,7 @@ function ShowReview() {
                   </div>
                 );
               })}
-          {/* </div> */}
+            {/* </div> */}
           </div>
         </div>
       </ThemeProvider>

@@ -83,6 +83,9 @@ visibility: hidden;
   visibility: hidden;
   width:fit-content;
 }
+.MuiDataGrid-widthBorderColor{
+  color: iherit;
+}
 .show-rating{
   position: relative;
   margin-left:20%;
@@ -96,9 +99,17 @@ visibility: hidden;
   width: 50%;
   margin-left: 75%;
 }
-// .proConBox{
-//   display: flex;
-//   flex-direction: column
-// }
+@media screen and (max-width: 410px){
+  .show-view{
+    padding-left:0%;
+  }
+  .MuiCard-root{
+    padding-left: 0%;
+    margin-left: 0%;
+  }
+  .MuiCard-root{
+    padding-left: 0%;
+  }
+}
 
 

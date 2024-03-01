@@ -14,10 +14,10 @@ export default function MuiTable({ rows, name }) {
   return (
     <div>
     <TableContainer /* component={Paper} */>
-      <Table sx={{ minWidth: 320, background:"transparent" }}>
+      <Table sx={{ minWidth: 320, background:"transparent", border:"1px solid back"}}>
         <TableHead>
           <TableRow>
-            <TableCell align="center" sx={{border: "1px solid",color: "inherit"}}>{name}</TableCell>
+            <TableCell align="center" sx={{border: "1px solid black",color: "inherit"}}>{name}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -32,7 +32,7 @@ export default function MuiTable({ rows, name }) {
                   wordWrap: "break-word",
                 }}
               >
-                <TableCell scope="row" align="left" sx={{border:"1px solid",color: "inherit"}}>
+                <TableCell scope="row" align="left" sx={{border:"1px solid black",color: "inherit"}}>
                   {row.name}
                 </TableCell>
               </TableRow>

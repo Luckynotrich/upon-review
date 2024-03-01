@@ -1,5 +1,4 @@
-
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 $left-margin: 7%;
 html {
@@ -22,14 +21,14 @@ html {
 }
 @media screen and (prefers-color-scheme: dark) {
   p,a,h2,h3,h4,h5,h6,span,label/* ,:placeholder-shown */ {
-    color:  #f66809,
+    color: #f66809;
   }
   body,
   div.container {
-     background-color: #000;
-     border: 1px solid white;
-     border-style: solid;
-     padding-bottom: 10rem;
+    background-color: hsl(120, 42%, 9%);
+    border: 1px solid white;
+    border-style: solid;
+    padding-bottom: 10rem;
   }
 }
 @media screen and (prefers-color-scheme: light) {
@@ -54,14 +53,13 @@ html {
   }
   body,
   div.container {
-    background-color: #b9cbd8;
-    border: 3px solid black;
+    background-color: hsl(40, 91%, 91%);
+    border: 3px solid rgb(0, 0, 0);
     padding-bottom: 10rem;
   }
 }
-.container{
+.container {
   min-height: 15rem;
-  
 }
 .App {
   width: 100%;
@@ -74,7 +72,7 @@ html {
   visibility: hidden;
 }
 @mixin large {
-  width: 99%;
+  width: 98%;
   height: 90%;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4),
     0 6px 10px 0 rgba(240, 7, 7, 0.19);
@@ -84,19 +82,19 @@ html {
   vertical-align: middle;
   padding: 1%;
   margin: 1% 0;
-  color:#000
+  color: #000;
 }
 
 #large-center {
   // color: #cfad02;
-  background-color: #ffdb00;
+  background-color: #aa992c;
   left: 0.7%;
   @include large;
 }
 
 #large-right {
   // color: #94480a;
-  background-color: #c46210;
+  background-color: #a8530d;
   left: 0.7%;
   @include large;
 }
@@ -109,15 +107,15 @@ html {
 
 #large-left.active {
   background-color: #8fd400;
-  color: #000
+  color: #000;
 }
 #large-center.active {
   background-color: #fafa37;
-  color: #000
+  color: #000;
 }
 #large-right.active {
   background-color: #ff9933;
-  color: #000
+  color: #000;
 }
 #review-title {
   // position: relative;
@@ -127,8 +125,10 @@ html {
 }
 
 #show-view-title {
+  float: left;
   background-color: #8fd400;
-  left: -37.3%;
+  left: -38%;
+  width: 35%;
 }
 #category-title {
   background-color: #fafa37;
@@ -137,17 +137,49 @@ html {
 .header-title {
   max-width: 99%;
   position: relative;
-  color:transparent;
+  color: transparent;
   width: 32.9%;
   padding: 1%;
   z-index: -1;
   margin-top: -3%;
 }
-
+@media screen and (max-width: 860px){
+  #show-view-title {
+    left: -39%;
+  }
+}
+@media screen and (max-width: 750px){
+  #show-view-title {
+    left: -41%;
+  }
+}
 @media screen and (max-width: 600px) {
+  .MuiCardContent-root {
+    padding-left: 0%;
+  }
   [class^='large'] {
     align-items: center;
     margin-left: 0.5%;
+  }
+  #show-view-title {
+    left: -43%;
+    width: 37%;
+  }
+}
+@media screen and (max-width: 510px){
+  #show-view-title {
+    left: -43%;
+  }
+}
+@media screen and (max-width: 409px) {
+  [class^='large'] {
+    margin-left: -3%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  #show-view-title {
+    left: -35%;
+    width: 32%;
   }
 }
 @import './show';

@@ -5,8 +5,8 @@ import  Box  from "@mui/material/Box";
 // import React from 'react'
 export default function Grid({ rows, columns }) {
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
-      <DataGrid sx={{height:"fit-content", color: "inherit",borderColor:"black"}} rows={rows} columns={columns} />
+    <Box sx={{ height: 'fit-content', width: "100%" }}>
+      <DataGrid sx={{height:"fit-content", color: "inherit",borderColor:"black",paddingBottom: 0}} rows={rows} columns={columns} />
     </Box>
   );
 }
