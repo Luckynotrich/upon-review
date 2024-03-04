@@ -33,8 +33,10 @@
   margin-right: 1%;
 }
 .MuiCard-root{
-  padding-left:1rem;
+  padding-left: 0;
   padding-bottom:3rem;
+  margin-left: 0%;
+  // min-width: 380px;
 }
 .MuiCardContent-root {
   width: 100%;
@@ -47,6 +49,7 @@
     flex-direction: row;
     flex-flow:nowrap;
     align-items: left;
+    min-width: 300px;
 }
 .MuiButton-root {
   position: relative;
@@ -107,9 +110,7 @@ visibility: hidden;
     padding-left: 0%;
     margin-left: 0%;
   }
-  .MuiCard-root{
-    padding-left: 0%;
-  }
+ 
 }
 
 

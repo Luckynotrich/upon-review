@@ -31,6 +31,14 @@ typography: {
           main: green['900'],
         }),
       },
+      secondary:{
+        ...orange,
+        ...(mode === 'dark'?{
+          main: orange[200]
+        }:{
+          main: orange[800]
+        }),
+      },
       ...(mode === 'dark' && {
         background: {
           default: 'hsl(123, 61%, 15%)',

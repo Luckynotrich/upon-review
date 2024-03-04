@@ -76,6 +76,7 @@ function ShowReview() {
           <div style={{ display: 'flex', flex: 'row' }}>
             <h2 key={'title'}>Categories</h2>
             <h2 style={{ color: '#2c9905' }}>Reviews</h2>
+            <p id='hidP' style={{color:'transparent'}}>w</p>
           </div>
           <div className="columns">
             {cats &&
@@ -89,13 +90,14 @@ function ShowReview() {
                       {revs.map((rev) => {
                         if (Number(rev.cat_id) === Number(category.id))
                           return (
-                            <div key={rev.id} className="review">
+                            <Box key={rev.id} sx={{}}>
                               {isItemSelected(rev.id) && (
                                 <ImgMediaCard
                                   className="column"
                                   category={category}
                                   review={rev}
                                   toggleItem={toggleItem}
+                                  elem={'hidP'}
                                 />
                               )}
                               {!isItemSelected(rev.id) && (
@@ -130,9 +132,7 @@ function ShowReview() {
                                   </Button>
                                 </Box>
                               )}
-
-                              {/* </li> */}
-                            </div>
+                            </Box>
                           );
                       })}
                     </div>
