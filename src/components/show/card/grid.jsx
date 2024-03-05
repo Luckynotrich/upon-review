@@ -6,7 +6,7 @@ import  Box  from "@mui/material/Box";
 export default function Grid({ rows, columns, gridHeight }) {
   return (
     <Box sx={{ height: `${gridHeight}`, width: "100%" }}>
-      <DataGrid sx={{height:`${gridHeight}`, color: "inherit",borderColor:"black",paddingBottom: '1rem'}} rows={rows} columns={columns} />
+      <DataGrid sx={{height:`${gridHeight}`, color: "inherit",borderColor:"black",paddingBottom: '1rem'}} rows={rows} columns={columns} disableColumnMenu={true}/>
     </Box>
   );
 }

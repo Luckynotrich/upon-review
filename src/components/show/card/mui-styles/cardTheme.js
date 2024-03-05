@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { green, lightGreen,orange, yellow } from '@mui/material/colors';
 
 export const theme = createTheme({
@@ -11,7 +12,7 @@ export const getDesignTokens = (mode) => ({
         mobile: 0,
         tablet: 640,
         laptop: 1024,
-        desktop: 1200
+        desktop: 1280
     }
 },
 typography: {
@@ -55,7 +56,7 @@ typography: {
         ...(mode === 'light'
           ? {
               primary: yellow[900],
-              secondary: yellow[800],
+              secondary: '#5d0303',
             }
           : {
               primary: yellow[500],
@@ -68,4 +69,6 @@ typography: {
      
     },
   });
-  
+  export function Min600MediaQuery() {
+    const matches = useMediaQuery('(min-width:600px)');
+  }

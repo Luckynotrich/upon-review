@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-
+import Select from '../review/select.jsx'
 import Header from '../header.jsx';
+import Button from '@mui/material/Button';
 
 // import CircularColor from '../spinner.jsx';
 
@@ -105,6 +106,7 @@ export default function CreateCatName({
             )}
           </h4>
           <fieldset>
+            <section style={{display: 'flex', flexFlow: 'row'}}>
             <input
               type="text"
               autoFocus
@@ -122,6 +124,8 @@ export default function CreateCatName({
               onFocus={() => "this.placeholder=''"}
               onBlur={() => "this.placeholder=''"}
             ></input>
+            <Button sx={{border:'5px solid orange'}}type="button"><span className="material-symbols-outlined">edit</span></Button>
+            </section>
             <input
               type="submit"
               id="submitButton"

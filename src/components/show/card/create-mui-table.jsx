@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import PropTypes from "prop-types"
-import MuiTable from "./mui-table";
+import MuiTable from "./mui-table-1-column";
 import {meld} from './create-grid'
 
 function createData(name,id){

@@ -16,7 +16,7 @@ import Header from '../header';
 import RevRating from './rev-rating';
 
 import ImgMediaCard from './card/img-media-card';
-import { theme, getDesignTokens } from './card/mui-styles/cardTheme.js';
+import { /* theme,  */getDesignTokens } from './card/mui-styles/cardTheme.js';
 
 const darkModeTheme = createTheme(getDesignTokens('dark'));
 const lightModeTheme = createTheme(getDesignTokens('light'));
@@ -90,7 +90,7 @@ function ShowReview() {
                       {revs.map((rev) => {
                         if (Number(rev.cat_id) === Number(category.id))
                           return (
-                            <Box key={rev.id} sx={{}}>
+                            <Box key={rev.id+100} sx={{marginLeft:{mobile:'0%',tablet: '1rem',laptop:'5rem',desktop:'rem'}}}>
                               {isItemSelected(rev.id) && (
                                 <ImgMediaCard
                                   className="column"
@@ -98,6 +98,7 @@ function ShowReview() {
                                   review={rev}
                                   toggleItem={toggleItem}
                                   elem={'hidP'}
+                                  
                                 />
                               )}
                               {!isItemSelected(rev.id) && (
