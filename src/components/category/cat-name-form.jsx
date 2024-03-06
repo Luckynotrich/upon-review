@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import Select from '../review/select.jsx'
 import Header from '../header.jsx';
 import Button from '@mui/material/Button';
+import DataListInput from './data-list.jsx';
 
 // import CircularColor from '../spinner.jsx';
 
@@ -106,26 +107,8 @@ export default function CreateCatName({
             )}
           </h4>
           <fieldset>
-            <section style={{display: 'flex', flexFlow: 'row'}}>
-            <input
-              type="text"
-              autoFocus
-              className="center"
-              aria-describedby="create category name"
-              id="name"
-              {...register('name', {
-                required: 'This is required',
-                minLength: {
-                  value: 4,
-                  message: 'A minimum 4 characters is required.',
-                },
-              })}
-              placeholder="Category name"
-              onFocus={() => "this.placeholder=''"}
-              onBlur={() => "this.placeholder=''"}
-            ></input>
-            <Button sx={{border:'5px solid orange'}}type="button"><span className="material-symbols-outlined">edit</span></Button>
-            </section>
+         
+            <DataListInput register={register} categories={cats} />
             <input
               type="submit"
               id="submitButton"
