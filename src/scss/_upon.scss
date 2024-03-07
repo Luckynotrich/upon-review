@@ -5,7 +5,7 @@
   }
  
   input[type=text], select, textarea {
-    width: 84%;
+    width: 90%;
     height: 10%;
     margin: .5% 1% .5% ;
 
@@ -53,7 +53,9 @@
     cursor: pointer;
     float: right;
   }
-  
+  button.create {
+    max-width: 33%;
+  }
   h1{
     font-size:xx-large;
     text-align: center;
@@ -61,22 +63,36 @@
     margin-bottom: -9px;
     margin-top: 0;
   }
-  
+  form.newCat{
+    margin-left:5%;
+    margin-right:5%;
+    width: 100%;
+  }
+  .MuiContainer-root{
+    border: 1px solid white;
+  }
   .container {
-    border: .2em solid #2f2f2f;
+    border: .2em solid;
     border-style: inset;
     width: 100%;
   }
  
   .center {
     margin: auto;
-    width: 100%;
+    width: 50%;
     text-align: left;
+  }
+  .right {
+    width: 20%;
+    margin-top: 6px;
+    text-align: right;
+    margin: 2px;
   }
   .left {
     width: 20%;
     margin-top: 6px;
-    text-align: right;
+    padding-left: 1rem;
+    text-align: left;
     margin: 2px;
   }
   .nameLable {

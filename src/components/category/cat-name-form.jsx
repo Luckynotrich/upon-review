@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Select from '../review/select.jsx'
 import Header from '../header.jsx';
-import Button from '@mui/material/Button';
-import DataListInput from './data-list.jsx';
+
+import DataListInput from './data-list-input.jsx';
 
 // import CircularColor from '../spinner.jsx';
 
@@ -30,6 +30,7 @@ export default function CreateCatName({
     reset,
     watch,
     setError,
+    
   } = useForm({
     defaultValues: {
       name: '',
@@ -90,25 +91,25 @@ export default function CreateCatName({
         >
           <h4 id="nameLable" className="nameLable left">
             {name.length > 3 && inUse ? (
-              <span style={{ color: `${YELLOW}`, fontSize: '1.5rem' }}>
-                ' {name}' &nbsp;&nbsp; is in use. &nbsp; &nbsp; &nbsp; Click
-                'Edit' button to change this category.
-              </span>
+              <span style={{ color: `${YELLOW}`, fontSize: '1.2rem' }}>
+                ' {name}' &nbsp;&nbsp; is in use. <br/>{/*} &nbsp; &nbsp; &nbsp; */}
+                <span style={{color: '#f66809', fontSize: '1.2rem'}}> Click
+                the button to edit this category.</span>
+                </span>
             ) : errors.name ? (
-              <span style={{ color: 'red', fontSize: '1.5rem' }}>
+              <span style={{ color: 'red', fontSize: 'h4' }}>
                 {errors.name.message}{' '}
               </span>
             ) : name.length > 3 ? (
-              <span style={{ color: 'green', fontSize: '1.5rem' }}>
+              <span style={{ color: 'green', fontSize: 'h4' }}>
                 {name} -- is available
               </span>
             ) : (
               'create / edit a category'
             )}
           </h4>
-          <fieldset>
-         
-            <DataListInput register={register} categories={cats} />
+          <section className="catName">
+            {cats && <DataListInput register={register}  categories={cats} />}
             <input
               type="submit"
               id="submitButton"
@@ -121,7 +122,7 @@ export default function CreateCatName({
                 reset();
               }}
             ></input>
-          </fieldset>
+          </section>
         </form>
       )}
       {loading && <p>Loading.....</p>}

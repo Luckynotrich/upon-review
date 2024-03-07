@@ -21,7 +21,6 @@ function CreateReview() {
         <div>
             <ReviewCategory />
             <ReviewForm submit={createReviewMutation}/>
-            {/* {catId &&  <ReviewForm pros={catState.pros} cons={catState.cons} setCatState={setCatState}/>} */}
         </div>
     );
 }

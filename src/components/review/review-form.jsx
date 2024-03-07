@@ -56,12 +56,10 @@ function ReviewForm({ catState, setCatState }) {
       console.log(error);
     },
     onSuccess: async (data) => {
-      // console.log('data =',await data);
       queryClient.setQueryData(['revs', id],async (oldData) => oldData?{...oldData, data}:await data);
       runDontWalk(`reviewMutation.onSuccess`);
     },
     onSettled: (data) => {
-      // console.log('data =',data);
       queryClient.invalidateQueries('revs');
       runDontWalk(`reviewMutation.onSettled`);
     }
@@ -71,7 +69,6 @@ function ReviewForm({ catState, setCatState }) {
     while (true) {  
       console.log('Running...');  
       await new Promise(resolve => setInterval(resolve, 1000));  
-      // console.log('sent by ', Caller);
     return navigate('/') 
     }  
   }
@@ -92,7 +89,6 @@ function ReviewForm({ catState, setCatState }) {
   }, []);
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      console.log('formState.isSubmitSuccessful =', formState.isSubmitSuccessful);
       reset();
       setCatState('');
     }
@@ -186,6 +182,7 @@ function ReviewForm({ catState, setCatState }) {
         </button>
         <label htmlFor="revText">Review</label>
         <textarea
+        style={{width:'100%'}}
           {...register('revText')}
           columns=""
           rows="15"

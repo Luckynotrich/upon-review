@@ -120,11 +120,23 @@ export default function CatModForm({ catId }) {
               // hidden={!display}
             >
               <input type="text" readOnly value={cat.catId} hidden key={cat.catId} />
-              <h4 className="left">Likes</h4>
+              <section style={{display:'flex',margin:'.3rem'}}>
+              <h4 className="right">Likes</h4>
+                <input
+                type="submit"
+                id="submitButton"
+                key={cat.toString()}
+                className="create"
+                // hidden={!display}
+                defaultValue="Create"
+                // onClick={async () => {
+                // setDisplay(false);
+                // }}
+              ></input></section>
               <fieldset>
                 {proFields.map((item, index) => {
                   return (
-                    <>
+                    <section style={{display:'flex',flex:'nowrap'}}>
                       <input
                         {...register(`pros.${index}`)}
                         type="text"
@@ -144,7 +156,7 @@ export default function CatModForm({ catId }) {
                         delete
 
                       </button>
-                    </>
+                    </section>
                   );
                 })}
                 <button
@@ -156,12 +168,12 @@ export default function CatModForm({ catId }) {
                   add_box
                 </button>
               </fieldset>
-              <h4 className="left">Dislikes</h4>
+              <h4 className="right">Dislikes</h4>
 
               <fieldset>
                 {conFields.map((item, index) => {
                   return (
-                    <>
+                    <section style={{display:'flex',flex:'nowrap'}}>
                       <input
                         {...register(`cons.${index}`)}
                         type="text"
@@ -180,7 +192,7 @@ export default function CatModForm({ catId }) {
                       >
                         delete
                       </button>
-                    </>
+                    </section>
                   );
                 })}
                 <button
@@ -193,17 +205,7 @@ export default function CatModForm({ catId }) {
                 </button>
               </fieldset>
 
-              <input
-                type="submit"
-                id="submitButton"
-                key={cat.toString()}
-                className="create"
-                // hidden={!display}
-                defaultValue="Create"
-                // onClick={async () => {
-                // setDisplay(false);
-                // }}
-              ></input>
+              
             </form>
 
             {/* {loading && <p>Loading...</p>}

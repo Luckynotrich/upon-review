@@ -17,12 +17,16 @@ textarea {
   width: 100%;
 }
 fieldset {
-  display: flexbox;
+  display:inherit;
   border: none;
   border-radius: 2px;
   margin: 0%;
   overflow: hidden;
   padding: 0%;
+}
+.catName{
+ padding-bottom: 1rem;
+ gap: 2rem;
 }
 label {
   padding: 12px 12px 12px 0px;

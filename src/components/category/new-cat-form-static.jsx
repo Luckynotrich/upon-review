@@ -97,13 +97,25 @@ async function runDontWalk(Caller) {
       <div className="container">
         {catName && (
           <form
+          className="newCat"
             encType="multipart/form-data"
             hidden={!display}
             method="post"
             action="send"
             onSubmit={handleSubmit((data) => createCatMutation.mutateAsync(data))}
           >
-            <h4 className="left">Likes</h4>
+            <section style={{display:'flex',margin:'.3rem'}}>
+            <h4 className="right">Likes</h4>
+            <button
+              type="submit"
+              onClick={() => {
+                runDontWalk('onClick')
+              }}
+              className="create"
+            >
+              Submit
+            </button>
+            </section>
             <fieldset>
               <input
                 {...register(`pros.0`)}
@@ -170,16 +182,7 @@ async function runDontWalk(Caller) {
                 placeholder="I don't like..."
               />
             </fieldset>
-            <button
-              type="submit"
-              onClick={() => {
-                // setDisplay(false);
-                runDontWalk('onClick')
-              }}
-              className="create"
-            >
-              Submit
-            </button>
+            
           </form>
         )}
       </div>
