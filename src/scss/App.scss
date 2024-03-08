@@ -28,6 +28,8 @@ html {
     border-style: solid;
     padding-bottom: 10rem;
   }
+  .alt-color-1{color:#fafa37}
+  .alt-color-2{color:#fcfc06}
 }
 @media screen and (prefers-color-scheme: light) {
   p,
@@ -51,10 +53,12 @@ html {
   }
   body,
   div.container {
-    background-color: white;
+    background-color: rgb(232, 232, 222);
     border: 3px solid rgb(0, 0, 0);
     padding-bottom: 10rem;
   }
+  .alt-color-1{color:#f66809}
+  .alt-color-2{color:#0a6120}
 }
 .container {
   min-height: 15rem;

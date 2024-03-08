@@ -1,11 +1,13 @@
 import React, { useEffect, useContext, useRef, useState } from 'react';
+
 import { useForm, useFieldArray } from 'react-hook-form';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { useNavigate } from 'react-router-dom';
-// import DeleteBtn from '@mui/icons-material/DeleteBtn';
 
 import { useCatsQuery } from '../contexts/current-cats-context';
-import SendData,{updateCat} from '../../utils/future-self-api';
+import { updateCat } from '../../utils/future-self-api';
 
 import { katObj } from '../../utils/kat-obj';
 import UserContext from '../contexts/user-context';
@@ -26,8 +28,8 @@ export default function CatModForm({ catId }) {
     pros: [],
     cons: [],
   };
-  cat.pros = _cat.current.pros.map((pro) => ( pro.value));
-  cat.cons = _cat.current.cons.map((con) => ( con.value));
+  cat.pros = _cat.current.pros.map((pro) => pro.value);
+  cat.cons = _cat.current.cons.map((con) => con.value);
 
   const {
     register,
@@ -63,50 +65,49 @@ export default function CatModForm({ catId }) {
   let error;
 
   const updateCatMutation = useMutation({
-    mutationFn: (data) => {updateCat(data)},
+    mutationFn: (data) => {
+      updateCat(data);
+    },
     // mutationFn: async (data) => await SendData.post('api/category-api/updateOne/?', data),
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
-      runDontWalk('onSuccess'),
-      reset();
+      runDontWalk('onSuccess'), reset();
     },
     onError: (error) => {
       console.log('error: ', error);
-      runDontWalk('onError')
+      runDontWalk('onError');
     },
     onSettled: async () => {
-      return runDontWalk('onSettled')
+      return runDontWalk('onSettled');
     },
   });
-  async function runDontWalk(Caller) {  
-    while (true) {  
-      console.log('Running...');  
-      await new Promise(resolve => setInterval(resolve, 1000));  
+  async function runDontWalk(Caller) {
+    while (true) {
+      console.log('Running...');
+      await new Promise((resolve) => setInterval(resolve, 1000));
       console.log('sent by ', Caller);
-    return navigate('/') 
-    } }
+      return navigate('/');
+    }
+  }
   useEffect(() => {
     console.log('isSubmitSuccessful ', isSubmitSuccessful);
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [/* formState, */ reset, cats, isSubmitSuccessful]);
-
-  //  const [display, setDisplay] = useState(false);
-  //  useEffect(() => { if(catId) setDisplay(true)}, [])
+  }, [reset, cats, isSubmitSuccessful]);
 
   return (
     <>
       {_cat.current.name && (
         <>
-          <h5 key={"title"}>
-            <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+          <h5 key={'title'}>
+            <span className="alt-color-2" style={{ fontSize: '1.5rem' }}>
               {_cat.current.name}
             </span>{' '}
             &nbsp; &nbsp; add likes and dislikes (optional)
           </h5>
 
-          <Container key={'Container'} /* className="container" */>
+          <Container key={'Container'}>
             <form
               onSubmit={handleSubmit(async (data) =>
                 updateCatMutation.mutateAsync(data),
@@ -115,28 +116,29 @@ export default function CatModForm({ catId }) {
               method="put"
               action="send"
               id="category"
-              key={"catForm"}
-              // disabled={!display}
-              // hidden={!display}
+              key={'catForm'}
             >
-              <input type="text" readOnly value={cat.catId} hidden key={cat.catId} />
-              <section style={{display:'flex',margin:'.3rem'}}>
-              <h4 className="right">Likes</h4>
+              <input
+                type="text"
+                readOnly
+                value={cat.catId}
+                hidden
+                key={cat.catId}
+              />
+              <section style={{ display: 'flex', margin: '.3rem' }}>
+                <h4 key={'likes'}className="right">Likes</h4>
                 <input
-                type="submit"
-                id="submitButton"
-                key={cat.toString()}
-                className="create"
-                // hidden={!display}
-                defaultValue="Create"
-                // onClick={async () => {
-                // setDisplay(false);
-                // }}
-              ></input></section>
+                  type="submit"
+                  id="submitButton"
+                  key={cat.toString()}
+                  className="create"
+                  defaultValue="Create"
+                ></input>
+              </section>
               <fieldset>
                 {proFields.map((item, index) => {
                   return (
-                    <section style={{display:'flex',flex:'nowrap'}}>
+                    <section key={index+5} style={{ display: 'flex', flex: 'nowrap' }}>
                       <input
                         {...register(`pros.${index}`)}
                         type="text"
@@ -147,33 +149,32 @@ export default function CatModForm({ catId }) {
                       <button
                         className="inputBtn material-symbols-outlined deleteBtn"
                         type="buton"
-                        key={`pros.${index + 10}`}
+                        key={`pros.${(index + 10)}`}
                         onClick={(e) => {
                           e.preventDefault();
                           proRemove(index);
                         }}
                       >
                         delete
-
                       </button>
                     </section>
                   );
                 })}
                 <button
                   type="button"
-                  key={cat.pros.length+100}
+                  key={cat.pros.length + 100}
                   className="inputBtn appendBtn material-symbols-outlined"
                   onClick={() => proAppend('')}
                 >
                   add_box
                 </button>
               </fieldset>
-              <h4 className="right">Dislikes</h4>
+              <h4 className="right dislike">Dislikes</h4>
 
               <fieldset>
                 {conFields.map((item, index) => {
                   return (
-                    <section style={{display:'flex',flex:'nowrap'}}>
+                    <section key={index+5} style={{ display: 'flex', flex: 'nowrap' }}>
                       <input
                         {...register(`cons.${index}`)}
                         type="text"
@@ -184,7 +185,7 @@ export default function CatModForm({ catId }) {
                       <button
                         className="inputBtn material-symbols-outlined deleteBtn"
                         type="button"
-                        key={`cons.${index + 10}`}
+                        key={`cons.${(index + 10)}`}
                         onClick={(e) => {
                           e.preventDefault();
                           conRemove(index);
@@ -198,23 +199,13 @@ export default function CatModForm({ catId }) {
                 <button
                   type="button"
                   className="inputBtn appendBtn material-symbols-outlined"
-                  key={cat.cons.length+100}
+                  key={cat.cons.length + 100}
                   onClick={() => conAppend('')}
                 >
                   add_box
                 </button>
               </fieldset>
-
-              
             </form>
-
-            {/* {loading && <p>Loading...</p>}
-
-      {!loading && error && <p className="errMsg">{error.msg}</p>} */}
-
-            {/* {isSubmitSuccessful && !error && data.title && (
-        <p>{`title: ${data?.title} was saved successfully`}</p>
-      )} */}
           </Container>
         </>
       )}

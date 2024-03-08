@@ -97,10 +97,10 @@ function ReviewForm({ catState, setCatState }) {
   return (
     <>
      <h5 key={"title"}>
-            <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+            <span className="alt-color-1"style={{fontSize: '1.5rem' }}>
               {name}
             </span>{' '}
-            &nbsp; &nbsp; is the category you are reviewing
+            &nbsp; &nbsp; is the category for this review 
           </h5>
     <form
       onSubmit={handleSubmit(reviewMutation.mutateAsync)}

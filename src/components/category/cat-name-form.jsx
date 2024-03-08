@@ -91,10 +91,10 @@ export default function CreateCatName({
         >
           <h4 id="nameLable" className="nameLable left">
             {name.length > 3 && inUse ? (
-              <span style={{ color: `${YELLOW}`, fontSize: '1.2rem' }}>
+              <span className="alt-color-2"style={{fontSize: '1.2rem' }}>
                 ' {name}' &nbsp;&nbsp; is in use. <br/>{/*} &nbsp; &nbsp; &nbsp; */}
-                <span style={{color: '#f66809', fontSize: '1.2rem'}}> Click
-                the button to edit this category.</span>
+                <span style={{color: '#f66809', fontSize: '1.2rem'}}> 
+                Use the button to edit it.</span>
                 </span>
             ) : errors.name ? (
               <span style={{ color: 'red', fontSize: 'h4' }}>

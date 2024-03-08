@@ -87,7 +87,7 @@ async function runDontWalk(Caller) {
       {catName && display && (
         <>
           <h5>
-            <span style={{ color: '#FAFA37', fontSize: '1.5rem' }}>
+            <span className="alt-color-2" style={{fontSize: '1.5rem' }}>
               {catName}
             </span>{' '}
             &nbsp; &nbsp; add likes and dislikes (optional)
