@@ -26,15 +26,15 @@ export const updateCat = async (data) => {
     return await response.data;
 }
 
-// export const deleteReview = async (id) => {
-//     console.log('id ',id)
-//     const response = await axios.delete('http://localhost:8081/api/review-api/delete/' + id);
-//     return await response.data;
-// }
-export const deleteReview = async (data) => {
+export const deleteReview = async (id) => {
     console.log('id ',id)
-    const response = await SendData.delete('api/review-api/delete/', data);
+    const response = await axios.delete('http://localhost:8081/api/review-api/delete/' + id);
     return await response.data;
 }
+// export const deleteReview = async (data) => {
+//     console.log('id ',id)
+//     const response = await SendData.delete('api/review-api/delete/', data);
+//     return await response.data;
+// }
 
 export default SendData;

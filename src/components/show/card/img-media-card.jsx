@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,6 +15,7 @@ import CreateMuiTable from './create-mui-table';
 import CreateGrid from './create-grid';
 
 import { deleteReview } from '../../../utils/future-self-api';
+import { Reviews } from '@mui/icons-material';
 
 export default function ImgMediaCard({ category, review, toggleItem, elem }) {
   let Text = '';
@@ -33,11 +34,23 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-const deleteReviewMutation = useMutation({
-  mutationFn:(data) => {
-    deleteReview(data)
-  }
-})
+
+  const queryClient = useQueryClient();
+  const deleteReviewMutation = useMutation({
+    mutationFn: (data) => {
+      deleteReview(data);
+    },
+    onError: (error) => {
+      console.log('onError = ', error);
+    },
+    onSuccess: async (data) => {
+      queryClient.invalidateQueries('revs');
+    },
+    onSettled: (data) => {
+      queryClient.invalidateQueries('revs');
+      // runDontWalk(`reviewMutation.onSettled`);
+    },
+  });
   let gridHeight = // height of dataGrid based on number of rows
     40 *
     (review.pros.length > review.cons.length
@@ -61,8 +74,8 @@ const deleteReviewMutation = useMutation({
         <Button
           onClick={async (e) => {
             e.preventDefault();
-            let id = review.id
-            deleteReviewMutation.mutateAsync(id)
+            let id = review.id;
+            deleteReviewMutation.mutateAsync(id);
             toggleItem(review.id);
           }}
         >
