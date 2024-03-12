@@ -1,6 +1,9 @@
 //src/components/show-review.jsx
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 import { useQuery } from '@tanstack/react-query';
 
 import { Box, Button } from '@mui/material/';
@@ -15,8 +18,9 @@ import { getRevs } from '../../utils/future-self-api';
 import Header from '../header';
 import RevRating from './rev-rating';
 
-import ImgMediaCard from './card/img-media-card';
-import { /* theme,  */getDesignTokens } from './card/mui-styles/cardTheme.js';
+import RevImgMediaCard from './card/rev-img-media-card.jsx';
+import { getDesignTokens } from './card/mui-styles/cardTheme.js';
+import CatImgMediaCard from './card/cat-img-media-card.jsx';
 
 const darkModeTheme = createTheme(getDesignTokens('dark'));
 const lightModeTheme = createTheme(getDesignTokens('light'));
@@ -25,6 +29,7 @@ function ShowReview() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const [selected, setSelected] = useState([0]);
+
   const toggleItem = (id) => {
     let newArray = [];
     if (selected.includes(id)) {
@@ -34,8 +39,9 @@ function ShowReview() {
     }
     setSelected(newArray);
   };
+
   const isItemSelected = (id) => selected.includes(id);
-  const clearSelected = () => setSelected([]);
+  // const clearSelected = () => setSelected([]);
 
   const { userId } = useContext(UserContext);
   const { categories, setCategories } = useContext(CategoryContext);
@@ -76,29 +82,57 @@ function ShowReview() {
           <div style={{ display: 'flex', flex: 'row' }}>
             <h2 key={'title'}>Categories</h2>
             <h2 style={{ color: '#2c9905' }}>Reviews</h2>
-            <p id='hidP' style={{color:'transparent'}}>w</p>
+            <p id="hidP" style={{ color: 'transparent' }}>
+              w
+            </p>
           </div>
           <div className="columns">
             {cats &&
               cats.map((category, i) => {
                 return (
                   <div className="categories" key={i + 1}>
-                    <h3 className="categories" key={category.id}>
-                      {category.name}
-                    </h3>
+                    <Box>
+                      {isItemSelected(category.id) && (
+                        <CatImgMediaCard
+                          category={category}
+                          toggleItem={toggleItem}
+                          elem={'hidP'}
+                          reviewsExist={revs.some((rev)=>rev.cat_id === category.id)}
+                        />
+                      )}
+                      {!isItemSelected(category.id) && (
+                      <Button
+                        onClick={() => {
+                          toggleItem(category.id);
+                        }}
+                      >
+                        <h4 className="categories" key={category.id}>
+                          {category.name}
+                        </h4>
+                      </Button>)}
+                    </Box>
                     <div key={(i + 1) * 10}>
                       {revs.map((rev) => {
                         if (Number(rev.cat_id) === Number(category.id))
                           return (
-                            <Box key={rev.id+100} sx={{marginLeft:{mobile:'0%',tablet: '1rem',laptop:'5rem',desktop:'rem'}}}>
+                            <Box
+                              key={rev.id + 100}
+                              sx={{
+                                marginLeft: {
+                                  mobile: '0%',
+                                  tablet: '1rem',
+                                  laptop: '5rem',
+                                  desktop: 'rem',
+                                },
+                              }}
+                            >
                               {isItemSelected(rev.id) && (
-                                <ImgMediaCard
+                                <RevImgMediaCard
                                   className="column"
                                   category={category}
                                   review={rev}
                                   toggleItem={toggleItem}
                                   elem={'hidP'}
-                                  
                                 />
                               )}
                               {!isItemSelected(rev.id) && (
@@ -122,7 +156,7 @@ function ShowReview() {
                                     sx={{
                                       textDecoration: 'underline',
                                       textAlign: 'left',
-                                      width: 'fit-content'
+                                      width: 'fit-content',
                                     }}
                                   >
                                     {rev.name}

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Grid from './grid.jsx';
+import MuiTable2Column from './mui-table-2-column'
 
 
 export const meld =(cats,revs)=>{
@@ -40,33 +40,18 @@ function createGridData(pros, cons) {
   return phoRows;
 }
 
-export default function CreateGrid({ cats, revs }) {
+export default function Create2ColumnTable({ cats, revs }) {
  
   const [pros,setPros] = useState(revs?meld(cats.pros,revs.pros):cats.pros);
   const [cons,setCons] = useState(revs?meld(cats.cons,revs.cons):cats.cons);
 
   const [rows, setRows] = useState(createGridData(pros, cons));
 
-  const columns = [
-    {
-      field: 'col1',
-      headerClassName: 'super-app-theme--header',
-      headerName: 'Likes',
-      width: 250,
-      headerAlign: 'center',
-    },
-    {
-      field: 'col2',
-      headerClassName: 'super-app-theme--header',
-      headerName: 'Dislikes',
-      width: 250,
-      headerAlign: 'center',
-    },
-  ];
+  
 
-  return <Grid rows={rows} columns={columns} />;
+  return <MuiTable2Column rows={rows} name1={'Likes'} name2={'Dislikes'} />;
 }
-CreateGrid.propTypes = {
+Create2ColumnTable.propTypes = {
   cats: PropTypes.object,
   revs: PropTypes.object,
 };

@@ -9,17 +9,16 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box /* , CardHeader */ } from '@mui/material';
 
-import UrlButton from './url_button_mui';
-import RevRating from '../rev-rating';
 import CreateMuiTable from './create-mui-table';
-import CreateGrid from './create-grid';
+// import CreateGrid from './create-grid';
+import Create2ColumnTable from './create-2-column-table';
 
 import { deleteReview } from '../../../utils/future-self-api';
 import { Reviews } from '@mui/icons-material';
 
-export default function ImgMediaCard({ category, review, toggleItem, elem }) {
+export default function CatImgMediaCard({ category, toggleItem, elem, reviewsExist }) {
   let Text = '';
-  if (review) Text = review.text;
+  if (category.text) Text = category.text;
 
   const [w, setW] = useState(dubya); // get window width
   const [f, setf] = useState(eff(elem)); //measure font size
@@ -36,7 +35,7 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
   }, []);
 
   const queryClient = useQueryClient();
-  const deleteReviewMutation = useMutation({
+  const deleteCategoryMutation = useMutation({
     mutationFn: (data) => {
       deleteReview(data);
     },
@@ -44,18 +43,18 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
       console.log('onError = ', error);
     },
     onSuccess: async (data) => {
-      queryClient.invalidateQueries('revs');
+      queryClient.invalidateQueries('cats');
     },
     onSettled: (data) => {
-      queryClient.invalidateQueries('revs');
+      queryClient.invalidateQueries('cats');
       // runDontWalk(`reviewMutation.onSettled`);
     },
   });
   let gridHeight = // height of dataGrid based on number of rows
     40 *
-    (review.pros.length > review.cons.length
-      ? review.pros.length
-      : review.cons.length);
+    (category.pros.length > category.cons.length
+      ? category.pros.length
+      : category.cons.length);
 
   let textHeight = Text ? txthite(Text.length, f, w) : 80;
   let cardHeight = 154 + gridHeight + textHeight + 240;
@@ -71,30 +70,29 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
       }}
     >
       <CardActions>
+        
+        <Button size="medium" sx={{ left: '2%', paddingRight: '1rem' }}>
+          <span className="material-symbols-outlined">share</span>
+        </Button>
+       
         <Button
+          sx={{ left: '65%' }}
+          size="medium"
+          onClick={() => toggleItem(category.id)}
+        >
+          <span className="material-symbols-outlined">close</span>
+        </Button>
+        {!reviewsExist && <Button
           onClick={async (e) => {
             e.preventDefault();
             let id = review.id;
             deleteReviewMutation.mutateAsync(id);
             toggleItem(review.id);
           }}
+          sx={{left: '70%'}}
         >
           <span className="material-symbols-outlined">delete</span>
-        </Button>
-        <Button size="medium" sx={{ left: '2%', paddingRight: '1rem' }}>
-          <span className="material-symbols-outlined">share</span>
-        </Button>
-        {review.url && (
-          //See './url_button_mui'
-          <UrlButton url={review.url} sx={{ left: '15%', border: 'none' }} />
-        )}
-        <Button
-          sx={{ left: '60%' }}
-          size="medium"
-          onClick={() => toggleItem(review.id)}
-        >
-          <span className="material-symbols-outlined">close</span>
-        </Button>
+        </Button>}
       </CardActions>
 
       <CardContent>
@@ -112,11 +110,8 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
             component="div"
             sx={{ display: 'flex', flexFlow: 'row wrap' }}
           >
-            <div>{category.name}:</div>
-            <h3 style={{ marginLeft: '-0%', marginTop: '-2%' }}>
-              {review.name}
-              <RevRating rating={review.rating} />
-            </h3>
+            <h3 style={{ marginLeft: '-0%', marginTop: '-2%' }}>{category.name}</h3>
+           
           </Typography>
         </Box>
       </CardContent>
@@ -127,12 +122,10 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
         >
           <CreateMuiTable
             cats={category.pros}
-            revs={review.pros}
             name={'Likes'}
           />
           <CreateMuiTable
             cats={category.cons}
-            revs={review.cons}
             name={'Disikes'}
           />
           <Typography variant="body2" color="text.secondary">
@@ -146,7 +139,7 @@ export default function ImgMediaCard({ category, review, toggleItem, elem }) {
             display: { mobile: 'none', tablet: 'block' },
           }}
         >
-          <CreateGrid cats={category} revs={review} gridHeight={gridHeight} />
+          <Create2ColumnTable cats={category} gridHeight={gridHeight} />
           <Typography
             variant="body2"
             color="text.secondary"

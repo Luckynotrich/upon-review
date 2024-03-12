@@ -8,12 +8,13 @@ function createData(name,id){
   }
 
   export default function CreateMuiTable({cats,revs,name}){
-    const [values,setValues] = useState(meld(cats,revs)) 
+
+    const [values,setValues] = useState(revs?meld(cats,revs):cats) 
     const rows = values.map((row)=> createData(row.value,row.id))
     return <MuiTable rows={rows} name={name} /> 
   }
   CreateMuiTable.propTypes = {
-  revs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  revs: PropTypes.arrayOf(PropTypes.object),
   cats: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired
 }
