@@ -18,9 +18,16 @@ import Create2ColumnTable from './create-2-column-table';
 import { deleteReview } from '../../../utils/future-self-api';
 import { Reviews } from '@mui/icons-material';
 
-export default function RevImgMediaCard({ category, review, toggleItem, elem }) {
+export default function RevImgMediaCard({
+  category,
+  review,
+  toggleItem,
+  elem,
+}) {
   let Text = '';
-  if (review) Text = review.text;
+  if (review) {
+    Text = review.text.replaceAll('\r\r', `\n`);
+  }
 
   const [w, setW] = useState(dubya); // get window width
   const [f, setf] = useState(eff(elem)); //measure font size
@@ -93,10 +100,10 @@ export default function RevImgMediaCard({ category, review, toggleItem, elem }) 
             deleteReviewMutation.mutateAsync(id);
             toggleItem(review.id);
           }}
-          sx={{left: '60%'}}
+          sx={{ left: '60%' }}
         >
           <span className="material-symbols-outlined">delete</span>
-        </Button>  
+        </Button>
       </CardActions>
 
       <CardContent>
@@ -127,17 +134,25 @@ export default function RevImgMediaCard({ category, review, toggleItem, elem }) 
         <Box
           sx={{ display: { mobile: 'block', tablet: 'none', desktop: 'none' } }}
         >
-          <CreateMuiTable
-            cats={category.pros}
-            revs={review.pros}
-            name={'Likes'}
-          />
-          <CreateMuiTable
-            cats={category.cons}
-            revs={review.cons}
-            name={'Disikes'}
-          />
-          <Typography variant="body2" color="text.secondary">
+          {review.pros && (
+            <CreateMuiTable
+              cats={category.pros}
+              revs={review.pros}
+              name={'Likes'}
+            />
+          )}
+          {review.cons && (
+            <CreateMuiTable
+              cats={category.cons}
+              revs={review.cons}
+              name={'Disikes'}
+            />
+          )}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ whiteSpace: 'wrap-line', paddingTop: '1rem' }}
+          >
             {Text}
           </Typography>
         </Box>
@@ -148,11 +163,14 @@ export default function RevImgMediaCard({ category, review, toggleItem, elem }) 
             display: { mobile: 'none', tablet: 'block' },
           }}
         >
-          <Create2ColumnTable cats={category} revs={review} /* gridHeight={gridHeight} */ />
+          {(review.pros.length > 0 /* && review.pros[0].value */) &&
+            (review.cons.length > 0 /* && review.cons[0].value !== null  */ && (
+              <Create2ColumnTable cats={category} revs={review} />
+            ))}
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ paddingTop: '1rem' }}
+            sx={{ whiteSpace: 'pre-line', paddingTop: '1rem' }}
           >
             {Text}
           </Typography>

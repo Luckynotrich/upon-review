@@ -8,8 +8,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 // import Paper from "@mui/material/Paper";
-const HeadCell = ({name})=> {return <TableCell align="center" sx={{border: "1px solid black",color: "inherit"}}>{name}</TableCell>}
-const Cell = ({name})=> {return <TableCell scope="row" align="left" sx={{border:"1px solid black",color: "inherit"}}>{name}</TableCell>}
+const HeadCell = ({name})=> {return <TableCell align="center" sx={{width:'50%',border: "1px solid black",color: "inherit"}}>{name}</TableCell>}
+const Cell = ({name})=> {return <TableCell scope="row" align="left" sx={{width:'50%',border:"1px solid black",color: "inherit"}}>{name}</TableCell>}
 
 export default function MuiTable2Column({ rows, name1, name2 }) {
 
