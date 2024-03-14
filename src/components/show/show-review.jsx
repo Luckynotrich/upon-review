@@ -2,11 +2,9 @@
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { useQuery } from '@tanstack/react-query';
 
-import { Box, Button } from '@mui/material/';
+import { Box, Button, Typography } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -91,7 +89,12 @@ function ShowReview() {
               cats.map((category, i) => {
                 return (
                   <div className="categories" key={i + 1}>
-                    <Box>
+                    <Box sx={{marginLeft: {
+                                  mobile: '-1rem',
+                                  tablet: '1rem',
+                                  laptop: '5rem',
+                                  desktop: '7rem',
+                                },}}>
                       {isItemSelected(category.id) && (
                         <CatImgMediaCard
                           category={category}
@@ -117,14 +120,6 @@ function ShowReview() {
                           return (
                             <Box
                               key={rev.id + 100}
-                              sx={{
-                                marginLeft: {
-                                  mobile: '0%',
-                                  tablet: '1rem',
-                                  laptop: '5rem',
-                                  desktop: 'rem',
-                                },
-                              }}
                             >
                               {isItemSelected(rev.id) && (
                                 <RevImgMediaCard
@@ -140,11 +135,17 @@ function ShowReview() {
                                   width="30%"
                                   key={rev.id + 1000}
                                   sx={{
-                                    marginLeft: '23%',
+                                    marginLeft: {
+                                      mobile: '-1rem',
+                                      tablet: '5rem',
+                                      laptop: '7rem',
+                                      desktop: '7rem',
+                                    },
                                     paddingBottom: '0%',
                                     display: 'flex',
                                     flexDirection: 'row',
                                     alignItems: 'left',
+
                                   }}
                                 >
                                   <Button
@@ -157,13 +158,24 @@ function ShowReview() {
                                       textDecoration: 'underline',
                                       textAlign: 'left',
                                       width: 'fit-content',
+                                       
                                     }}
                                   >
+                                  <Typography color="primary"
+                                   sx={{
+                                    textWrap: {
+                                      micro:'pretty',
+                                      mobile:'pretty',
+                                      tablet: 'nowrap'
+                                  }
+                                     
+                                    }}>
                                     {rev.name}
                                     <RevRating
                                       rating={rev.rating}
                                       className="show-rating"
                                     />
+                                    </Typography>
                                   </Button>
                                 </Box>
                               )}

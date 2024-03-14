@@ -13,40 +13,9 @@ import CreateMuiTable from './create-mui-table';
 // import CreateGrid from './create-grid';
 import Create2ColumnTable from './create-2-column-table';
 
-import { deleteReview } from '../../../utils/future-self-api';
-import { Reviews } from '@mui/icons-material';
-
-//function to dirive aproximate font size
-// based on an element id passed as elem
-const eff = (elem) => {
-  let arr = window
-    .getComputedStyle(document.getElementById(elem))
-    .fontSize.split('p');
-  return arr[0];
-};
-
-//function to control width for
-//card height calculation
-const dubya = () => {
-  if (window.innerWidth < 1280) return window.innerWidth;
-  else return 1280;
-};
-
-//function to estimate the height of the
-//text from the review
-const txthite = (length, f, w) => {
-  let text = Math.ceil((length * f) / w);
-  if (text <= 2) text = text + 3;
-  return Math.ceil(text * f - 1);
-};
-
-const rowCount = (procon, f, w) => {
-  let count = 0;
-  procon.forEach((pc) => {
-    count += Math.ceil((pc.value.length * f) / w);
-  });
-  return count;
-};
+import { deleteCategory, deleteReview } from '../../../utils/future-self-api';
+import { eff, dubya, txthite, rowCount } from './mui-styles/card-stack';
+// import { Reviews } from '@mui/icons-material';
 
 export default function CatImgMediaCard({
   category,
@@ -57,40 +26,43 @@ export default function CatImgMediaCard({
   let Text = '';
   if (category.text) Text = category.text.replaceAll('\r\r', `\n`);
 
-  const [w, setW] = useState(dubya); // get window width
-  const [f, setf] = useState(eff(elem)); //measure font size
+  const [w, setW] = useState(dubya(window)); // get window width
+  const [f, setf] = useState(eff(elem, window)); //measure font size
   let gridHeight, canHeight, cardHeight, textHeight;
 
   textHeight = Text ? txthite(Text.length, f, w) : 40;
-  let g_prows = rowCount(category.pros, f, w / 2);
-  let g_crows = rowCount(category.cons, f, w / 2);
+
+  let calcW = w > 640 ? w / 2 : w;
+
+  let g_prows = rowCount(category.pros, f, calcW);
+  let g_crows = rowCount(category.cons, f, calcW);
 
   let prows = g_prows > category.pros.length ? g_prows : category.pros.length;
   let crows = g_crows > category.cons.length ? g_crows : category.cons.length;
   if (w > 640) {
-    gridHeight = f * 2 * (prows > crows ? prows : crows); // height of dataGrid based on number of rows
+    gridHeight = f * 2 * (prows > crows ? prows : crows); // height of on number of rows
     canHeight = gridHeight + 30;
     cardHeight = 154 + gridHeight + textHeight + 240;
   } else {
     gridHeight = 40 * (prows + crows);
-    canHeight = -80;
-    cardHeight = 154 + gridHeight + textHeight + 160;
+    canHeight = -75;
+    cardHeight = 154 + gridHeight + textHeight + 220;
   }
 
-  console.log('prows = ', prows);
-  console.log('crows = ', crows);
-  console.log(' f =', f);
-  console.log(' w =', w);
-  console.log('gridHeight =', gridHeight);
-  console.log('canHeight =', canHeight);
-  console.log('cardHeight =', cardHeight);
-  console.log('category.pros.length ', category.pros.length);
-  console.log('category.cons.length ', category.cons.length);
+  // console.log('prows = ', prows);
+  // console.log('crows = ', crows);
+  // console.log(' f =', f);
+  // console.log(' w =', w);
+  // console.log('gridHeight =', gridHeight);
+  // console.log('canHeight =', canHeight);
+  // console.log('cardHeight =', cardHeight);
+  // console.log('category.pros.length ', category.pros.length);
+  // console.log('category.cons.length ', category.cons.length);
 
   useEffect(() => {
     const handleResize = () => {
-      setW(dubya);
-      setf(eff(elem));
+      setW(dubya(window));
+      setf(eff(elem, window));
     };
     window.addEventListener('resize', handleResize);
     return () => {
@@ -101,7 +73,7 @@ export default function CatImgMediaCard({
   const queryClient = useQueryClient();
   const deleteCategoryMutation = useMutation({
     mutationFn: (data) => {
-      deleteReview(data);
+      deleteCategory(data);
     },
     onError: (error) => {
       console.log('onError = ', error);
@@ -130,7 +102,7 @@ export default function CatImgMediaCard({
         </Button>
 
         <Button
-          sx={{ left: '65%' }}
+          sx={{ left: '60%' }}
           size="medium"
           onClick={() => toggleItem(category.id)}
         >
@@ -162,7 +134,14 @@ export default function CatImgMediaCard({
 
       <CardContent>
         <Box
-          sx={{ display: { mobile: 'block', tablet: 'none', desktop: 'none' } }}
+          sx={{
+            display: {
+              micro: 'block',
+              mobile: 'block',
+              tablet: 'none',
+              desktop: 'none',
+            },
+          }}
         >
           <CreateMuiTable cats={category.pros} name={'Likes'} />
           <CreateMuiTable cats={category.cons} name={'Disikes'} />
@@ -178,7 +157,7 @@ export default function CatImgMediaCard({
         <Box
           sx={{
             height: `${gridHeight}px`,
-            display: { mobile: 'none', tablet: 'block' },
+            display: { micro: 'none', mobile: 'none', tablet: 'block' },
           }}
         >
           <Create2ColumnTable cats={category} gridHeight={gridHeight} />
@@ -192,7 +171,6 @@ export default function CatImgMediaCard({
         </Box>
       </CardContent>
       <CardContent sx={{ flex: 'column' }}>
-        {/* {`${canHeight}`} */}
         <Box sx={{ position: 'relative', top: `${canHeight}px` }}>
           <CardActions>
             {!reviewsExist && (
@@ -200,7 +178,7 @@ export default function CatImgMediaCard({
                 onClick={async (e) => {
                   e.preventDefault();
                   let id = category.id;
-                  deleteReviewMutation.mutateAsync(id);
+                  deleteCategoryMutation.mutateAsync(id);
                   toggleItem(category.id);
                 }}
                 sx={{ marginLeft: '80%' }}

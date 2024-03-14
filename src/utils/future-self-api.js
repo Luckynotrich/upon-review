@@ -36,5 +36,9 @@ export const deleteReview = async (id) => {
 //     const response = await SendData.delete('api/review-api/delete/', data);
 //     return await response.data;
 // }
-
+export const deleteCategory = async (id) => {
+    console.log('id ',id)
+    const response = await axios.delete('http://localhost:8081/api/category-api/delete/' + id);
+    return await response.data;
+}
 export default SendData;

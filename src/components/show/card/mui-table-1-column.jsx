@@ -14,7 +14,7 @@ export default function MuiTable({ rows, name }) {
   return (
     <div>
     <TableContainer /* component={Paper} */>
-      <Table sx={{ minWidth: 300, background:"transparent", border:"1px solid back"}}>
+      <Table sx={{ minWidth: 290, background:"transparent", border:"1px solid back"}}>
         <TableHead>
           <TableRow>
             <TableCell align="center" sx={{border: "1px solid black",color: "inherit"}}>{name}</TableCell>

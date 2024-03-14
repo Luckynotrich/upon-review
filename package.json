@@ -29,7 +29,6 @@
     "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^4.36.1",
     "@testing-library/react": "^11.2.6",
     "@web/test-runner": "^0.13.3",
     "chai": "^4.3.4",

@@ -16,7 +16,7 @@ import CreateMuiTable from './create-mui-table';
 import Create2ColumnTable from './create-2-column-table';
 
 import { deleteReview } from '../../../utils/future-self-api';
-import { Reviews } from '@mui/icons-material';
+// import { Reviews } from '@mui/icons-material';
 
 export default function RevImgMediaCard({
   category,
@@ -73,9 +73,16 @@ export default function RevImgMediaCard({
       sx={{
         width: '100%',
         maxWidth: 700,
-        minWidth: 320, //290,
+        minWidth: { micro: 340, mobile: 345 },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : '750px',
+        marginLeft: {
+          micro: '-5px',
+          mobile: '-40px',
+          tablet: '1rem',
+          laptop: '5rem',
+          desktop: '10rem',
+        },
       }}
     >
       <CardActions>
@@ -87,26 +94,35 @@ export default function RevImgMediaCard({
           <UrlButton url={review.url} sx={{ left: '15%', border: 'none' }} />
         )}
         <Button
-          sx={{ left: '60%' }}
+          sx={{
+            left: { micro: '20%', mobile: '22%', tablet: '50%' },
+            desktop: '60%',
+          }}
           size="medium"
           onClick={() => toggleItem(review.id)}
         >
           <span className="material-symbols-outlined">close</span>
         </Button>
         <Button
+          sx={{
+            left: { micro: '20%', mobile: '22%', tablet: '50%' },
+            desktop: '70%',
+          }}
           onClick={async (e) => {
             e.preventDefault();
             let id = review.id;
             deleteReviewMutation.mutateAsync(id);
             toggleItem(review.id);
           }}
-          sx={{ left: '60%' }}
         >
           <span className="material-symbols-outlined">delete</span>
         </Button>
       </CardActions>
 
-      <CardContent>
+      <CardContent /* sx={{marginLeft:{
+                mobile: '-20px'
+      }}} */
+      >
         <Box
           sx={{
             display: 'flex',
@@ -132,7 +148,14 @@ export default function RevImgMediaCard({
 
       <CardContent>
         <Box
-          sx={{ display: { mobile: 'block', tablet: 'none', desktop: 'none' } }}
+          sx={{
+            display: {
+              micro: 'block',
+              mobile: 'block',
+              tablet: 'none',
+              desktop: 'none',
+            },
+          }}
         >
           {review.pros && (
             <CreateMuiTable
@@ -160,13 +183,12 @@ export default function RevImgMediaCard({
         <Box
           sx={{
             height: `${gridHeight}px`,
-            display: { mobile: 'none', tablet: 'block' },
+            display: { micro: 'none', mobile: 'none', tablet: 'block' },
           }}
         >
-          {(review.pros.length > 0 /* && review.pros[0].value */) &&
-            (review.cons.length > 0 /* && review.cons[0].value !== null  */ && (
-              <Create2ColumnTable cats={category} revs={review} />
-            ))}
+          {review.pros.length > 0 && review.cons.length > 0 && (
+            <Create2ColumnTable cats={category} revs={review} />
+          )}
           <Typography
             variant="body2"
             color="text.secondary"
