@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, usefontHeightect } from 'react';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -14,7 +14,7 @@ import CreateMuiTable from './create-mui-table';
 import Create2ColumnTable from './create-2-column-table';
 
 import { deleteCategory, deleteReview } from '../../../utils/future-self-api';
-import { eff, dubya, txthite, rowCount } from './mui-styles/card-stack';
+import { fontHeight, WinWidth, txthite, rowCount } from './mui-styles/card-stack';
 // import { Reviews } from '@mui/icons-material';
 
 export default function CatImgMediaCard({
@@ -26,8 +26,8 @@ export default function CatImgMediaCard({
   let Text = '';
   if (category.text) Text = category.text.replaceAll('\r\r', `\n`);
 
-  const [w, setW] = useState(dubya(window)); // get window width
-  const [f, setf] = useState(eff(elem, window)); //measure font size
+  const [w, setW] = useState(WinWidth(window)); // get window width
+  const [f, setf] = useState(fontHeight(elem, window)); //measure font size
   let gridHeight, canHeight, cardHeight, textHeight;
 
   textHeight = Text ? txthite(Text.length, f, w) : 40;
@@ -49,20 +49,11 @@ export default function CatImgMediaCard({
     cardHeight = 154 + gridHeight + textHeight + 220;
   }
 
-  // console.log('prows = ', prows);
-  // console.log('crows = ', crows);
-  // console.log(' f =', f);
-  // console.log(' w =', w);
-  // console.log('gridHeight =', gridHeight);
-  // console.log('canHeight =', canHeight);
-  // console.log('cardHeight =', cardHeight);
-  // console.log('category.pros.length ', category.pros.length);
-  // console.log('category.cons.length ', category.cons.length);
-
+  
   useEffect(() => {
     const handleResize = () => {
-      setW(dubya(window));
-      setf(eff(elem, window));
+      setW(WinWidth(window));
+      setf(fontHeight(elem, window));
     };
     window.addEventListener('resize', handleResize);
     return () => {
@@ -102,7 +93,10 @@ export default function CatImgMediaCard({
         </Button>
 
         <Button
-          sx={{ left: '60%' }}
+          sx={{
+            left: { micro: "50%", mobile: "28%", tablet: "50%" },
+            desktop: "60%",
+          }}
           size="medium"
           onClick={() => toggleItem(category.id)}
         >

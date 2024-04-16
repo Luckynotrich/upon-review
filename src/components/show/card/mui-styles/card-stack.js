@@ -1,6 +1,6 @@
 //function to dirive aproximate font size
 // based on an element id passed as elem
-export const eff = (elem, window) => {
+export const fontHeight = (elem, window) => {
     let arr = window
       .getComputedStyle(document.getElementById(elem))
       .fontSize.split('p');
@@ -9,7 +9,7 @@ export const eff = (elem, window) => {
   
   //function to control width for
   //card height calculation
-  export const dubya = (window) => {
+  export const WinWidth = (window) => {
     if (window.innerWidth < 1280) return window.innerWidth;
     else return 1280;
   };
@@ -18,14 +18,26 @@ export const eff = (elem, window) => {
   //text from the review
   export const txthite = (length, f, w) => {
     let text = Math.ceil((length * f) / w);
-    if (text <= 2) text = text + 3;
+    
+    if (text <= 1) text = text++;
+    // console.log('text = ',text)
     return Math.ceil(text * f - 1);
   };
   
-  export const rowCount = (procon, f, w) => {
+  export const rowCount = (procon, f, calcW) => {
     let count = 0;
-    procon.forEach((pc) => {
-      count += Math.ceil((pc.value.length * f) / w);
-    });
+    for(let i = 0;i < procon.length;i++){
+      count += procon[i].value.length * f;
+    }
+    // console.log('count ',count)
+    count = Math.ceil(count/calcW);
     return count;
   };
+
+  export const textNewLines = (Text) =>{
+    let textNL = Text.match(/\n/g);
+    if (textNL) textNL = textNL.length;
+    else textNL = 1;
+    return textNL;
+  }
+  

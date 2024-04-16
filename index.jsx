@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -11,9 +12,12 @@ import { CategoryContextProvider } from './src/components/contexts/category-cont
 import { UserContextProvider } from './src/components/contexts/user-context.jsx';
 import App from './src/App.jsx';
 
-//import './index.css';
+
+
+const domNode = document.getElementById('root');
+const root = createRoot(domNode);
 const queryClient = new QueryClient();
-ReactDOM.render(
+root.render(
   <React.StrictMode>
      <QueryClientProvider client={queryClient}>
     <UserContextProvider>
@@ -31,8 +35,7 @@ ReactDOM.render(
       </CategoryContextProvider>
     </UserContextProvider>
     </QueryClientProvider> 
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </React.StrictMode>
 );
 
 // Hot Module Replacement (HMR) - Remove this snippet to remove HMR.

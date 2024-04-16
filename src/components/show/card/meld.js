@@ -7,7 +7,4 @@ export const meld =(cats,revs)=>{
       Array = Array.filter(Boolean);
   return Array;
 }
-let c = [1,2,3,4];
-let r = [4,5, 3];
-let view = meld(c,r)
-console.log('view ',view,' length ',view.length)
+

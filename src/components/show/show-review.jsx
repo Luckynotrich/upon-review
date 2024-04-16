@@ -90,6 +90,7 @@ function ShowReview() {
                 return (
                   <div className="categories" key={i + 1}>
                     <Box sx={{marginLeft: {
+                                  micro: '0',
                                   mobile: '-1rem',
                                   tablet: '1rem',
                                   laptop: '5rem',
