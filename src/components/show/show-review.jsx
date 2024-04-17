@@ -17,6 +17,7 @@ import Header from '../header';
 import RevRating from './rev-rating';
 
 import RevImgMediaCard from './card/rev-img-media-card.jsx';
+import RevNoTableCard from './card/rev-notable-img-media-card.jsx';
 import { getDesignTokens } from './card/mui-styles/cardTheme.js';
 import CatImgMediaCard from './card/cat-img-media-card.jsx';
 

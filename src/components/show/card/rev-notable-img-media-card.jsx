@@ -24,7 +24,7 @@ import {
 } from "./mui-styles/card-stack";
 import { meld } from "./meld";
 
-export default function RevImgMediaCard({
+export default function RevNoTableCard({
   category,
   review,
   toggleItem,
@@ -37,15 +37,10 @@ export default function RevImgMediaCard({
 
   const [w, setW] = useState(WinWidth(window)); // get window width in px
   const [f, setf] = useState(fontHeight(elem, window)); //measure font size in px
-  let rows = 1;
+  
 
   let gridHeight, cardHeight, textH;
-  let calcW,
-    g_crows,
-    g_prows,
-    prows,
-    crows,
-    mult = 1;
+  let calcW, mult = 1;
 
   textH = Text ? textHeight(Text, mult, f, w) : 40;
   if (w > 1167 && textH > 398) {
@@ -54,45 +49,22 @@ export default function RevImgMediaCard({
   if (parseInt(w) > 640) calcW = Math.ceil(parseInt(w) / 3);
   else calcW = w;
 
-  //meld generates an array of diplayed text for the table
-  let pros = meld(category.pros, review.pros);
-  let cons = meld(category.cons, review.cons);
-
-  g_prows = rowCount(pros, f, calcW);
-  g_crows = rowCount(cons, f, calcW);
-  if (g_prows === 0 && g_crows === 0) g_prows = 0;
-
-  prows = g_prows > review.pros.length ? g_prows : review.pros.length;
-  crows = g_crows > review.cons.length ? g_crows : review.cons.length;
-
-  if (prows === 0 && crows === 0) {
-    rows = 0; /* console.log('0 rows =',rows) */
-  } else {
-    rows = 1; /* console.log('0 rows =',rows) */
-  }
-
-  let pcrows;
-  let pad = 68;
+  
   let f_Plus_Pad = parseInt(f) + pad;
   if (w > 1168) {
-    pcrows = prows > crows ? prows : crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 62 : 40; // height of on number of rows
+    gridHeight =  40; // height of on number of rows
     cardHeight = 190 + gridHeight + textH + 60;
   } else if (w > 640) {
-    pcrows = prows > crows ? prows : crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 62 : 0; // height of on number of rows
+    gridHeight =  40; // height of on number of rows
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 512) {
-    pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
+    gridHeight =  40;
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 400) {
-    pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
+    gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.1);
   } else {
-    pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
+    gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);
   }
   // console.log("pros =", pros);
@@ -226,19 +198,7 @@ export default function RevImgMediaCard({
             },
           }}
         >
-          <CreateMuiTable
-            cats={category.pros}
-            revs={review.pros}
-            name={"Likes"}
-            rows={rows}
-          />
-
-          <CreateMuiTable
-            cats={category.cons}
-            revs={review.cons}
-            name={"Disikes"}
-            rows={rows}
-          />
+       
           <Typography
             variant="body2"
             color="text.secondary"
@@ -267,7 +227,6 @@ export default function RevImgMediaCard({
             display: { micro: "none", mobile: "none", tablet: "block" },
           }}
         >
-          <Create2ColumnTable cats={category} revs={review} rows={rows} />
           <Typography
             variant="body2"
             color="text.secondary"

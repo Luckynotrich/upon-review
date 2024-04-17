@@ -18,6 +18,7 @@ return Array;
 }
 
 function createGridData(pros, cons) {
+
   let phoRows = [pros.length];
   
   pros.forEach((pro, index) => {
@@ -40,16 +41,15 @@ function createGridData(pros, cons) {
   return phoRows;
 }
 
-export default function Create2ColumnTable({ cats, revs }) {
- 
+export default function Create2ColumnTable({ cats, revs/* ,rows  */}) {
+  
+//  if(rows > 0){
   const [pros,setPros] = useState(revs?meld(cats.pros,revs.pros):cats.pros);
   const [cons,setCons] = useState(revs?meld(cats.cons,revs.cons):cats.cons);
-
   const [rows, setRows] = useState(createGridData(pros, cons));
 
-  
-
   return <MuiTable2Column rows={rows} name1={'Likes'} name2={'Dislikes'} />;
+// }
 }
 Create2ColumnTable.propTypes = {
   cats: PropTypes.object,

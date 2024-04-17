@@ -14,7 +14,7 @@ import CreateMuiTable from './create-mui-table';
 import Create2ColumnTable from './create-2-column-table';
 
 import { deleteCategory, deleteReview } from '../../../utils/future-self-api';
-import { fontHeight, WinWidth, txthite, rowCount } from './mui-styles/card-stack';
+import { fontHeight, WinWidth, textHeight, rowCount } from './mui-styles/card-stack';
 // import { Reviews } from '@mui/icons-material';
 
 export default function CatImgMediaCard({
@@ -28,9 +28,9 @@ export default function CatImgMediaCard({
 
   const [w, setW] = useState(WinWidth(window)); // get window width
   const [f, setf] = useState(fontHeight(elem, window)); //measure font size
-  let gridHeight, canHeight, cardHeight, textHeight;
+  let gridHeight, cardHeight, textH;
 
-  textHeight = Text ? txthite(Text.length, f, w) : 40;
+  textH = Text ? textHeight(Text.length, f, w) : 40;
 
   let calcW = w > 640 ? w / 2 : w;
 
@@ -41,12 +41,10 @@ export default function CatImgMediaCard({
   let crows = g_crows > category.cons.length ? g_crows : category.cons.length;
   if (w > 640) {
     gridHeight = f * 2 * (prows > crows ? prows : crows); // height of on number of rows
-    canHeight = gridHeight + 30;
-    cardHeight = 154 + gridHeight + textHeight + 240;
+    cardHeight = 154 + gridHeight + textH + 240;
   } else {
     gridHeight = 40 * (prows + crows);
-    canHeight = -75;
-    cardHeight = 154 + gridHeight + textHeight + 220;
+    cardHeight = 154 + gridHeight + textH + 220;
   }
 
   
@@ -137,8 +135,8 @@ export default function CatImgMediaCard({
             },
           }}
         >
-          <CreateMuiTable cats={category.pros} name={'Likes'} />
-          <CreateMuiTable cats={category.cons} name={'Disikes'} />
+          <CreateMuiTable cats={category.pros} name={'Likes'} rows={1}/>
+          <CreateMuiTable cats={category.cons} name={'Disikes'} rows={1}/>
           <Typography
             variant="body2"
             color="text.secondary"
@@ -154,7 +152,7 @@ export default function CatImgMediaCard({
             display: { micro: 'none', mobile: 'none', tablet: 'block' },
           }}
         >
-          <Create2ColumnTable cats={category} gridHeight={gridHeight} />
+          <Create2ColumnTable cats={category} gridHeight={gridHeight} rows={1}/>
           <Typography
             variant="body2"
             color="text.secondary"
@@ -162,10 +160,6 @@ export default function CatImgMediaCard({
           >
             {Text}
           </Typography>
-        </Box>
-      </CardContent>
-      <CardContent sx={{ flex: 'column' }}>
-        <Box sx={{ position: 'relative', top: `${canHeight}px` }}>
           <CardActions>
             {!reviewsExist && (
               <Button
