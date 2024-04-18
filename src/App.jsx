@@ -1,44 +1,42 @@
-import React, { useState, useEffect} from 'react';
-import { Routes, Route, NavLink, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, NavLink, Outlet } from "react-router-dom";
 
-import CreateCat from './components/category/create-cat.jsx';
-import ReviewCategory from './components/review/review-category.jsx';
-import ShowReview from './components/show/show-review.jsx';
-import './scss/App.scss';
+import CreateCat from "./components/category/create-cat.jsx";
+import ReviewCategory from "./components/review/review-category.jsx";
+import ShowReview from "./components/show/show-review.jsx";
+import "./scss/App.scss";
 
-function App() {    
+function App() {
   const [isDefault, setIsDefault] = useState(false);
-  
+
   useEffect(() => {
     if (!isDefault) {
       setIsDefault(true);
     }
-    
   }, []);
   return (
     <div className="App">
       <div className="routes">
-      
         <NavLink
           to="/"
           id="large-left"
           className={({ isActive, isPending, isDefault }) =>
             isPending
-              ? 'pending'
+              ? "pending"
               : isActive
-              ? 'active'
-              : isDefault
-              ? 'active'
-              : ''
+                ? "active"
+                : isDefault
+                  ? "active"
+                  : ""
           }
         >
           Future
         </NavLink>
-        
+
         <NavLink to="/create-cat-form" id="large-center">
           Upon
         </NavLink>
-        <NavLink to="/review-form" id="large-right">
+        <NavLink to="/review-form" id="large-right" >
           Review
         </NavLink>
       </div>

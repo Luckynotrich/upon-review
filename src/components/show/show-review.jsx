@@ -16,10 +16,12 @@ import { getRevs } from '../../utils/future-self-api';
 import Header from '../header';
 import RevRating from './rev-rating';
 
-import RevImgMediaCard from './card/rev-img-media-card.jsx';
+// src/components/show/card/rev-notable-img-media-card.jsx
 import RevNoTableCard from './card/rev-notable-img-media-card.jsx';
+import RevImgMediaCard from './card/rev-img-media-card.jsx';
 import { getDesignTokens } from './card/mui-styles/cardTheme.js';
 import CatImgMediaCard from './card/cat-img-media-card.jsx';
+
 
 const darkModeTheme = createTheme(getDesignTokens('dark'));
 const lightModeTheme = createTheme(getDesignTokens('light'));
@@ -40,8 +42,7 @@ function ShowReview() {
   };
 
   const isItemSelected = (id) => selected.includes(id);
-  // const clearSelected = () => setSelected([]);
-
+  
   const { userId } = useContext(UserContext);
   const { categories, setCategories } = useContext(CategoryContext);
 
@@ -123,13 +124,25 @@ function ShowReview() {
                             <Box
                               key={rev.id + 100}
                             >
-                              {isItemSelected(rev.id) && (
+                              {(rev.pros.length+rev.cons.length) > 0 &&
+                               isItemSelected(rev.id) && (
                                 <RevImgMediaCard
                                   className="column"
                                   category={category}
                                   review={rev}
                                   toggleItem={toggleItem}
-                                  elem={'hidP'}
+                                  elem={"hidP"}
+                                />
+                              )
+                             }
+                                {(rev.pros.length+rev.cons.length)=== 0 &&
+                                isItemSelected(rev.id)&&(
+                                <RevNoTableCard
+                                className='column'
+                                category={category}
+                                review={rev}
+                                toggleItem={ toggleItem}
+                                elem={'hidP'}
                                 />
                               )}
                               {!isItemSelected(rev.id) && (
@@ -190,6 +203,7 @@ function ShowReview() {
               })}
             {/* </div> */}
           </div>
+          <br /><br /><br /><br /><br /><br /><br />
         </div>
       </ThemeProvider>
     );

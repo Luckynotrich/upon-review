@@ -11,8 +11,6 @@ import { Box /* , CardHeader */ } from "@mui/material";
 
 import UrlButton from "./url_button_mui";
 import RevRating from "../rev-rating";
-import CreateMuiTable from "./create-mui-table";
-import Create2ColumnTable from "./create-2-column-table";
 
 import { deleteReview } from "../../../utils/future-self-api";
 import {
@@ -43,26 +41,25 @@ export default function RevNoTableCard({
   let calcW, mult = 1;
 
   textH = Text ? textHeight(Text, mult, f, w) : 40;
-  if (w > 1167 && textH > 398) {
-  }
-
+  
   if (parseInt(w) > 640) calcW = Math.ceil(parseInt(w) / 3);
   else calcW = w;
 
-  
-  let f_Plus_Pad = parseInt(f) + pad;
   if (w > 1168) {
     gridHeight =  40; // height of on number of rows
     cardHeight = 190 + gridHeight + textH + 60;
-  } else if (w > 640) {
+  } else if (w > 940) {
     gridHeight =  40; // height of on number of rows
-    cardHeight = 190 + gridHeight + textH;
-  } else if (w > 512) {
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.8);
+   } else if (w > 640) {
+      gridHeight =  40; // height of on number of rows
+      cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
+     } else if (w > 512) {
     gridHeight =  40;
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 400) {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.1);
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
   } else {
     gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);

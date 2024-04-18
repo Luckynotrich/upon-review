@@ -21,6 +21,7 @@ import {
   textHeight,
   rowCount,
   noBackSlash_r,
+  getMult
 } from "./mui-styles/card-stack";
 import { meld } from "./meld";
 
@@ -31,8 +32,10 @@ export default function RevImgMediaCard({
   elem,
 }) {
   let Text = "";
+  let txtlen;
   if (review.text) {
     Text = noBackSlash_r(review.text);
+    txtlen = review.text.length;
   }
 
   const [w, setW] = useState(WinWidth(window)); // get window width in px
@@ -47,10 +50,12 @@ export default function RevImgMediaCard({
     crows,
     mult = 1;
 
+if(txtlen){
+console.log('txtlen =',txtlen);
+mult = getMult(txtlen, w)
+}
   textH = Text ? textHeight(Text, mult, f, w) : 40;
-  if (w > 1167 && textH > 398) {
-  }
-
+ 
   if (parseInt(w) > 640) calcW = Math.ceil(parseInt(w) / 3);
   else calcW = w;
 
@@ -65,44 +70,45 @@ export default function RevImgMediaCard({
   prows = g_prows > review.pros.length ? g_prows : review.pros.length;
   crows = g_crows > review.cons.length ? g_crows : review.cons.length;
 
-  if (prows === 0 && crows === 0) {
-    rows = 0; /* console.log('0 rows =',rows) */
-  } else {
-    rows = 1; /* console.log('0 rows =',rows) */
-  }
+ 
 
   let pcrows;
   let pad = 68;
   let f_Plus_Pad = parseInt(f) + pad;
   if (w > 1168) {
     pcrows = prows > crows ? prows : crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 62 : 40; // height of on number of rows
+    gridHeight =  f_Plus_Pad * pcrows + 62; // height of on number of rows
     cardHeight = 190 + gridHeight + textH + 60;
+   } else if (w > 768) {
+      pcrows = prows > crows ? prows : crows;
+      gridHeight =  f_Plus_Pad * pcrows + 124; // height of on number of rows
+      cardHeight = 190 + gridHeight + textH;
   } else if (w > 640) {
     pcrows = prows > crows ? prows : crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 62 : 0; // height of on number of rows
+    gridHeight =  f_Plus_Pad * pcrows + 62 ; // height of on number of rows
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 512) {
     pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
+    gridHeight =  f_Plus_Pad * pcrows + 124 ;
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 400) {
     pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.1);
+    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .8) + 124;
+    // textH = Math.ceil(textH * 1.5)
+    cardHeight = 190 + gridHeight + textH;
   } else {
     pcrows = prows + crows;
-    gridHeight = rows > 0 ? f_Plus_Pad * pcrows + 124 : 0;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);
+    gridHeight = f_Plus_Pad * pcrows + 124 ;
+    // textH = Math.ceil(textH * 1.45);
+    cardHeight = 190 + gridHeight + textH;
   }
   // console.log("pros =", pros);
   // console.log("cons =", cons);
   //  console.log(" w =", w);
   //  console.log(" f =", f);
-  //  console.log("gridHeight =", gridHeight);
-  //  console.log("textH =", textH);
-  //  console.log("canHeight =", canHeight);
-  //  console.log("cardHeight =", cardHeight);
+    // console.log("gridHeight =", gridHeight);
+    // console.log("textH =", textH);
+    //  console.log("cardHeight =", cardHeight);
   //  console.log('\n');
   // console.log("g_prows = ", g_prows);
   // console.log("g_crows = ", g_crows);
@@ -146,7 +152,7 @@ export default function RevImgMediaCard({
       sx={{
         width: "100%",
         maxWidth: 700,
-        minWidth: { micro: 340, mobile: 345 },
+        minWidth: { micro: 290, mobile: 345 },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : "750px",
         marginLeft: {
@@ -170,7 +176,7 @@ export default function RevImgMediaCard({
           sx={{
             left: {
               micro: "40%",
-              mobile: "45%",
+              mobile: "43%",
               Mmobile: "50%",
               MaxMoble: "55%",
               tablet: "63%",
@@ -290,6 +296,7 @@ export default function RevImgMediaCard({
           </CardActions>
         </Box>
       </CardContent>
+      <br /><br /><br /><br /><br /><br /><br />
     </Card>
   );
 }

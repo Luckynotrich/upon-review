@@ -6,13 +6,14 @@ html {
   min-width: fit-content;
   overflow: scroll;
   font-family: Poppins;
+  
 }
 * {
   box-sizing: border-box;
   margin: 0 auto;
   float: none !important;
-  // outline: "1px solid red";
   width: 98%;
+  // outline: 1px solid red;
 }
 :root {
   color-scheme: dark light;
@@ -184,18 +185,43 @@ html {
   }
 }
 @media screen and (max-width: 510px){
+  :root,body,html,*{
+    max-width:410px
+  }
   #show-view-title {
-    left: -43%;
+    left: -35%;
+    width: 33%;
   }
 }
 @media screen and (max-width: 409px) {
-  [class^='large'] {
+  :root,body,html,*{
+    max-width:370px
+  }
+  [id^='large'] {
+    max-width: 90% ;
     margin-left: -5%;
     padding-left: 0%;
     padding-right: 0%;
   }
   #show-view-title {
     left: -35%;
+    width: 33%;
+  }
+}
+@media screen and (max-width: 360px){
+  :root,body,html,*{
+    max-width: 99%;
+    margin-left:0px;
+    margin-right: 0px;
+  }
+  [id^='large'] {
+    max-width: 92%;
+    margin-left: 0%;
+    padding-left: 0%;
+    padding-right: 0%;
+  }
+  #show-view-title {
+    left: 1%;
     width: 32%;
   }
 }

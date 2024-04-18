@@ -39,12 +39,27 @@ export default function CatImgMediaCard({
 
   let prows = g_prows > category.pros.length ? g_prows : category.pros.length;
   let crows = g_crows > category.cons.length ? g_crows : category.cons.length;
+
+  let pcrows;
+  let pad = 68;
+  let f_Plus_Pad = parseInt(f) + pad;
+
   if (w > 640) {
-    gridHeight = f * 2 * (prows > crows ? prows : crows); // height of on number of rows
-    cardHeight = 154 + gridHeight + textH + 240;
+    pcrows = prows > crows ? prows : crows;
+    gridHeight =  f_Plus_Pad * pcrows + 62;
+    cardHeight = 90 + gridHeight + textH + 240;
+  } else if (w > 512) {
+    pcrows = prows + crows;
+    gridHeight =  f_Plus_Pad * pcrows + 154 ;
+    cardHeight = 100 + gridHeight + textH;
+  } else if (w > 400) {
+    pcrows = prows + crows;
+    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * 1) + 124;
+    cardHeight = 90 + gridHeight + textH;
   } else {
-    gridHeight = 40 * (prows + crows);
-    cardHeight = 154 + gridHeight + textH + 220;
+    pcrows = prows + crows;
+    gridHeight = f_Plus_Pad * pcrows + 124;
+    cardHeight = 90 + gridHeight + textH ;
   }
 
   
@@ -80,7 +95,7 @@ export default function CatImgMediaCard({
       sx={{
         width: '100%',
         maxWidth: 700,
-        minWidth: 320, //290,
+        minWidth: 320, 
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : '750px',
       }}
@@ -92,7 +107,7 @@ export default function CatImgMediaCard({
 
         <Button
           sx={{
-            left: { micro: "50%", mobile: "28%", tablet: "50%" },
+            left: { micro: "50%", mobile: "60%", tablet: "50%" },
             desktop: "60%",
           }}
           size="medium"
@@ -144,6 +159,21 @@ export default function CatImgMediaCard({
           >
             {Text}
           </Typography>
+          <CardActions>
+            {!reviewsExist && (
+              <Button
+                onClick={async (e) => {
+                  e.preventDefault();
+                  let id = category.id;
+                  deleteCategoryMutation.mutateAsync(id);
+                  toggleItem(category.id);
+                }}
+                sx={{ marginLeft: '80%' }}
+              >
+                <span className="material-symbols-outlined">delete</span>
+              </Button>
+            )}
+          </CardActions>
         </Box>
 
         <Box

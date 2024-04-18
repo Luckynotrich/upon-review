@@ -102,15 +102,27 @@ visibility: hidden;
   width: 50%;
   margin-left: 75%;
 }
-@media screen and (max-width: 410px){
+@media screen and (max-width: 431px){
   .show-view{
+    max-width: 400px;
     padding-left:0%;
   }
   .MuiCard-root{
+    max-width: 340px;
+    margin-left: 0px;
     padding-left: 0%;
     margin-left: 0%;
   }
  
+}
+@media screen and (max-width: 360px){
+  .MuiCard-root{
+    max-width: 340px;
+  }
+  .show-view{
+    max-width: 340px;
+    padding-left:0%;
+  }
 }
 
 
