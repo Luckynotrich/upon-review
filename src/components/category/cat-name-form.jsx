@@ -80,7 +80,9 @@ export default function CreateCatName({
   }
   return (
     <div>
+      {/* <header> */}
       <Header ID={'category-title'} title={'Category'} />
+      {/* </header> */}
       {!sent && (
         <form
           onSubmit={handleSubmit(submit)}

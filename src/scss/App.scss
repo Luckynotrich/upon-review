@@ -14,6 +14,7 @@ html {
   float: none !important;
   width: 98%;
   // outline: 1px solid red;
+  // overflow:auto;
 }
 :root {
   color-scheme: dark light;
@@ -70,6 +71,7 @@ html {
 .routes {
   display: flex;
   flex-flow: row space-around;
+  max-width: 98%;
 }
 .hidden {
   visibility: hidden;
@@ -130,12 +132,16 @@ html {
 #show-view-title {
   float: left;
   background-color: #8fd400;
-  left: -38%;
+  left: -39%;
   width: 35%;
 }
 #category-title {
   background-color: #fafa37;
   left: 0%;
+}
+#help{
+  margin-left: 50%;
+  margin-top: 2%;
 }
 .header-title {
   max-width: 99%;
@@ -146,6 +152,7 @@ html {
   z-index: -1;
   margin-top: -3%;
 }
+
 @media screen and (min-width:1250px)
 {
   :root,body,html,*{
@@ -157,7 +164,8 @@ html {
     max-width:750px
   }
   #show-view-title {
-    left: -39%;
+    left: -40.5%;
+    width: 36%;
   }
 }
 @media screen and (max-width: 750px){
@@ -186,16 +194,16 @@ html {
 }
 @media screen and (max-width: 510px){
   :root,body,html,*{
-    max-width:410px
+    max-width:410px;
   }
   #show-view-title {
-    left: -35%;
-    width: 33%;
+    left: -46.5%;
+    width: 38%;
   }
 }
-@media screen and (max-width: 409px) {
+@media screen and (max-width: 421px) {
   :root,body,html,*{
-    max-width:370px
+    max-width:370px;
   }
   [id^='large'] {
     max-width: 90% ;
@@ -220,8 +228,14 @@ html {
     padding-left: 0%;
     padding-right: 0%;
   }
+  #review-title {
+    left: 66%;
+  }
+  #category-title {
+    left: 33%;
+  }
   #show-view-title {
-    left: 1%;
+     left: 0%;
     width: 32%;
   }
 }

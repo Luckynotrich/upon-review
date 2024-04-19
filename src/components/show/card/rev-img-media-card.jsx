@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box /* , CardHeader */ } from "@mui/material";
+import { getDesignTokens } from "./mui-styles/cardTheme.js";
 
 import UrlButton from "./url_button_mui";
 import RevRating from "../rev-rating";
@@ -102,23 +103,7 @@ mult = getMult(txtlen, w)
     // textH = Math.ceil(textH * 1.45);
     cardHeight = 190 + gridHeight + textH;
   }
-  // console.log("pros =", pros);
-  // console.log("cons =", cons);
-  //  console.log(" w =", w);
-  //  console.log(" f =", f);
-    // console.log("gridHeight =", gridHeight);
-    // console.log("textH =", textH);
-    //  console.log("cardHeight =", cardHeight);
-  //  console.log('\n');
-  // console.log("g_prows = ", g_prows);
-  // console.log("g_crows = ", g_crows);
-  // console.log("pcrows = ", pcrows);
-  // console.log("f_Plus_Pad = ", f_Plus_Pad);
-  //  console.log('calcW =', calcW)
-  // console.log("prows = ", prows);
-  // console.log("crows = ", crows);
-  // console.log('review.pros.length ', review.pros.length);
-  // console.log('review.cons.length ', review.cons.length);
+ 
   useEffect(() => {
     const handleResize = () => {
       setW(WinWidth(window));
@@ -149,20 +134,20 @@ mult = getMult(txtlen, w)
 
   return (
     <Card
-      sx={{
-        width: "100%",
-        maxWidth: 700,
-        minWidth: { micro: 290, mobile: 345 },
-        minHeight: 100,
-        height: cardHeight ? `${cardHeight}px` : "750px",
-        marginLeft: {
-          // micro: "-5px",
-          mobile: "0px",
-          tablet: "1rem",
-          laptop: "5rem",
-          desktop: "10rem",
-        },
-      }}
+    sx={{
+      width: "100%",
+      maxWidth: 700,
+      minWidth: { micro: 325, mobile: 340 },
+      minHeight: 100,
+      height: cardHeight ? `${cardHeight}px` : "750px",
+      marginLeft: {
+        micro: ".7rem",
+        mobile: ".9rem",
+        tablet: "1.2rem",
+        laptop: "5rem",
+        desktop: "10rem",
+      },
+    }}
     >
       <CardActions>
         <Button size="medium" sx={{ left: "2%", paddingRight: "1rem" }}>
@@ -256,11 +241,11 @@ mult = getMult(txtlen, w)
             <Button
               onClick={async (e) => {
                 e.preventDefault();
-                let id = category.id;
+                let id = review.id;
                 deleteReviewMutation.mutateAsync(id);
-                toggleItem(category.id);
+                toggleItem(review.id);
               }}
-              sx={{ marginLeft: "90%" }}
+              sx={{ marginLeft: {micro: "80%",mobile:"90%"} }}
             >
               <span className="material-symbols-outlined">delete</span>
             </Button>
@@ -285,11 +270,11 @@ mult = getMult(txtlen, w)
             <Button
               onClick={async (e) => {
                 e.preventDefault();
-                let id = category.id;
+                let id = review.id;
                 deleteReviewMutation.mutateAsync(id);
-                toggleItem(category.id);
+                toggleItem(review.id);
               }}
-              sx={{ marginLeft: "90%" }}
+              sx={{ marginLeft: {micro: "80%",mobile:"90%"} }}
             >
               <span className="material-symbols-outlined">delete</span>
             </Button>

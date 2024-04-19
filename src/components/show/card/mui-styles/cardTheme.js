@@ -26,6 +26,19 @@ export const getDesignTokens = (mode) => ({
     fontWeightMedium: 500,
     fontWeightBold: 600,
   },
+  // card:{
+  //   width: "100%",
+  //   maxWidth: 700,
+  //   minWidth: { micro: 325, mobile: 340 },
+  //   minHeight: 100, 
+  //   marginLeft: {
+  //     micro: ".7rem",
+  //     mobile: ".9rem",
+  //     tablet: "1.2rem",
+  //     laptop: "5rem",
+  //     desktop: "10rem",
+  //   },
+  // },
   palette: {
     mode,
     primary: {
@@ -73,6 +86,6 @@ export const getDesignTokens = (mode) => ({
 
   },
 });
-export function Min600MediaQuery() {
-  const matches = useMediaQuery('(min-width:600px)');
-}
+// export function Min600MediaQuery() {
+//   const matches = useMediaQuery('(min-width:600px)');
+// }

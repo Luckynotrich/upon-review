@@ -33,7 +33,9 @@ const ReviewCategory = () => {
 let i = 0;
   return (
     <>
+    {/* <header> */}
     <Header ID={'review-title'} title={'Review'}/>
+    {/* </header> */}
     <div >
       
      {!catState && <form>

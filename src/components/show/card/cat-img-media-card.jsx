@@ -13,7 +13,7 @@ import CreateMuiTable from './create-mui-table';
 // import CreateGrid from './create-grid';
 import Create2ColumnTable from './create-2-column-table';
 
-import { deleteCategory, deleteReview } from '../../../utils/future-self-api';
+import { deleteCategory} from '../../../utils/future-self-api';
 import { fontHeight, WinWidth, textHeight, rowCount } from './mui-styles/card-stack';
 // import { Reviews } from '@mui/icons-material';
 
