@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 $left-margin: 7%;
+$light-bgc: rgb(232, 232, 222);
+$dark-bgc: hsl(120, 42%, 9%);
 html {
   max-width: 98%;
   min-width: fit-content;
@@ -25,13 +27,17 @@ html {
   }
   body,
   div.container {
-    background-color: hsl(120, 42%, 9%);
+    background-color: $dark-bgc;
     border: 1px solid white;
     border-style: solid;
     padding-bottom: 10rem;
   }
   .alt-color-1{color:#fafa37}
   .alt-color-2{color:#fcfc06}
+  .exitIcon{
+    background-color: $dark-bgc;
+    background-image: url('http://localhost:8081:/exit-white_75.png');//http://localhost:8081:
+  }
 }
 @media screen and (prefers-color-scheme: light) {
   p,
@@ -55,12 +61,16 @@ html {
   }
   body,
   div.container {
-    background-color: rgb(232, 232, 222);
+    background-color: $light-bgc;
     border: 3px solid rgb(0, 0, 0);
     padding-bottom: 10rem;
   }
   .alt-color-1{color:#f66809}
   .alt-color-2{color:#0a6120}
+  .exitIcon{
+    background-color: $light-bgc;
+    background-image:  url('exit-black_75.png');
+  }
 }
 .container {
   min-height: 15rem;
@@ -75,6 +85,12 @@ html {
 }
 .hidden {
   visibility: hidden;
+}
+.exitIcon{
+  background-repeat:  no-repeat;
+  background-position: center;
+  background-size: 40px 40px;
+  border-style: none;
 }
 @mixin large {
   width: 100%;

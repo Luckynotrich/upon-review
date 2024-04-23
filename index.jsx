@@ -11,7 +11,8 @@ import { ReviewContextProvider } from './src/components/contexts/review-context.
 import { CategoryContextProvider } from './src/components/contexts/category-context.jsx';
 import { UserContextProvider } from './src/components/contexts/user-context.jsx';
 import App from './src/App.jsx';
-
+// import { getConfig } from "./vite-config.js";
+// getConfig();
 
 
 const domNode = document.getElementById('root');

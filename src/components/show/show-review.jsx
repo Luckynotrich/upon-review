@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { Box, Button, Typography } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -11,10 +11,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CategoryContext from "../contexts/category-context";
 import UserContext from "../contexts/user-context";
 import { useCatsQuery } from "../contexts/current-cats-context";
-import { getRevs } from "../../utils/future-self-api";
+import { getRevs, logout } from "../../utils/future-self-api";
 import { helpText } from "../help.js";
-
-
 
 import Header from "../header";
 import RevRating from "./rev-rating";
@@ -22,14 +20,14 @@ import RevRating from "./rev-rating";
 // src/components/show/card/rev-notable-img-media-card.jsx
 import RevNoTableCard from "./card/rev-notable-img-media-card.jsx";
 import RevImgMediaCard from "./card/rev-img-media-card.jsx";
-import { getDesignTokens } from "./card/mui-styles/cardTheme.js";
+import HelpNoTableCard from "./card/help-notable-img-media-card.jsx";
 import CatImgMediaCard from "./card/cat-img-media-card.jsx";
 
+import { getDesignTokens } from "./card/mui-styles/cardTheme.js";
 const darkModeTheme = createTheme(getDesignTokens("dark"));
 const lightModeTheme = createTheme(getDesignTokens("light"));
 
 import HelpIcon from "@mui/icons-material/Help";
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 function ShowReview() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -56,6 +54,15 @@ function ShowReview() {
     setCategories(cats);
   }, [cats]);
 
+  const logoutMutation = useMutation({
+    mutationFn: (data) => {
+      logout();
+    },
+    onError: (error) => {
+      console.log("onError =", error);
+    },
+    
+  });
   const {
     data: revs,
     isLoading,
@@ -87,18 +94,8 @@ function ShowReview() {
           <div style={{ display: "flex", flex: "row" }}>
             <h2 key={"title"}>Categories</h2>
             <h2 style={{ color: "#2c9905", paddingLeft: "1rem" }}>Reviews </h2>
-            {isItemSelected(helpText.review.id) && (
-              <div style={{marginTop:'2rem',marginLeft: '-58%',zIndex:'3'}}>
-              <RevNoTableCard
-                className="column"
-                category={helpText.category}
-                review={helpText.review}
-                toggleItem={toggleItem}
-                elem={"hidP"}
-              />
-              </div>
-            )}
-            {!isItemSelected(helpText.review.id) && (
+            
+            {/* {!isItemSelected(helpText.review.id) && ( */}
               <Button
                 onClick={() => {
                   toggleItem(helpText.review.id);
@@ -116,21 +113,44 @@ function ShowReview() {
                   help
                 </span>
               </Button>
-            )}
-
-              <Button
-                onClick={() => {
-                  toggleItem(helpText.review.id);
+            {/* )} */}
+            {isItemSelected(helpText.review.id) && (
+              <Box
+                sx={{
+                  marginTop: {
+                    tablet: "1.8rem",
+                    Ltablet: "2rem",
+                    laptop: "3rem",
+                  },
+                  marginLeft: "-60%",
+                  zIndex: "3",
                 }}
               >
-<span  className="material-symbols-outlined" style={{
-                    color: "white",
-                    marginLeft: "0%",
-                    marginTop: ".5rem",
-                  }}>
-                    exit
-                    </span>
-                    </Button>
+                <HelpNoTableCard
+                  className="column"
+                  category={helpText.category}
+                  review={helpText.review}
+                  toggleItem={toggleItem}
+                  elem={"hidP"}
+                />
+              </Box>
+            )}
+            <button
+              className="exitIcon"
+              style={{
+                width: "120px",
+                height: "40px",
+                marginLeft: "10%",
+                marginTop: "2%",
+              }}
+              onClick={() => {
+                logoutMutation.mutate();
+                setTimeout(window.location.reload(), 500);
+                // history.go(-1);
+                window.location.reload();
+                // history.back(-1);
+              }}
+            />
             <p id="hidP" style={{ color: "transparent" }}></p>
           </div>
 

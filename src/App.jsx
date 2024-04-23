@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, NavLink, Outlet } from "react-router-dom";
-
 import CreateCat from "./components/category/create-cat.jsx";
 import ReviewCategory from "./components/review/review-category.jsx";
 import ShowReview from "./components/show/show-review.jsx";
@@ -8,7 +7,6 @@ import "./scss/App.scss";
 
 function App() {
   const [isDefault, setIsDefault] = useState(false);
-
   useEffect(() => {
     if (!isDefault) {
       setIsDefault(true);

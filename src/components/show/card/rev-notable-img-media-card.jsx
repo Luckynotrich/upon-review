@@ -96,7 +96,7 @@ export default function RevNoTableCard({
     <Card
       sx={{
         width: "100%",
-        maxWidth: 700,
+        maxWidth: '700px',
         minWidth: { micro: 325, mobile: 340 },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : "750px",

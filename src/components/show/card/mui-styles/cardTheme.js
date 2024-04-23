@@ -2,9 +2,9 @@ import { createTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { green, lightGreen, orange, yellow } from '@mui/material/colors';
 
-export const theme = createTheme({
+// export const theme = createTheme({
 
-})
+// })
 export const getDesignTokens = (mode) => ({
 
   breakpoints: {
@@ -26,19 +26,7 @@ export const getDesignTokens = (mode) => ({
     fontWeightMedium: 500,
     fontWeightBold: 600,
   },
-  // card:{
-  //   width: "100%",
-  //   maxWidth: 700,
-  //   minWidth: { micro: 325, mobile: 340 },
-  //   minHeight: 100, 
-  //   marginLeft: {
-  //     micro: ".7rem",
-  //     mobile: ".9rem",
-  //     tablet: "1.2rem",
-  //     laptop: "5rem",
-  //     desktop: "10rem",
-  //   },
-  // },
+  
   palette: {
     mode,
     primary: {
@@ -61,31 +49,36 @@ export const getDesignTokens = (mode) => ({
       background: {
         default: 'hsl(123, 61%, 15%)',
         paper: 'hsl(123, 61%, 15%)',
+        secondary: 'hsl(123, 61%, 15%)',
       },
+
     }),
     ...(mode === 'light' && {
       background: {
         default: orange[200],
         paper: orange[200],
+        secondary: orange[800]
       },
-    }),
-    text: {
-      ...(mode === 'light'
-        ? {
-          primary: yellow[900],
-          secondary: '#5d0303',
-        }
-        : {
-          primary: yellow[500],
-          secondary: yellow[500],
-        }),
-    },
-    border: {
-      color: 'black',
-    }
 
-  },
-});
+    }),
+     
+      text: {
+        ...(mode === 'light'
+          ? {
+            primary: yellow[900],
+            secondary: '#5d0303',
+          }
+          : {
+            primary: yellow[500],
+            secondary: yellow[500],
+          }),
+      },
+      border: {
+        color: 'black',
+      }
+
+    },
+  });
 // export function Min600MediaQuery() {
 //   const matches = useMediaQuery('(min-width:600px)');
 // }

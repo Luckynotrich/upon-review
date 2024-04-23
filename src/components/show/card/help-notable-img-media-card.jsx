@@ -21,7 +21,7 @@ import {
 } from "./mui-styles/card-stack";
 import { meld } from "./meld";
 
-export default function RevNoTableCard({
+export default function HelpNoTableCard({
   category,
   review,
   toggleItem,
@@ -97,15 +97,15 @@ export default function RevNoTableCard({
       sx={{
         width: "100%",
         maxWidth: 700,
-        minWidth: { micro: 325, mobile: 340 },
+        minWidth: { micro: 325, mobile: 340,tablet: 400,Ltablet: 480,laptop: 520 },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : "750px",
         marginLeft: {
           micro: ".7rem",
           mobile: ".9rem",
           tablet: "1.2rem",
-          laptop: "5rem",
-          desktop: "10rem",
+          laptop: "3rem",
+          desktop: "5rem",
         },
       }}
     >
@@ -137,10 +137,7 @@ export default function RevNoTableCard({
         </Button>
       </CardActions>
 
-      <CardContent /* sx={{marginLeft:{
-                mobile: '-20px'
-      }}} */
-      >
+      <CardContent>
         <Box
           sx={{
             display: "flex",
@@ -184,19 +181,7 @@ export default function RevNoTableCard({
           >
             {Text}
           </Typography>
-          <CardActions>
-            <Button
-              onClick={async (e) => {
-                e.preventDefault();
-                let id = review.id;
-                deleteReviewMutation.mutateAsync(id);
-                toggleItem(review.id);
-              }}
-              sx={{ marginLeft: {micro: "80%",mobile:"90%"} }}
-            >
-              <span className="material-symbols-outlined">delete</span>
-            </Button>
-          </CardActions>
+        
         </Box>
 
         <Box
@@ -212,19 +197,7 @@ export default function RevNoTableCard({
           >
             {Text}
           </Typography>
-          <CardActions>
-            <Button
-              onClick={async (e) => {
-                e.preventDefault();
-                let id = review.id;
-                deleteReviewMutation.mutateAsync(id);
-                toggleItem(review.id);
-              }}
-              sx={{ marginLeft: {micro: "80%",mobile:"90%"} }}
-            >
-              <span className="material-symbols-outlined">delete</span>
-            </Button>
-          </CardActions>
+          
         </Box>
       </CardContent>
     </Card>
