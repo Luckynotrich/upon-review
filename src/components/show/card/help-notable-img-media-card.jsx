@@ -12,14 +12,12 @@ import { Box /* , CardHeader */ } from "@mui/material";
 import UrlButton from "./url_button_mui";
 import RevRating from "../rev-rating";
 
-import { deleteReview } from "../../../utils/future-self-api";
 import {
   fontHeight,
   WinWidth,
   textHeight,
   noBackSlash_r,
 } from "./mui-styles/card-stack";
-import { meld } from "./meld";
 
 export default function HelpNoTableCard({
   category,
@@ -34,27 +32,27 @@ export default function HelpNoTableCard({
 
   const [w, setW] = useState(WinWidth(window)); // get window width in px
   const [f, setf] = useState(fontHeight(elem, window)); //measure font size in px
-  
 
   let gridHeight, cardHeight, textH;
-  let calcW, mult = 1;
+  let calcW,
+    mult = 1;
 
   textH = Text ? textHeight(Text, mult, f, w) : 40;
-  
+
   if (parseInt(w) > 640) calcW = Math.ceil(parseInt(w) / 3);
   else calcW = w;
 
   if (w > 1168) {
-    gridHeight =  40; // height of on number of rows
+    gridHeight = 40; // height of on number of rows
     cardHeight = 190 + gridHeight + textH + 60;
   } else if (w > 940) {
-    gridHeight =  40; // height of on number of rows
+    gridHeight = 40; // height of on number of rows
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.8);
-   } else if (w > 640) {
-      gridHeight =  40; // height of on number of rows
-      cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
-     } else if (w > 512) {
-    gridHeight =  40;
+  } else if (w > 640) {
+    gridHeight = 40; // height of on number of rows
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
+  } else if (w > 512) {
+    gridHeight = 40;
     cardHeight = 190 + gridHeight + textH;
   } else if (w > 400) {
     gridHeight = 40;
@@ -63,7 +61,7 @@ export default function HelpNoTableCard({
     gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);
   }
- 
+
   useEffect(() => {
     const handleResize = () => {
       setW(WinWidth(window));
@@ -75,29 +73,19 @@ export default function HelpNoTableCard({
     };
   }, []);
 
-  const queryClient = useQueryClient();
-  const deleteReviewMutation = useMutation({
-    mutationFn: (data) => {
-      deleteReview(data);
-    },
-    onError: (error) => {
-      console.log("onError = ", error);
-    },
-    onSuccess: async (data) => {
-      queryClient.invalidateQueries("revs");
-    },
-    onSettled: (data) => {
-      queryClient.invalidateQueries("revs");
-      // runDontWalk(`reviewMutation.onSettled`);
-    },
-  });
-
   return (
     <Card
+      orientation="horizontal"
       sx={{
         width: "100%",
         maxWidth: 700,
-        minWidth: { micro: 325, mobile: 340,tablet: 400,Ltablet: 480,laptop: 520 },
+        minWidth: {
+          micro: 325,
+          mobile: 340,
+          tablet: 400,
+          Ltablet: 480,
+          laptop: 520,
+        },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : "750px",
         marginLeft: {
@@ -131,7 +119,7 @@ export default function HelpNoTableCard({
             desktop: "90%",
           }}
           size="medium"
-          onClick={() => toggleItem(review.id)}
+           onClick={() => toggleItem(review.id)}
         >
           <span className="material-symbols-outlined">close</span>
         </Button>
@@ -160,7 +148,7 @@ export default function HelpNoTableCard({
           </Typography>
         </Box>
       </CardContent>
-     
+
       <CardContent>
         <Box
           sx={{
@@ -173,7 +161,6 @@ export default function HelpNoTableCard({
             },
           }}
         >
-       
           <Typography
             variant="body2"
             color="text.secondary"
@@ -181,7 +168,6 @@ export default function HelpNoTableCard({
           >
             {Text}
           </Typography>
-        
         </Box>
 
         <Box
@@ -197,7 +183,6 @@ export default function HelpNoTableCard({
           >
             {Text}
           </Typography>
-          
         </Box>
       </CardContent>
     </Card>

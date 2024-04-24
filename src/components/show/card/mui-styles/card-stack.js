@@ -18,7 +18,7 @@ export const WinWidth = (window) => {
 //text from the review
 export const textHeight = (Text, mult, f, w) => {
   if(!mult || mult === 0) mult = 1;
-  console.log('mult =',mult)
+  // console.log('mult =',mult)
   let textNL = textNewLines(Text) ;
   let text = Math.ceil((Text.length * f) / w * mult);
 
@@ -42,7 +42,7 @@ export const textNewLines = (Text) => {
   let textNL = Text.match(/\n/g);
   if (textNL) textNL = textNL.length;
   else textNL = 1;
-   console.log('textNL =',textNL)
+  //  console.log('textNL =',textNL)
   return textNL;
 }
 //replace \r * X and \n\n with \n
@@ -71,77 +71,77 @@ export const getMult = (txtlen, w) =>{
   if(w > 319 && w <= 400){
     if(txtlen < 25){
       mult = 16
-      console.log(mult);
+      //console.log(mult);
     }
     else if(txtlen < 50){
       mult = 5
-      console.log(mult);
+      //console.log(mult);
     }
     else if(txtlen < 200){
        mult = 3.4;
-       console.log(mult);
+       //console.log(mult);
       }
     else if (txtlen < 2000){
        mult = 1.2;
-       console.log(mult);
+       //console.log(mult);
       }
       
    }
   if(w > 400 && w <= 520){
   if(txtlen < 25){
     mult = 16
-    console.log(mult);
+    //console.log(mult);
   }
   else if(txtlen < 50){
     mult = 5
-    console.log(mult);
+    //console.log(mult);
   }
   else if(txtlen < 200){
      mult = 3.4;
-     console.log(mult);
+     //console.log(mult);
     }
   else if (txtlen < 2000){
      mult = 1.3;
-     console.log(mult);
+     //console.log(mult);
     }
     
  }
  if(w > 520 && w <= 640){
   if(txtlen < 25){
     mult = 6
-    console.log(mult);
+    //console.log(mult);
   }
   else if(txtlen < 50){
     mult = 2
-    console.log(mult);
+    //console.log(mult);
   }
   else if(txtlen < 200){
      mult = 2.5;
-     console.log(mult);
+     //console.log(mult);
     }
     else if (txtlen < 700){
       mult = 1.1
     }
   else if (txtlen < 2000){
      mult = .8;
-     console.log(mult);
+     //console.log(mult);
     }
  }
  if(w > 640 && w <= 820 ){
   if(txtlen < 50){
     mult = 1
-    console.log(mult);
+    //console.log(mult);
   }
   else if(txtlen < 200){
      mult = 1.5;
-     console.log(mult);
+     //console.log(mult);
     }
     else if (txtlen < 700){
       mult = .6
     }
   else if (txtlen < 2000){
      mult = .8;
-     console.log(mult);
+     //console.log(mult);
     }
  }
 return mult

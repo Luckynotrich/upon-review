@@ -95,10 +95,10 @@ function ShowReview() {
             <h2 key={"title"}>Categories</h2>
             <h2 style={{ color: "#2c9905", paddingLeft: "1rem" }}>Reviews </h2>
             
-            {/* {!isItemSelected(helpText.review.id) && ( */}
+            
               <Button
                 onClick={() => {
-                  toggleItem(helpText.review.id);
+                   toggleItem(helpText.review.id);
                 }}
               >
                 <span
@@ -113,13 +113,13 @@ function ShowReview() {
                   help
                 </span>
               </Button>
-            {/* )} */}
+            
             {isItemSelected(helpText.review.id) && (
               <Box
                 sx={{
                   marginTop: {
                     tablet: "1.8rem",
-                    Ltablet: "2rem",
+                    Ltablet: "2.6rem",
                     laptop: "3rem",
                   },
                   marginLeft: "-60%",
@@ -130,11 +130,11 @@ function ShowReview() {
                   className="column"
                   category={helpText.category}
                   review={helpText.review}
-                  toggleItem={toggleItem}
+                   toggleItem={toggleItem}
                   elem={"hidP"}
                 />
               </Box>
-            )}
+            )} 
             <button
               className="exitIcon"
               style={{
