@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { Box, Button, Typography } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -11,7 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CategoryContext from "../contexts/category-context";
 import UserContext from "../contexts/user-context";
 import { useCatsQuery } from "../contexts/current-cats-context";
-import { getRevs, logout } from "../../utils/future-self-api";
+import { getRevs} from "../../utils/future-self-api";
 import { helpText } from "../help.js";
 
 import Header from "../header";
@@ -29,7 +29,10 @@ const lightModeTheme = createTheme(getDesignTokens("light"));
 
 import HelpIcon from "@mui/icons-material/Help";
 
+
+
 function ShowReview() {
+
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const [selected, setSelected] = useState([0]);
@@ -47,22 +50,14 @@ function ShowReview() {
   const isItemSelected = (id) => selected.includes(id);
 
   const { userId } = useContext(UserContext);
-  const { categories, setCategories } = useContext(CategoryContext);
+  const {  setCategories } = useContext(CategoryContext);
 
   const { data: cats } = useCatsQuery(userId);
   useEffect(() => {
     setCategories(cats);
   }, [cats]);
 
-  const logoutMutation = useMutation({
-    mutationFn: (data) => {
-      logout();
-    },
-    onError: (error) => {
-      console.log("onError =", error);
-    },
-    
-  });
+ 
   const {
     data: revs,
     isLoading,
@@ -75,6 +70,7 @@ function ShowReview() {
     staleTime: 1000 * 60 * 5, // 5 minute
     cacheTime: 1000 * 60 * 60, // 1 hour
   });
+  
 
   if (isLoading) return <div>Loading...</div>;
   else if (isError) return <div>Error: {error.message}</div>;
@@ -88,7 +84,6 @@ function ShowReview() {
     return (
       <ThemeProvider theme={prefersDarkMode ? darkModeTheme : lightModeTheme}>
         <div className="show-view">
-          {/*  <header style={{display: 'flex',flexFlow:'row'}}> */}
           <Header ID={"show-view-title"} title={"View"} />
           {/* </header> */}
           <div style={{ display: "flex", flex: "row" }}>
@@ -110,7 +105,7 @@ function ShowReview() {
                     marginTop: ".5rem",
                   }}
                 >
-                  help
+                  Help
                 </span>
               </Button>
             
@@ -135,21 +130,20 @@ function ShowReview() {
                 />
               </Box>
             )} 
-            <button
+           
+            <a href=/* meta.env.VITE_PUBLIC_BASE_URL */"/"
+              target="_self"
               className="exitIcon"
               style={{
                 width: "120px",
                 height: "40px",
                 marginLeft: "10%",
                 marginTop: "2%",
+                borderStyle: 'hidden',
+                border: 'hidden',
+                backgroundColor: 'transparent',
               }}
-              onClick={() => {
-                logoutMutation.mutate();
-                setTimeout(window.location.reload(), 500);
-                // history.go(-1);
-                window.location.reload();
-                // history.back(-1);
-              }}
+             
             />
             <p id="hidP" style={{ color: "transparent" }}></p>
           </div>

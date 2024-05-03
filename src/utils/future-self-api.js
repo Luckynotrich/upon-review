@@ -2,7 +2,7 @@ import axios from 'axios';
 const baseUrl = import.meta.env.VITE_PUBLIC_BASE_URL
 
 const SendData = axios.create({
-    baseURL: baseUrl,//'http://localhost:8081',//
+    baseURL: baseUrl,
     headers: { 'Content-Type': 'multipart/form-data' }
 });
 
@@ -37,7 +37,5 @@ export const deleteCategory = async (id) => {
     const response = await axios.delete(baseUrl+'/api/category-api/delete/' + id);
     return await response.data;
 }
-export const logout = async (id) => {
-    const response = await axios.get(baseUrl+'/')
-}
+
 export default SendData;

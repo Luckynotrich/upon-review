@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 $left-margin: 7%;
-$light-bgc: rgb(232, 232, 222);
+$light-bgc: #e3e0dd;//rgb(232, 232, 222);
 $dark-bgc: hsl(120, 42%, 9%);
 html {
   max-width: 98%;
@@ -57,7 +57,7 @@ html {
   select,
   input,
   textarea {
-    color: #5d0303;
+    color: #501803;
   }
   body,
   div.container {
@@ -125,7 +125,10 @@ html {
   left: 0.7%;
   @include large;
 }
-
+#large-left.pending {
+  background-color: #8fd400;
+  color: #000;
+}
 #large-left.active {
   background-color: #8fd400;
   color: #000;
@@ -148,7 +151,7 @@ html {
 #show-view-title {
   float: left;
   background-color: #8fd400;
-  left: -39%;
+  left: -38%;
   width: 35%;
 }
 #category-title {
