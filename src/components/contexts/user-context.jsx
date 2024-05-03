@@ -2,12 +2,14 @@ import React, { createContext, useState } from "react";
 
 const UserContext = createContext();
 export const UserContextProvider = ({ children }) => {
-  const [userId, setUserId] = useState(null);
+  const defaultId = '00000000-0000-0000-0000-000000000000';
+  const [userId, setUserId] = useState(defaultId);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [password, setUserPassword] = useState("");
 
   const providerProps = {
+    defaultId,
     userId,
     setUserId,
     userName,

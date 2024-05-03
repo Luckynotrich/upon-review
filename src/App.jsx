@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import LogIn from "./components/login.jsx";
+import UserContext from "./components/contexts/user-context";
+
 import Main from "./components/main.jsx";
 import Splash from "./components/splash.jsx";
 import axios from "axios";
@@ -11,11 +12,11 @@ import "./scss/App.scss";
 
 
 const GetUserId = async () => {
-  const response = await axios.get("/getId");//http://localhost:8081
+  const response = await axios.get("/getId");
   return await response.data;
 };
 export default function App() {
-  
+  const { userId, defaultId } = useContext(UserContext);
 
   const {
     data: ID,
@@ -29,18 +30,8 @@ export default function App() {
     staleTime: 60 * 60 * 1000,
     cacheTime: 1000 * 60 * 60,
   });
-
-  
-  //  if (run(10000)) return <Splash></Splash>;
-
-  
-  if(ID){
-    return <Main UserId={ID}></Main>;
-  }
-}
-async function run(Time) {  
-  while (true) {  
-    console.log('Running...');  
-    await new Promise(resolve => setTimeout(resolve, Time));  
-  }  
+/* console.log('userId === defaultId =',userId === defaultId)
+  if(userId === defaultId) <LogIn></LogIn>
+  else */ if (isLoading) return <Splash></Splash>;
+  else if(ID) return <Main UserId={ID}></Main>;
 }
