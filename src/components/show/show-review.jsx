@@ -122,6 +122,7 @@ function ShowReview() {
                 }}
               >
                 <HelpNoTableCard
+                id='helpCard'
                   className="column"
                   category={helpText.category}
                   review={helpText.review}
@@ -131,13 +132,14 @@ function ShowReview() {
               </Box>
             )} 
            
-            <a href=/* meta.env.VITE_PUBLIC_BASE_URL */"/"
+            <a href= "/"//{meta.env.VITE_PUBLIC_BASE_URL}
               target="_self"
               className="exitIcon"
               style={{
+                minWidth:'120px',
                 width: "120px",
                 height: "40px",
-                marginLeft: "10%",
+                // marginLeft: "5%",
                 marginTop: "2%",
                 borderStyle: 'hidden',
                 border: 'hidden',

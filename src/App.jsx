@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
+
 import UserContext from "./components/contexts/user-context";
 
 import Main from "./components/main.jsx";
 import Splash from "./components/splash.jsx";
-import axios from "axios";
+import LogIn from "./components/login.jsx"
+
+
 import {
   useQuery /*, Queryclient,  useQueryclient */,
 } from "@tanstack/react-query";
@@ -17,7 +21,17 @@ const GetUserId = async () => {
 };
 export default function App() {
   const { userId, defaultId } = useContext(UserContext);
+  const [isDisplayed,setIsDisplayed] = useState(false);
 
+  useEffect(()=> 
+  {
+    setInterval(()=>{
+    setIsDisplayed(!isDisplayed)
+  },3000);
+  },[]
+);
+  
+ 
   const {
     data: ID,
     isLoading,
@@ -30,8 +44,13 @@ export default function App() {
     staleTime: 60 * 60 * 1000,
     cacheTime: 1000 * 60 * 60,
   });
-/* console.log('userId === defaultId =',userId === defaultId)
-  if(userId === defaultId) <LogIn></LogIn>
-  else */ if (isLoading) return <Splash></Splash>;
-  else if(ID) return <Main UserId={ID}></Main>;
+ console.log('userId === defaultId =',userId === defaultId)
+  
+ if(isError) return <LogIn></LogIn> 
+   if(ID) return (
+    <>
+    {!isDisplayed && <Splash />}
+   { isDisplayed && <Main UserId={ID} />}
+   </>)
+  
 }

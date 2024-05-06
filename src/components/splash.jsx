@@ -1,19 +1,14 @@
-import React,{useContext} from "react";
+import React from "react";
+
 export default function Splash() {
-    
-  // if(run(5000))
   return (
     <>
     
-      <h1>Future Self Upon Review</h1>
+      <h1 >Future-self Upon Review</h1>
       
     </>
   );
 
-}
-async function run(Time) {  
-  while (true) {  
-    console.log('Running...');  
-    await new Promise(resolve => setTimeout(resolve, Time));  
-  }  
+  
+
 }
