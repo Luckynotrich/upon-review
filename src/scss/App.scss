@@ -180,7 +180,7 @@ html {
 }
 @media screen and (max-width: 860px){
   :root,body,html,*{
-    max-width:750px
+    max-width: 90%/* 750px */;
   }
   #show-view-title {
     left: -40.5%;
@@ -211,7 +211,7 @@ html {
     width: 37%;
   }
 }
-@media screen and (max-width: 510px){
+@media screen and (max-width: 500px){
   :root,body,html,*{
     max-width:410px;
   }
@@ -220,7 +220,7 @@ html {
     width: 38%;
   }
 }
-@media screen and (max-width: 421px) {
+@media screen and (max-width: 431px) {
   :root,body,html,*{
     max-width:370px;
   }
@@ -231,7 +231,7 @@ html {
     padding-right: 0%;
   }
   #show-view-title {
-    left: -35%;
+    left: -33%;
     width: 33%;
   }
 }

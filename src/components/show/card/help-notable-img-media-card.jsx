@@ -49,14 +49,15 @@ export default function HelpNoTableCard({
     gridHeight = 40; // height of on number of rows
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.8);
   } else if (w > 640) {
+    console.log("w > 640");
     gridHeight = 40; // height of on number of rows
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1);
   } else if (w > 512) {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + textH;
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
   } else if (w > 400) {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.1);
   } else {
     gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);
@@ -79,22 +80,30 @@ export default function HelpNoTableCard({
       sx={{
         width: "100%",
         maxWidth: 700,
-        minWidth: {
-          micro: 325,
-          mobile: 340,
-          tablet: 400,
-          Ltablet: 480,
-          laptop: 520,
-        },
+         minWidth: {
+           micro: 310,
+           mini: 320,
+           mobile: 340,
+           tablet: 430,
+           Ltablet: 480,
+           laptop: 520,
+         },
         minHeight: 100,
         height: cardHeight ? `${cardHeight}px` : "750px",
         marginLeft: {
           micro: ".7rem",
           mobile: ".9rem",
           tablet: "1.2rem",
-          laptop: "3rem",
-          desktop: "5rem",
+          laptop: "5rem",
+          desktop: "10rem",
         },
+        marginRight:{
+          mobile: "1rem",
+          tablet: "5rem",
+        },
+        marginTop:{
+          micro: "0rem",
+        }
       }}
     >
       <CardActions>
@@ -108,7 +117,7 @@ export default function HelpNoTableCard({
         <Button
           sx={{
             left: {
-              micro: "40%",
+              micro: "38%",
               mobile: "45%",
               Mmobile: "50%",
               MaxMoble: "55%",
@@ -143,7 +152,7 @@ export default function HelpNoTableCard({
             <div>{category.name}:</div>
             <h3 style={{ marginLeft: "-0%", marginTop: "-2%" }}>
               {review.name}
-              <RevRating rating={review.rating} />
+              {/* <RevRating rating={review.rating} /> */}
             </h3>
           </Typography>
         </Box>
@@ -179,7 +188,7 @@ export default function HelpNoTableCard({
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ whiteSpace: "pre-line", paddingTop: "1rem" }}
+            sx={{ whiteSpace: "break-spaces", paddingTop: "1rem" }}
           >
             {Text}
           </Typography>

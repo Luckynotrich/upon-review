@@ -10,6 +10,7 @@ export const getDesignTokens = (mode) => ({
   breakpoints: {
     values: {
       micro: 0,
+      mini: 360,
       mobile: 400,
       Mmoble: 500,
       MaxMoble: 601,

@@ -54,11 +54,11 @@ export default function CatImgMediaCard({
     cardHeight = 100 + gridHeight + textH;
   } else if (w > 400) {
     pcrows = prows + crows;
-    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * 1) + 124;
+    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .9) + 124;
     cardHeight = 90 + gridHeight + textH;
   } else {
     pcrows = prows + crows;
-    gridHeight = f_Plus_Pad * pcrows + 124;
+    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .8)+ 124;
     cardHeight = 90 + gridHeight + textH ;
   }
 

@@ -55,7 +55,7 @@ export default function RevNoTableCard({
       cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
      } else if (w > 512) {
     gridHeight =  40;
-    cardHeight = 190 + gridHeight + textH;
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
   } else if (w > 400) {
     gridHeight = 40;
     cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
@@ -120,7 +120,7 @@ export default function RevNoTableCard({
         <Button
           sx={{
             left: {
-              micro: "40%",
+              micro: "36%",
               mobile: "45%",
               Mmobile: "50%",
               MaxMoble: "55%",
@@ -180,7 +180,7 @@ export default function RevNoTableCard({
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ whiteSpace: "pre-line", paddingTop: "1rem" }}
+            sx={{ whiteSpace: "break-spaces", paddingTop: "1rem" }}
           >
             {Text}
           </Typography>

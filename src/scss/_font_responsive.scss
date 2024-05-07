@@ -195,7 +195,7 @@ h4{
 h5 {
   @include font-size($h5-font-sizes)
 }
-p,input,/* placeholder, */select,textarea,button,span,div,li,ul,ol,a {
+p,input,/* p.MuiTypography-root, */select,textarea,button,span,div,li,ul,ol,a {
   @include font-size($p-font-sizes)
 }
 a[id*='large-']{

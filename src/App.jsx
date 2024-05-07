@@ -5,7 +5,7 @@ import UserContext from "./components/contexts/user-context";
 
 import Main from "./components/main.jsx";
 import Splash from "./components/splash.jsx";
-import LogIn from "./components/login.jsx"
+
 
 
 import {
@@ -27,7 +27,7 @@ export default function App() {
   {
     setInterval(()=>{
     setIsDisplayed(!isDisplayed)
-  },3000);
+  },750);
   },[]
 );
   
@@ -44,7 +44,6 @@ export default function App() {
     staleTime: 60 * 60 * 1000,
     cacheTime: 1000 * 60 * 60,
   });
- console.log('userId === defaultId =',userId === defaultId)
   
  if(isError) return <LogIn></LogIn> 
    if(ID) return (

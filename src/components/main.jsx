@@ -2,17 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route, NavLink, Outlet } from "react-router-dom";
 import UserContext from "./contexts/user-context";
 
-
-
 import CreateCat from "./category/create-cat.jsx";
 import ReviewCategory from "./review/review-category.jsx";
 import ShowReview from "./show/show-review.jsx";
-
+// import LogIn from "./components/login.jsx"
 
 export default function Main({UserId}) {
   const [isDefault, setIsDefault] = useState(false);
   const { setUserId } = useContext(UserContext);
   setUserId(UserId);
+  
   useEffect(() => {
     if (!isDefault) {
       setIsDefault(true);

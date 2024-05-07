@@ -91,7 +91,7 @@ mult = getMult(txtlen, w)
   } else if (w > 512) {
     pcrows = prows + crows;
     gridHeight =  f_Plus_Pad * pcrows + 124 ;
-    cardHeight = 190 + gridHeight + textH;
+    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
   } else if (w > 400) {
     pcrows = prows + crows;
     gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .8) + 124;
@@ -137,11 +137,11 @@ mult = getMult(txtlen, w)
     sx={{
       width: "100%",
       maxWidth: 700,
-      minWidth: { micro: 325, mobile: 340 },
+      minWidth: { micro: 320, mobile: 340 },
       minHeight: 100,
       height: cardHeight ? `${cardHeight}px` : "750px",
       marginLeft: {
-        micro: ".7rem",
+        micro: ".5rem",
         mobile: ".9rem",
         tablet: "1.2rem",
         laptop: "5rem",
@@ -160,7 +160,7 @@ mult = getMult(txtlen, w)
         <Button
           sx={{
             left: {
-              micro: "40%",
+              micro: "38%",
               mobile: "43%",
               Mmobile: "50%",
               MaxMoble: "55%",
@@ -262,7 +262,7 @@ mult = getMult(txtlen, w)
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ whiteSpace: "pre-line", paddingTop: "1rem" }}
+            sx={{ whiteSpace: "break-spaces", paddingTop: "1rem",width: '80%' }}
           >
             {Text}
           </Typography>

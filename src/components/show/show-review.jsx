@@ -83,41 +83,64 @@ function ShowReview() {
   else {
     return (
       <ThemeProvider theme={prefersDarkMode ? darkModeTheme : lightModeTheme}>
-        <div className="show-view">
+        <div id="showView"className="show-view">
           <Header ID={"show-view-title"} title={"View"} />
           {/* </header> */}
           <div style={{ display: "flex", flex: "row" }}>
             <h2 key={"title"}>Categories</h2>
             <h2 style={{ color: "#2c9905", paddingLeft: "1rem" }}>Reviews </h2>
-            
-            
+            <a href= "/"//{meta.env.VITE_PUBLIC_BASE_URL}
+              target="_self"
+              className="exitIcon"
+              style={{
+                minWidth:'120px',
+                width: "120px",
+                height: "40px",
+                marginTop: "2%",
+                borderStyle: 'hidden',
+                border: 'hidden',
+                backgroundColor: 'transparent',
+              }}
+             
+            />
+            </div>
+            <div>
               <Button
                 onClick={() => {
                    toggleItem(helpText.review.id);
+                }}
+                sx={{
+                  color: "white",
+                  marginLeft: {micro:"60%",},
+                  marginTop: {micro:"-3rem",},
                 }}
               >
                 <span
                   id="helpButton"
                   className="material-symbols-outlined"
-                  style={{
-                    color: "white",
-                    marginLeft: "0%",
-                    marginTop: ".5rem",
-                  }}
+                  
                 >
                   Help
                 </span>
               </Button>
-            
+              </div>
+              
             {isItemSelected(helpText.review.id) && (
               <Box
                 sx={{
+                  width: 'fitContent',
                   marginTop: {
                     tablet: "1.8rem",
                     Ltablet: "2.6rem",
                     laptop: "3rem",
                   },
-                  marginLeft: "-60%",
+                  marginLeft: {
+                    micro: "0",
+                    mobile: "-1rem",
+                    tablet: "1rem",
+                    laptop: "5rem",
+                    desktop: "7rem",
+                  },
                   zIndex: "3",
                 }}
               >
@@ -132,23 +155,9 @@ function ShowReview() {
               </Box>
             )} 
            
-            <a href= "/"//{meta.env.VITE_PUBLIC_BASE_URL}
-              target="_self"
-              className="exitIcon"
-              style={{
-                minWidth:'120px',
-                width: "120px",
-                height: "40px",
-                // marginLeft: "5%",
-                marginTop: "2%",
-                borderStyle: 'hidden',
-                border: 'hidden',
-                backgroundColor: 'transparent',
-              }}
-             
-            />
+          
             <p id="hidP" style={{ color: "transparent" }}></p>
-          </div>
+          
 
           <div className="columns">
             {cats &&
