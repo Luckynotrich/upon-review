@@ -5,7 +5,7 @@ export const helpText = {
     },
     review: {
         "name": "Future Self",
-        "text": "This page, the 'Future' page where '?' icon appears, is designed to display the names of the Categories and the Reviews created based on each category. Clicking on a category or a review name displays the content of the category or review.****"
+        "text": "Welcome to the Future page!****This page is designed to display the names of Categories and the Reviews created based on the categories. Clicking on a category or a review name displays the content of the category or review.****"
             + " Each line of text below this menu represents either a Category or a Review. Click on a line of text to display its content on this page****"
             + " Click the 'Upon' button if you don't see a 'Category' that fits the thing you want to review or you don't see any categories at all. After choosing a name, the Upon category menu gives you the OPTION to enter likes and dislikes for your category. These are intended to be a short cut to make comparative review simpler. There is also the option to add or delete extra likes and dislikes. It is possible to edit previously created categories by clicking the arrow pull down menu in the category name box.****"
             +" Choosing Likes or Dislike in a review is optional as well and the review page offers optional URL field, text review field and star rating****"

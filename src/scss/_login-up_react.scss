@@ -1,0 +1,92 @@
+
+
+div.login > input {
+  height: 2.5rem;
+  border-radius: 5px;
+}
+
+div.login > input[type=submit] {
+  height: 2.2rem;
+  width: 7rem;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+div.login > label{
+  margin: 0% 0% -2% 2%;
+}
+div.login.showpass > lable{
+  margin-top: -2%;
+}
+div.login > input[type=button]{
+  margin-top: 10px;
+}
+p{
+  margin-right: 10%;
+  text-align: justify;
+}
+ul {
+  display: inherit;
+  list-style-type: none;
+  flex-direction: row;
+}
+
+li {
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+nav {
+  display: flex;
+}
+form#login{
+  max-width:25rem;
+  width:110%;
+}
+@media screen and (max-width: 940px){
+  section.login{
+    max-width: 900px;
+    width: 85%;
+    margin-left: 30%;
+  }
+ 
+}
+@media screen and (max-width: 768px){
+  section.login{
+    max-width: 740px;
+    width: 85%;
+    margin-left: 20%;
+  }
+ 
+}
+@media screen and (max-width: 640px){
+  section.login{
+    max-width: 620px;
+    margin-left: 15%;
+  }
+}
+@media screen and (max-width: 520px){
+  section.login{
+    max-width: 490px;
+    /* margin-left: 5%; */
+  }
+}
+@media screen and (max-width: 450px){
+  body{
+    max-width: 430px;
+    margin-left: 5%;
+  }
+ 
+}
+@media screen and (max-width: 420px){
+  html{
+    max-width: 400px;
+    
+  }
+  
+}
+@media screen and (max-width: 380px){
+  body{
+    max-width: 375px;
+  }
+ 
+}
+

@@ -111,7 +111,7 @@ export default function CreateCatName({
             )}
           </h4>
           <section className="catName">
-            {cats && <DataListInput register={register}  categories={cats} />}
+            {cats && <DataListInput autoFocus register={register}  categories={cats} />}
             <input
               type="submit"
               id="submitButton"

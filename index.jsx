@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { SelectedDataContextProvider } from './src/components/contexts/selected-data-context.jsx';
 import { ReviewContextProvider } from './src/components/contexts/review-context.jsx';
@@ -27,7 +27,7 @@ root.render(
 
               <App />
               
-              {/* <ReactQueryDevtools initialIsOpen={true} position='bottom-left'/>*/}
+              <ReactQueryDevtools initialIsOpen={false} position='bottom-left'/>
             </Router>
           </ReviewContextProvider>
         </SelectedDataContextProvider>
@@ -37,8 +37,4 @@ root.render(
   </React.StrictMode>
 );
 
-// Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
-// Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
-// if (import.meta.hot) {
-//   import.meta.hot.accept();
-// }
+

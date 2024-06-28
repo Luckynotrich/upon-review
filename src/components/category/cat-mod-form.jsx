@@ -68,7 +68,6 @@ export default function CatModForm({ catId }) {
     mutationFn: (data) => {
       updateCat(data);
     },
-    // mutationFn: async (data) => await SendData.post('api/category-api/updateOne/?', data),
     onSuccess: () => {
       queryClient.invalidateQueries('cats');
       runDontWalk('onSuccess'), reset();

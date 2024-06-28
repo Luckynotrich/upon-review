@@ -192,7 +192,7 @@ h3  {
 h4{
   @include font-size($h4-font-sizes)
 }
-h5 {
+h5,label {
   @include font-size($h5-font-sizes)
 }
 p,input,/* p.MuiTypography-root, */select,textarea,button,span,div,li,ul,ol,a {

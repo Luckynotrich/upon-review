@@ -1,10 +1,9 @@
 
- import axios from './future-self-api.js'
-// import axios from 'axios';
-
+ import axios from 'axios'
+ 
 export default ( async function getReviews(userId,_reviews) {
  
-  axios.get('/api/review-api/' + userId,{
+  axios.get(`/api/review-api/` + userId,{
   headers:{accept: 'application/json'} })
   .then(res => {res.data})
     .then(data => {_reviews.current = data})
@@ -16,7 +15,7 @@ export default ( async function getReviews(userId,_reviews) {
 // eslint-disable-next-line no-unused-vars
 export function postReview (catId, revName, revURL, revDate, revRating, reviewTxt,propArray) {
   
-  axios.post('/api/review-api/addNew/?', {
+  axios.post(`/api/review-api/addNew/?`, {
     catId, revName, revURL, revDate, revRating, reviewTxt, propArray
   })
     .then(res => {

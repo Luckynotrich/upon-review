@@ -44,23 +44,23 @@ export default function HelpNoTableCard({
 
   if (w > 1168) {
     gridHeight = 40; // height of on number of rows
-    cardHeight = 190 + gridHeight + textH + 60;
+    cardHeight = gridHeight + textH + 90;
   } else if (w > 940) {
     gridHeight = 40; // height of on number of rows
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.8);
+    cardHeight = gridHeight + Math.ceil(textH * 1.8)+ 190;
   } else if (w > 640) {
     console.log("w > 640");
     gridHeight = 40; // height of on number of rows
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1);
+    cardHeight = gridHeight + Math.ceil(textH * 1) + 190;
   } else if (w > 512) {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.3);
+    cardHeight = gridHeight + Math.ceil(textH * 1.3) + 190;
   } else if (w > 400) {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.1);
+    cardHeight = gridHeight + Math.ceil(textH * 1.1) + 190;
   } else {
     gridHeight = 40;
-    cardHeight = 190 + gridHeight + Math.ceil(textH * 1.45);
+    cardHeight = gridHeight + Math.ceil(textH * 1.45) + 190;
   }
 
   useEffect(() => {
@@ -103,6 +103,7 @@ export default function HelpNoTableCard({
         },
         marginTop:{
           micro: "0rem",
+          laptop:'-5rem',
         }
       }}
     >

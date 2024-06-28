@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCatsQuery } from '../contexts/current-cats-context.jsx';
 import { useNavigate } from "react-router-dom";
 
-import axios from '../../utils/future-self-api.js';
+import axios from 'axios';
 
 const NewCatForm = ({ catName, userId }) => {
   const navigate = useNavigate();
@@ -56,7 +56,8 @@ const NewCatForm = ({ catName, userId }) => {
   const { data: cats } = useCatsQuery(userId);
   const createCatMutation = useMutation({
     mutationFn: (data) => {
-      axios.post('api/category-api/addNew/?', data);
+      axios.post("api/category-api/addNew/?", data,
+      {headers: { 'Content-Type': 'multipart/form-data' }})
     }, 
     onSucess: (data) => {
       queryClient.setQueryData(['cats'], (oldData) =>

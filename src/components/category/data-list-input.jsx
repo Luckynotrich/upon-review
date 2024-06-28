@@ -1,3 +1,4 @@
+import { ForkLeft } from '@mui/icons-material';
 import React from 'react';
 
 export default function DataListInput({ register, categories }) {
@@ -22,7 +23,8 @@ export default function DataListInput({ register, categories }) {
           aria-describedby="create category name"
         />
       </label>
-      <datalist id="list-cats" key={'list-cats'}>
+      {/* <div style={{datalist{"margin:"}}}> */}
+      <datalist id="list-cats" key={'list-cats'} style={{marginLeft:"-20%"}}>
         {categories.map(
           (cat) => (
             `${cat.name}`,
@@ -34,6 +36,7 @@ export default function DataListInput({ register, categories }) {
           )
         )}
       </datalist>
+      {/* </div> */}
     </>
   );
 }

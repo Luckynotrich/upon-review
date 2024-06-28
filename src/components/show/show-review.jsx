@@ -28,6 +28,7 @@ const darkModeTheme = createTheme(getDesignTokens("dark"));
 const lightModeTheme = createTheme(getDesignTokens("light"));
 
 import HelpIcon from "@mui/icons-material/Help";
+import LogIn from "../login_react.jsx";
 
 
 
@@ -73,7 +74,7 @@ function ShowReview() {
   
 
   if (isLoading) return <div>Loading...</div>;
-  else if (isError) return <div>Error: {error.message}</div>;
+  else if (isError) return (<LogIn></LogIn>)//<div>Error: {error.message}</div>;
   else if (!cats)
     return (
       <div className="noCategories">
@@ -237,6 +238,7 @@ function ShowReview() {
                                     display: "flex",
                                     flexDirection: "row",
                                     alignItems: "left",
+                                    inlineSize: "min-content",
                                   }}
                                 >
                                   <Button
@@ -248,12 +250,13 @@ function ShowReview() {
                                     sx={{
                                       textDecoration: "underline",
                                       textAlign: "left",
-                                      width: "fit-content",
+                                        width: "fit-content"
                                     }}
                                   >
                                     <Typography
                                       color="primary"
                                       sx={{
+                                        width: "fit-content",
                                         textWrap: {
                                           micro: "pretty",
                                           mobile: "pretty",

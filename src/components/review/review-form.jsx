@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-
 import ReviewContext from '../contexts/review-context';
 import StarRating from './star_rating_rhf';
 import CheckList from './check-list';
@@ -50,7 +49,7 @@ function ReviewForm({ catState, setCatState }) {
   const queryClient = useQueryClient();
   const reviewMutation = useMutation({
     mutationFn: (data) => {
-      axios.post('http://localhost:8081/api/review-api/addNew',data,{headers: { 'Content-Type': 'multipart/form-data' }});
+      axios.post(`/api/review-api/addNew`,data,{headers: { 'Content-Type': 'multipart/form-data' }});//http://localhost:8081
     },
     onError: (error) => {
       console.log(error);
@@ -119,6 +118,7 @@ function ReviewForm({ catState, setCatState }) {
             {...register('revName', { required: true })}
             id="RevName"
             type="text"
+            autoFocus
             autoComplete="on"
             aria-describedby="name"
             placeholder="Enter Name"
@@ -177,9 +177,6 @@ function ReviewForm({ catState, setCatState }) {
       )}
 
       <fieldset>
-      <button type="submit" id={'reviewSubmit'}>
-          Submit
-        </button>
         <label htmlFor="revText">Review</label>
         <textarea
         style={{width:'100%'}}
@@ -191,7 +188,9 @@ function ReviewForm({ catState, setCatState }) {
           placeholder="Write Something..."
           onChange={(e) => setReviewTxt(e.target.value)}
         />
-      
+      <button type="submit" id={'reviewSubmit'}>
+          Submit
+        </button>
       </fieldset>
       {/* </div> */}
     </form>

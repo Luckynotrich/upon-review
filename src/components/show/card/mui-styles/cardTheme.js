@@ -52,12 +52,12 @@ export const getDesignTokens = (mode) => ({
         paper: 'hsl(123, 61%, 15%)',
         secondary: 'hsl(123, 61%, 15%)',
       },
-
+      
     }),
     ...(mode === 'light' && {
       background: {
-        default: orange[200],
-        paper: orange[200],
+        default: orange[50],
+        paper: orange[50],
         secondary: orange[800]
       },
 

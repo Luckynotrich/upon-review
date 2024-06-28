@@ -46,20 +46,21 @@ export default function CatImgMediaCard({
 
   if (w > 640) {
     pcrows = prows > crows ? prows : crows;
-    gridHeight =  f_Plus_Pad * pcrows + 62;
-    cardHeight = 90 + gridHeight + textH + 240;
+    if(pcrows === 1) f_Plus_Pad = f_Plus_Pad * 2
+    gridHeight =   Math.ceil(f_Plus_Pad * pcrows * 1.1) ;
+    cardHeight = gridHeight + textH + 150;
   } else if (w > 512) {
     pcrows = prows + crows;
-    gridHeight =  f_Plus_Pad * pcrows + 154 ;
-    cardHeight = 100 + gridHeight + textH;
+    gridHeight =  Math.ceil(f_Plus_Pad * pcrows * 1) + 154 ;
+    cardHeight =  gridHeight + textH + 100;
   } else if (w > 400) {
     pcrows = prows + crows;
     gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .9) + 124;
-    cardHeight = 90 + gridHeight + textH;
+    cardHeight = gridHeight + textH + 90;
   } else {
     pcrows = prows + crows;
     gridHeight =  Math.ceil(f_Plus_Pad * pcrows * .8)+ 124;
-    cardHeight = 90 + gridHeight + textH ;
+    cardHeight = gridHeight + textH + 90;
   }
 
   

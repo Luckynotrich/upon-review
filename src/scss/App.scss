@@ -3,6 +3,7 @@
 $left-margin: 7%;
 $light-bgc: #e3e0dd;//rgb(232, 232, 222);
 $dark-bgc: hsl(120, 42%, 9%);
+$dark-border-color: hsl(120, 42%, 26%);
 html {
   max-width: 98%;
   min-width: fit-content;
@@ -36,7 +37,7 @@ html {
   .alt-color-2{color:#fcfc06}
   .exitIcon{
     background-color: $dark-bgc;
-    background-image: url('http://localhost:8081:/exit-white_75.png');//http://localhost:8081:
+    background-image: url('/exit-white_75.png');//http://localhost:8081:
   }
 }
 @media screen and (prefers-color-scheme: light) {
@@ -70,6 +71,10 @@ html {
   .exitIcon{
     background-color: $light-bgc;
     background-image:  url('exit-black_75.png');
+  }
+  input{
+    border-color: $dark-border-color;
+    
   }
 }
 .container {
@@ -258,6 +263,7 @@ html {
     width: 32%;
   }
 }
+@import './login-up_react';
 @import './show';
 @import './review';
 @import './upon';

@@ -42,10 +42,10 @@ function createGridData(pros, cons) {
 
 export default function CreateGrid({ cats, revs }) {
  
-  const [pros,setPros] = useState(revs?meld(cats.pros,revs.pros):cats.pros);
-  const [cons,setCons] = useState(revs?meld(cats.cons,revs.cons):cats.cons);
+  const [pros] = useState(revs?meld(cats.pros,revs.pros):cats.pros);
+  const [cons] = useState(revs?meld(cats.cons,revs.cons):cats.cons);
 
-  const [rows, setRows] = useState(createGridData(pros, cons));
+  const [rows] = useState(createGridData(pros, cons));
 
   const columns = [
     {

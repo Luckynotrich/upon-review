@@ -1,8 +1,9 @@
-import axios from './future-self-api.js'
+import axios from 'axios'
+
 export default (async function getCategories (userId,_categories){
     let error = null;
     try {
-        let res = await axios.get('/api/category-api/'+ userId,{
+        let res = await axios.get(`/api/category-api/`+ userId,{
             error,
             headers:{accept: 'application/json',}
         }

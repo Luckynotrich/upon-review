@@ -42,6 +42,7 @@ function StarRating({ size, setRevRating, rating, control, name }) {
               <input
                 name="starRating"
                 type="button"
+                tabIndex={0}
                 value={ratingValue}
                 onChange={(e) => {
                   field.onChange();

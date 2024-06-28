@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export const getConfigs = async () => {
   try {
-    console.log(await axios.get("/api/v1/configurations")) // "http://localhost:3000/api/v1/configurations"
+    console.log(await axios.get("http://localhost:8081/api/v1/configurations")) // "http://localhost:3000/api/v1/configurations"
   } catch (e) {
     console.log(e)
   }
